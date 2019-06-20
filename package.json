@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-dnd": "^8.0.2",
     "react-dom": "^16.8.6",
+    "react-granim": "^1.1.0",
     "react-scripts": "3.0.1"
   },
   "scripts": {

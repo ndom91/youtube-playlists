@@ -1,12 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Granim from 'react-granim'
+import './index.css'
+import Header from './components/header/header'
+import * as serviceWorker from './serviceWorker'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const granimColor = ({"default-state": {gradients: [['#FE802D', '#D04ED6'],['#D04ED6', '#FF9C3F']], transitionSpeed: 5000, loop: true}});
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+ReactDOM.render(
+  <div className="container">
+    <Header className="header" />
+    <div className="sidebar"></div>
+    <div className="content-1"></div>
+    <div className="content-2"></div>
+    <div className="content-3"></div>
+    <div className="footer"></div>
+    <Granim className="granim" states={granimColor} />
+  </div>, 
+  document.getElementById('root')
+)
+
+serviceWorker.unregister()

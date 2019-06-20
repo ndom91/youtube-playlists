@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: -apple-system, BlinkMacSystemFont, "PT Sans Narrow", "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,4 +12,74 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.granim {
+  z-index: -100;
+}
+
+.container {
+  /* height: 100vh; */
+  margin: 0 auto;
+  display: grid;
+  width: 950px;
+  height: 700px;
+  grid-template-columns: 250px 1fr 1fr;
+  grid-template-rows: 200px 3fr 1fr 100px;
+  grid-gap: 1rem;
+  z-index: 1;
+  /* justify-content: space-around;
+  align-content: space-evenly; */
+}
+
+.header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 4;
+}
+
+.sidebar {
+  grid-row: 2 / 4;
+  grid-column: 1 / 2;
+}
+
+.content-1 {
+  grid-row: 2 / 3;
+  grid-column: 2 / 4;
+}
+
+.content-2 {
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+}
+
+.content-3 {
+  grid-row: 3 / 4;
+  grid-column: 3 / 4;
+}
+
+.footer {
+  grid-row: 4 / 5;
+  grid-column: 1 / 4;
+}
+
+
+/* PLACEHOLDER COLORS */
+.header {
+  background-color: #1EAAFC;
+  background-image: linear-gradient(160deg, #6C52D9 0%, #9B8AE6 127%);
+}
+
+.sidebar {
+  background-image: linear-gradient(203deg, #3EDFD7 0%, #29A49D 90%)
+}
+
+.content-1,
+.content-2,
+.content-3 {
+  background-image: linear-gradient(130deg, #6C52D9 0%, #1EAAFC 85%, #3EDFD7 100%);
+}
+
+.footer {
+  background-color: #6C52D9;
+  background-image: linear-gradient(160deg, #6C52D9 0%, #9B8AE6 127%);
 }
