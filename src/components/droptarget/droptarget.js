@@ -10,14 +10,35 @@ class Droptarget extends React.Component {
     super(props)
 
     this.state = {
-      url: '',
-      active: ''
+      list: [],
+      listCount: 1
     }
+
+  }
+
+  dragover_handler = (ev) => {
+    ev.preventDefault();
+    // Set the dropEffect to move
+    ev.dataTransfer.dropEffect = "move"
+  }
+
+  drop_handler = (ev) => {
+    ev.preventDefault();
+    // Get the id of the target and add the moved element to the target's DOM
+    var data = ev.dataTransfer.getData("text/plain");
+    // data = URL of dropped item
+    console.log(data)
+    // this.setState({ list.push})
+    // ev.target.appendChild(document.getElementById(data));
   }
 
   render() { 
-    return <div className="item content-1 droptarget">
-      {/* <DropTarget backend={HTML5Backend}></DropTarget> */}
+    return <div 
+          id="dropTarget" 
+          className="item content-1 droptarget"
+          onDrop={this.drop_handler}
+          onDragOver={this.dragover_handler}
+          >
     </div>
     
   }

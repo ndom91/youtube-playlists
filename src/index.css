@@ -19,8 +19,8 @@ code {
 }
 
 .container {
-  /* height: 100vh; */
   margin: 0 auto;
+  margin-top: 5%;
   display: grid;
   width: 950px;
   height: 1000px;
