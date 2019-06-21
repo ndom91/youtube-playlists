@@ -4,6 +4,8 @@
     font-size: 56px;
     color: #fff;
     z-index: 100;
+    display: subgrid;
+    align-items: center;
 }
 
 .youtube-logo {

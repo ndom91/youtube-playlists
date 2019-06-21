@@ -5,7 +5,7 @@ import './Header.css'
 function Header() {
 
   return (
-    <div className="Header">
+    <div className="item header Header">
         <img src={logo} className="youtube-logo" alt="logo" />
 
         <span className="header-text">
