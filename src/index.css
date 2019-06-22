@@ -45,7 +45,7 @@ code {
 }
 
 .content-1 {
-  grid-row: 2 / 3;
+  grid-row: 2 / 4;
   grid-column: 2 / 4;
   z-index: 200;
 }

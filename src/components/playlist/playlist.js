@@ -8,7 +8,8 @@ class Playlist extends React.Component {
     super(props)
 
     this.state = {
-      videoDeetsList: []
+      videoDeetsList: [],
+      videoIds: []
     }
   }
 
@@ -24,50 +25,63 @@ class Playlist extends React.Component {
       crossdomain: true
     })
 
-    const videoDetails = response.data.items[0].snippet
+    if(response.data.items) {
+      const videoDetails = response.data.items[0].snippet
+      const channel = videoDetails.channelTitle
+      const title = videoDetails.localized.title
+      const thumbnail = videoDetails.thumbnails.medium.url
 
-    const channel = videoDetails.channelTitle
-    const title = videoDetails.localized.title
-    const thumbnail = videoDetails.thumbnails.medium.url
+      return { 
+        id: id,
+        url: 'https://youtube.com/watch?v='+id, 
+        title: title, 
+        channel: channel, 
+        thumb: thumbnail 
+      }
+    } else {
+      alert('Video Info Loading Failed')
+    }
+  }
 
-    return { 
-      url: 'https://youtube.com/watch?v='+id, 
-      title: title, 
-      channel: channel, 
-      thumb: thumbnail 
+  updateList = (videoUrl) => {
+    if(videoUrl) {
+      const videoId = videoUrl.substring(videoUrl.indexOf('v=')+2,videoUrl.length)
+      if(!this.state.videoIds.includes(videoId)) {
+
+        // console.log('videoId: ', videoId)
+        this.state.videoIds.push(videoId)
+
+        const videoDeetsPromise = this.getVideoDetails(videoId)
+        const videoDeets = Promise.resolve(videoDeetsPromise)
+        videoDeets.then(deets => {
+          this.setState({ videoDeetsList: [...this.state.videoDeetsList, deets] })
+        })
+      }
     }
   }
 
   render() { 
-    const { 
-      videoListP = []
-    } = this.props
-
     const {
       videoDeetsList
     } = this.state
 
+    const { 
+      videoListP = []
+    } = this.props
+
     const videoUrl = videoListP[videoListP.length - 1]
 
-    if(videoUrl) {
-      const videoId = videoUrl.substring(videoUrl.indexOf('v=')+2,videoUrl.length)
+    this.updateList(videoUrl)  
 
-      console.log('videoId: ', videoId)
-
-      const videoDeetsPromise = this.getVideoDetails(videoId)
-      const videoDeets = Promise.resolve(videoDeetsPromise)
-      videoDeets.then(deets => {
-        videoDeetsList.push(deets)
-      })
-    }
-
-    console.log('videoDeetsList: ', videoDeetsList)
+    // console.log('videoDeetsList: ', videoDeetsList)
 
     return(
       videoDeetsList.map(video => {
+        // console.log('render video: ', video)
         return (
           <Videocard
-            id="0"
+            key={video.id}
+            id={video.id}
             url={video.url}
             title={video.title}
             channel={video.channel}

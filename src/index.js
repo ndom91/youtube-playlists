@@ -20,7 +20,6 @@ class Mainwrapper extends React.Component {
   }
 
   playlistFn = (dataFromChild) => {
-    // console.log('dataFromChild: ', dataFromChild)
     this.setState({
       videoList: dataFromChild
     })
@@ -31,8 +30,8 @@ class Mainwrapper extends React.Component {
       <Header />
       <div className="item sidebar"></div>
       <Droptarget callbackFromParent={this.playlistFn} />
-      <div className="item content-2"></div>
-      <div className="item content-3"></div>
+      {/* <div className="item content-2"></div>
+      <div className="item content-3"></div> */}
       <div id="playlist" className="item footer playlist" >
         <Playlist videoListP={this.state.videoList} />
       </div>      

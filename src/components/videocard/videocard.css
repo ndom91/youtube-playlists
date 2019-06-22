@@ -43,6 +43,19 @@ article.card .infos .title {
   font-size: 0.75rem;
   text-transform: uppercase;
   text-shadow: 0 0 0px #32577f;
+  height: 3.6em;
+}
+
+article.card .infos .title:after {
+  text-align: left;
+  top: 0;
+  left: 0;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 17.2em;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 60%);
 }
 
 article.card .infos .channel, article.card .infos .time {
@@ -53,13 +66,20 @@ article.card .infos .channel, article.card .infos .time {
   font-family: "Grotesque", sans-serif;
 }
 
-article.card .infos .time {
+article.card .infos .channel {
+  text-align: right !important;
+  position: absolute;
+  right: 8px;
+  bottom: 80px;
+}
+
+/* article.card .infos .time {
   display: inline-block;
   margin-top: 20px;
   opacity: 0;
   transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
   float: right;
-}
+} */
 
 article.card:hover .infos {
   -webkit-transform: translateY(-70px);
