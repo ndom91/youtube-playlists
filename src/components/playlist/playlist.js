@@ -7,13 +7,10 @@ class Playlist extends React.Component {
   constructor(props) {
     super(props)
 
-    const { } = this.props
-
     this.state = {
-
+      videoDeetsList: []
     }
   }
-
 
   getVideoDetails = async (id) => {
     const KEY = 'AIzaSyCAvRM6NKv8bRkO4uJ1ZP8N9nv-qhQRLMQ'
@@ -41,35 +38,45 @@ class Playlist extends React.Component {
     }
   }
 
-
   render() { 
-    const video = this.getVideoDetails('BBWMIxXqr-E')
+    const { 
+      videoListP = []
+    } = this.props
 
-    // video1.then((resp) => { 
-    //   console.log(resp)
-    // })
-    const video1 = Promise.resolve(video)
+    const {
+      videoDeetsList
+    } = this.state
 
-    console.log(video1)
+    const videoUrl = videoListP[videoListP.length - 1]
 
-      return <div 
-            id="playlist" 
-            className="item footer playlist"
-            >
-              <Videocard
-                id="1"
-                url={video1.url}
-                title={video1.title}
-                channel={video1.channel}
-                thumbnail={video1.thumb}
-              />
-              <Videocard
-                id="2"
-                url="https://youtube.com/watch?v=bj3kjH3h"
-                title="Best UI/UX Design Desktops on Linux"
-                channel="InfinitelyGalactic"
-              />
-            </div>
+    if(videoUrl) {
+      const videoId = videoUrl.substring(videoUrl.indexOf('v=')+2,videoUrl.length)
+
+      console.log('videoId: ', videoId)
+
+      const videoDeetsPromise = this.getVideoDetails(videoId)
+      const videoDeets = Promise.resolve(videoDeetsPromise)
+      videoDeets.then(deets => {
+        videoDeetsList.push(deets)
+      })
+    }
+
+    console.log('videoDeetsList: ', videoDeetsList)
+
+    return(
+      videoDeetsList.map(video => {
+        return (
+          <Videocard
+            id="0"
+            url={video.url}
+            title={video.title}
+            channel={video.channel}
+            thumbnail={video.thumb}
+          />
+        )
+
+      })
+    )
   }
 }
 

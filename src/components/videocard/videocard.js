@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -10,15 +10,15 @@ class Videocard extends React.Component {
   constructor(props) {
     super(props)
 
-    const {
-      id,
-      url,
-      title,
-      desc,
-      channel,
-      time,
-      views
-    } = this.props
+    // const {
+    //   id,
+    //   url,
+    //   title,
+    //   desc,
+    //   channel,
+    //   time,
+    //   views
+    // } = this.props
 
     this.state = {
       isResolved: false
@@ -45,7 +45,7 @@ class Videocard extends React.Component {
     const Thumb = styled.article`
       width: auto;
       height: 110px;
-      background: url("${thumbnail}") no-repeat center;
+      background: url(${thumbnail}) no-repeat center;
       background-size: cover;
       border-radius: 3px;
     `

@@ -24,7 +24,7 @@ class Droptarget extends React.Component {
     ev.persist()
     // Get the id of the target and add the moved element to the target's DOM
     var data = ev.dataTransfer.getData("text/plain");
-    console.log(data)
+    // console.log(data)
     if(!data.includes('youtube')) {
       alert('Must be a YouTube Link!')
       return
@@ -36,6 +36,8 @@ class Droptarget extends React.Component {
       videoList: list,
       listCount: this.state.listCount + 1
     })
+
+    this.props.callbackFromParent(list)
     
     // ev.target.appendChild(document.getElementById(data));
   }
