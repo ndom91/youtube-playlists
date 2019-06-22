@@ -1,0 +1,104 @@
+.videocard {
+  width: 150px;
+  height: 150px;
+  margin: 5px 5px;
+}
+
+article.card {
+  /* left: 50%; */
+  margin: auto 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+article a {
+  text-decoration: none;
+}
+
+article.card .thumb {
+  width: auto;
+  height: 110px;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/new-york-city.png") no-repeat center;
+  background-size: cover;
+  border-radius: 3px;
+}
+
+article.card .infos {
+  width: auto;
+  height: 180px;
+  position: relative;
+  padding: 5px 8px;
+  background: #fff;
+  transition: 0.4s 0.15s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+}
+
+article.card .infos .title {
+  position: relative;
+  margin: 1px 0;
+  color: #152536;
+  font-family: "Grotesque Black", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 0px #32577f;
+}
+
+article.card .infos .channel, article.card .infos .time {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: .75rem;
+  color: rgba(21, 37, 54, 0.7);
+  font-family: "Grotesque", sans-serif;
+}
+
+article.card .infos .time {
+  display: inline-block;
+  margin-top: 20px;
+  opacity: 0;
+  transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+  float: right;
+}
+
+article.card:hover .infos {
+  -webkit-transform: translateY(-70px);
+          transform: translateY(-70px);
+}
+
+article.card:hover .infos .time, article.card:hover .infos, article.card:hover .infos {
+  opacity: 1;
+}
+
+.btn-floating {
+  position: fixed;
+  right: 8px;
+  transform: translateX(-590px)
+             translateY(-15px);
+  display: inline-block;
+  color: #fff;
+  overflow: visible;
+  z-index: 1;
+  width: 37px;
+  height: 37px;
+  line-height: 40px;
+  padding: 0;
+  background-color: #26a69a;
+  border-radius: 50%;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+  cursor: pointer;
+  vertical-align: middle;
+  border: none;
+}
+
+.btn-floating > svg {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+}
+
+.btn-floating:hover {
+  box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
+  transition: 0.25s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+}
