@@ -7,7 +7,6 @@ function Header() {
   return (
     <div className="item header Header">
         <img src={logo} className="youtube-logo" alt="logo" />
-
         <span className="header-text">
           YouTube Playlists
         </span> 

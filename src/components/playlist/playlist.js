@@ -61,9 +61,7 @@ class Playlist extends React.Component {
   }
 
   removeVid = (id) => {
-    // console.log('onRemove: ', id)
     const remainder = this.state.videoDeetsList.filter(video => video.id !== id)
-    console.log(remainder)
     this.setState({ videoDeetsList: remainder })
   }
 
@@ -80,11 +78,9 @@ class Playlist extends React.Component {
 
     this.updateList(videoUrl)  
 
-    // console.log('videoDeetsList: ', videoDeetsList)
 
     return(
-      videoDeetsList.map((video, key) => {
-        // console.log('render video: ', video)
+      videoDeetsList.map((video) => {
         return (
           <Videocard
             key={video.id}

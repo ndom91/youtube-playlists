@@ -1,3 +1,11 @@
-.droptarget {
-
+.fullDroptarget {
+  position:absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0;
+  z-index: 1000;
+  /* overflow: visible; */
+  visibility: hidden;
 }

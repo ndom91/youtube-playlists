@@ -14,16 +14,18 @@ class Droptarget extends React.Component {
   }
 
   dragover_handler = (ev) => {
-    ev.preventDefault();
+    ev.preventDefault()
+    const el = document.getElementById('dropTarget')
+    el.style.visibility = 'visible'
     // Set the dropEffect to move
     ev.dataTransfer.dropEffect = "link"
   }
 
   drop_handler = (ev) => {
-    ev.preventDefault();
+    ev.preventDefault()
     ev.persist()
     // Get the id of the target and add the moved element to the target's DOM
-    var data = ev.dataTransfer.getData("text/plain");
+    var data = ev.dataTransfer.getData("text/plain")
     // console.log(data)
     if(!data.includes('youtube')) {
       alert('Must be a YouTube Link!')
@@ -39,13 +41,14 @@ class Droptarget extends React.Component {
 
     this.props.callbackFromParent(list)
     
-    // ev.target.appendChild(document.getElementById(data));
+    const el = document.getElementById('dropTarget')
+    el.style.visibility = 'hidden'
   }
 
   render() { 
     return <div 
           id="dropTarget" 
-          className="item droptarget"
+          className="fullDroptarget"
           onDrop={this.drop_handler}
           onDragOver={this.dragover_handler}
           >

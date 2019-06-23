@@ -1,3 +1,5 @@
+@import url('/../css/font-awesome.min.css');
+
 .Header {
     grid-row: 1 / 2;
     grid-column: 1 / 4;
@@ -14,12 +16,27 @@
   display: inline;
 }
 
+.youtube-logo,
 .header-text {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  /* display: inline;
-  height: 200px; */
   line-height: 200px;
   margin: auto 0;
+  /* animation: flow 30s ease-in-out infinite;
+  background: linear-gradient(-60deg, #FE802D 0%, #D04ED6 100%);
+  background-size: 300%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; */
 }
+
+/* @keyframes flow {
+  0% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+} */

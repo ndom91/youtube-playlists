@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One&display=swap');
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "PT Sans Narrow", "Roboto", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Fjalla One", "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -40,6 +40,8 @@ code {
   grid-row: 2 / 4;
   grid-column: 1 / 2;
   z-index: 200;
+  display: inline-block;
+  position: relative;
 }
 
 .droptarget {
