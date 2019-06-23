@@ -28,15 +28,15 @@ class Videocard extends React.Component {
 
   handleOnClick = (e) => {
     e.preventDefault()
-    console.log('card click!')
+    // console.log('card click!')
   }
 
-  deleteFn = (e) => {
-    e.preventDefault()
-    console.log(e.target)
-    const videoId = 1
-    this.props.onRemove(videoId)
-  }
+  // deleteFn = (e) => {
+  //   e.preventDefault()
+  //   console.log(e.target)
+  //   const videoId = 1
+  //   this.props.onRemove(videoId)
+  // }
 
   render() { 
     
@@ -105,7 +105,7 @@ class Videocard extends React.Component {
           onClick={this.handleOnClick}
           key={id}
           >
-            <button onClick={this.deleteFn} className="btn-floating">{deleteIcon}</button>
+            <button onClick={this.props.onRemove} className="btn-floating">{deleteIcon}</button>
             <article className="card">
               <a href={url}>
                 <Thumb />
