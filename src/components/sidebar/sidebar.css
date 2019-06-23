@@ -170,7 +170,7 @@ ul.ks-cboxtags li label{
 }
 
 ul.ks-cboxtags li label {
-    padding: 8px 52px;
+    padding: 10px 52px;
     cursor: pointer;
     outline: none;
 }
@@ -196,7 +196,7 @@ ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
 }
 
 ul.ks-cboxtags li input[type="checkbox"]:checked + label {
-    border: 2px solid #fff;
+    border: 3px solid #fff;
     background-color: #12bbd4;
     color: #fff;
     transition: all .2s;

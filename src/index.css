@@ -44,7 +44,7 @@ code {
   position: relative;
 }
 
-.droptarget {
+.player {
   grid-row: 2 / 4;
   grid-column: 2 / 4;
   z-index: 200;
@@ -87,12 +87,6 @@ code {
   font-weight: bold;
 }
 
-.droptarget {
-  outline: 5px dashed rgba(255,255,255,0.8);
-  outline-offset: -17px;
-  -moz-outline-radius: 15px;
-}
-
 .header {
   background-color: #1EAAFC;
   background-image: linear-gradient(160deg, #6C52D9 0%, #9B8AE6 127%);
@@ -102,7 +96,7 @@ code {
   background-image: linear-gradient(203deg, #3EDFD7 0%, #29A49D 90%)
 }
 
-.droptarget {
+.player {
   background-image: linear-gradient(130deg, #6C52D9 0%, #1EAAFC 85%, #3EDFD7 100%);
 }
 

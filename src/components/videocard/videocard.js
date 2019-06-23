@@ -59,44 +59,6 @@ class Videocard extends React.Component {
       border-radius: 3px;
     `
 
-    // COLOR THIEF ATTEMPT AT GETTING COLOR FROM THUMBNAIL PHOTO TO STYLE THE CARD / DELETE BUTTON COLORS DEPENDING ON THE IMG
-
-    // console.log(thumbnail)
-
-    // const myHeaders = new Headers()
-
-    // myHeaders.append('Content-Type', 'text/plain')
-    // myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:3000') 
-
-    // fetch(thumbnail, {
-    //   headers: myHeaders,
-    //   mode: 'no-cors'
-    // })
-    // .then(resp => {
-    //   console.log('resp',resp)
-    //   return resp.blob()
-    // })
-    // .then(img => {
-    //   console.log('img', img)
-    //   const imgUrl = URL.createObjectURL(img)
-
-    //   console.log(imgUrl)
-    //   console.log(img)
-    //   // var imgElem = document.createElement('img');
-    //   var imgElem = new Image()
-    //   imgElem.src = imgUrl
-
-    //   const ColorThief = require('color-thief')
-    //   const colorThief = new ColorThief()
-      
-    //   colorThief.getPalette(imgElem)
-    // })
-    // .catch(err => console.log(err))
-
-    // const ColorThief = require('color-thief')
-    // const colorThief = new ColorThief()
-    // colorThief.getPalette(img)
-
     const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
 
     return <div 

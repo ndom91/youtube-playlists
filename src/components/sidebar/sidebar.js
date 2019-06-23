@@ -13,17 +13,18 @@ class Sidebar extends React.Component {
     console.log(videos)
   }
 
+
   render() {
     return (
       <div className="item sidebar">
 
         <ul className="ks-cboxtags">
             <li>
-              <input type="checkbox" id="checkboxOne" value="Fullscreen" />
+              <input type="checkbox" id="checkboxOne" onChange={this.props.handleFullscreen} value="Fullscreen" />
               <label htmlFor="checkboxOne">Fullscreen</label>
             </li>
             <li>
-              <input type="checkbox" id="checkboxTwo" value="Auto-Play" />
+              <input type="checkbox" id="checkboxTwo" onChange={this.props.handleAutoplay}  value="Auto-Play" />
               <label htmlFor="checkboxTwo">Auto-Play</label>
             </li>
         </ul>
@@ -31,6 +32,7 @@ class Sidebar extends React.Component {
         <div className="btn-wrapper">
           <button
             className="fancy-button pop-onhover bg-gradient1"
+            onClick={this.props.onPlayClick}
             >
               <span>Play</span>
           </button>
