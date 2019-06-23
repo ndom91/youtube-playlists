@@ -26,8 +26,14 @@ class Videocard extends React.Component {
   }
 
 
-  handleOnClick = () => {
+  handleOnClick = (e) => {
+    e.preventDefault()
     console.log('card click!')
+  }
+
+  deleteFn = (e) => {
+    e.preventDefault()
+    console.log(e)
   }
 
   render() { 
@@ -50,7 +56,6 @@ class Videocard extends React.Component {
       background-size: cover;
       border-radius: 3px;
     `
-
 
     // COLOR THIEF ATTEMPT AT GETTING COLOR FROM THUMBNAIL PHOTO TO STYLE THE CARD / DELETE BUTTON COLORS DEPENDING ON THE IMG
 
@@ -98,9 +103,9 @@ class Videocard extends React.Component {
           onClick={this.handleOnClick}
           key={id}
           >
+            <button onClick={this.deleteFn} className="btn-floating">{deleteIcon}</button>
             <article className="card">
               <a href={url}>
-                <button href="/delete" className="btn-floating">{deleteIcon}</button>
                 <Thumb />
                 <div className="infos">
                   <h2 className="title">{title}</h2>

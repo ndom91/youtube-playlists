@@ -2,6 +2,7 @@
   width: 150px;
   height: 150px;
   margin: 5px 5px;
+  position: relative;
 }
 
 article.card {
@@ -12,6 +13,7 @@ article.card {
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
   overflow: hidden;
+  position: relative;
 }
 
 article a {
@@ -91,18 +93,13 @@ article.card:hover .infos .time, article.card:hover .infos, article.card:hover .
 }
 
 .btn-floating {
-  position: fixed;
-  right: 8px;
-  transform: translateX(-590px)
-             translateY(-15px);
-  display: inline-block;
-  color: #fff;
-  overflow: visible;
+  position: absolute;
+  top: -15px;
+  left: -10px;
   z-index: 1;
+  color: #fff;
   width: 37px;
   height: 37px;
-  line-height: 40px;
-  padding: 0;
   background-color: #26a69a;
   border-radius: 50%;
   -webkit-transition: background-color .3s;
@@ -110,12 +107,6 @@ article.card:hover .infos .time, article.card:hover .infos, article.card:hover .
   cursor: pointer;
   vertical-align: middle;
   border: none;
-}
-
-.btn-floating > svg {
-  position: absolute;
-  right: 12px;
-  top: 10px;
 }
 
 .btn-floating:hover {

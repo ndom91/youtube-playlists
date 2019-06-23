@@ -45,11 +45,11 @@ class Droptarget extends React.Component {
   render() { 
     return <div 
           id="dropTarget" 
-          className="item content-1 droptarget"
+          className="item droptarget"
           onDrop={this.drop_handler}
           onDragOver={this.dragover_handler}
           >
-            Drop Video URL Here
+            Drop YouTube Video Here
           </div>
     
   }

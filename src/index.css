@@ -2,9 +2,7 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "PT Sans Narrow", "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "PT Sans Narrow", "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -44,13 +42,13 @@ code {
   z-index: 200;
 }
 
-.content-1 {
+.droptarget {
   grid-row: 2 / 4;
   grid-column: 2 / 4;
   z-index: 200;
 }
 
-.content-2 {
+/* .content-2 {
   grid-row: 3 / 4;
   grid-column: 2 / 3;
   z-index: 200;
@@ -60,7 +58,7 @@ code {
   grid-row: 3 / 4;
   grid-column: 3 / 4;
   z-index: 200;
-}
+} */
 
 .footer {
   grid-row: 4 / 5;
@@ -87,7 +85,7 @@ code {
   font-weight: bold;
 }
 
-.content-1 {
+.droptarget {
   outline: 5px dashed rgba(255,255,255,0.8);
   outline-offset: -17px;
   -moz-outline-radius: 15px;
@@ -102,9 +100,7 @@ code {
   background-image: linear-gradient(203deg, #3EDFD7 0%, #29A49D 90%)
 }
 
-.content-1,
-.content-2,
-.content-3 {
+.droptarget {
   background-image: linear-gradient(130deg, #6C52D9 0%, #1EAAFC 85%, #3EDFD7 100%);
 }
 
