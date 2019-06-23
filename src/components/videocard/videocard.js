@@ -33,7 +33,9 @@ class Videocard extends React.Component {
 
   deleteFn = (e) => {
     e.preventDefault()
-    console.log(e)
+    console.log(e.target)
+    const videoId = 1
+    this.props.onRemove(videoId)
   }
 
   render() { 

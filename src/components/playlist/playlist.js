@@ -60,6 +60,10 @@ class Playlist extends React.Component {
     }
   }
 
+  removeVid = (id) => {
+
+  }
+
   render() { 
     const {
       videoDeetsList
@@ -86,6 +90,7 @@ class Playlist extends React.Component {
             title={video.title}
             channel={video.channel}
             thumbnail={video.thumb}
+            onRemove={this.removeVid}
           />
         )
 
