@@ -15,7 +15,8 @@ class Playlist extends React.Component {
 
   getVideoDetails = async (id) => {
     const host = window.location.hostname
-    const KEY = 'AIzaSyCAvRM6NKv8bRkO4uJ1ZP8N9nv-qhQRLMQ'
+    const KEY = '[GOOGLE_API]'
+    // const KEY = 'AIzaSyCAvRM6NKv8bRkO4uJ1ZP8N9nv-qhQRLMQ'
     const response = await youtube.get('/videos', {
       params: {
         id: id,
