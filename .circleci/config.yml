@@ -30,6 +30,7 @@ jobs:
           at: .
       - run: |
           sed -i "s/[GOOGLE_API]/${GOOGLE_API}/" ./src/components/playlist/playlist.js
+          grep -nr "KEY=" ./src/components/playlist/
           npm run build
       - persist_to_workspace:
           root: .
