@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Fugaz+One&display=swap');
+@import url('./../css/font-awesome.min.css');
 
 .btn-wrapper {
   display: inline-block;
