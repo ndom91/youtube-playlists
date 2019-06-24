@@ -92,6 +92,8 @@ jobs:
 
               cp -a "../build/." .
 
+              echo "youtube.ndo.dev" >> CNAME
+
               git add -A
               git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
               git push --force --quiet origin gh-pages > /dev/null 2>&1
