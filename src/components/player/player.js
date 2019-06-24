@@ -18,35 +18,6 @@ class Player extends React.Component {
   }
 
   _makeFullscreen = e => {
-    // console.log(YouTube.PlayerState)
-    // const el = document.getElementById('widget2')
-    // el.focus()
-    // var ev = new KeyboardEvent('keydown', {altKey:false,
-    //   bubbles: true,
-    //   cancelBubble: false, 
-    //   cancelable: true,
-    //   charCode: 0,
-    //   code: "KeyF",
-    //   composed: true,
-    //   ctrlKey: false,
-    //   currentTarget: null,
-    //   defaultPrevented: false,
-    //   detail: 0,
-    //   eventPhase: 0,
-    //   isComposing: false,
-    //   isTrusted: true,
-    //   key: "f",
-    //   keyCode: 70,
-    //   location: 0,
-    //   metaKey: false,
-    //   repeat: false,
-    //   returnValue: false,
-    //   target: document.getElementById('widget2'),
-    //   shiftKey: false,
-    //   type: "keydown",
-    //   which: 70})
-
-    // document.dispatchEvent(ev)
 
     if(this.props.videoOpts.fullscreen === 1) {
       var playerElement = document.getElementById('widget2')
