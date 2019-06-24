@@ -2,17 +2,11 @@ import React from 'react'
 import './sidebar.css'
 
 class Sidebar extends React.Component {
-  constructor(props) {
-    super(props)
-
-  }
-
   clearVideos = (v) => {
 
     const { videos } = this.props
     console.log(videos)
   }
-
 
   render() {
     return (

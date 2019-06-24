@@ -1,8 +1,6 @@
 import React from 'react' 
 import './droptarget.css'
 
-// http://react-dnd.github.io/react-dnd/docs/api/drop-target
-
 class Droptarget extends React.Component {
   constructor(props) {
     super(props)
@@ -17,16 +15,13 @@ class Droptarget extends React.Component {
     ev.preventDefault()
     const el = document.getElementById('dropTarget')
     el.style.visibility = 'visible'
-    // Set the dropEffect to move
     ev.dataTransfer.dropEffect = "link"
   }
 
   drop_handler = (ev) => {
     ev.preventDefault()
     ev.persist()
-    // Get the id of the target and add the moved element to the target's DOM
     var data = ev.dataTransfer.getData("text/plain")
-    // console.log(data)
     if(!data.includes('youtube')) {
       alert('Must be a YouTube Link!')
       return
@@ -54,7 +49,6 @@ class Droptarget extends React.Component {
           >
             Drop YouTube Video Here
           </div>
-    
   }
 }
 

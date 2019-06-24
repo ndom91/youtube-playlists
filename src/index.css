@@ -27,8 +27,6 @@ code {
   grid-template-rows: 200px 5fr 1fr 200px;
   grid-gap: 1rem;
   z-index: 1;
-  /* justify-content: space-around;
-  align-content: space-evenly; */
 }
 
 .header {

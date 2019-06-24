@@ -5,20 +5,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import './videocard.css'
 
-
 class Videocard extends React.Component {
   constructor(props) {
     super(props)
-
-    // const {
-    //   id,
-    //   url,
-    //   title,
-    //   desc,
-    //   channel,
-    //   time,
-    //   views
-    // } = this.props
 
     this.state = {
       isResolved: false
@@ -28,15 +17,7 @@ class Videocard extends React.Component {
 
   handleOnClick = (e) => {
     e.preventDefault()
-    // console.log('card click!')
   }
-
-  // deleteFn = (e) => {
-  //   e.preventDefault()
-  //   console.log(e.target)
-  //   const videoId = 1
-  //   this.props.onRemove(videoId)
-  // }
 
   render() { 
     

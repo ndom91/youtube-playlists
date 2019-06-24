@@ -2,8 +2,6 @@ import React from 'react'
 import YouTube from 'react-youtube'
 import './player.css'
 
-// http://react-dnd.github.io/react-dnd/docs/api/drop-target
-
 class Player extends React.Component {
   constructor(props) {
     super(props)
@@ -18,7 +16,6 @@ class Player extends React.Component {
   }
 
   _makeFullscreen = e => {
-
     if(this.props.videoOpts.fullscreen === 1) {
       var playerElement = document.getElementById('widget2')
       var requestFullScreen = playerElement.requestFullScreen || playerElement.mozRequestFullScreen || playerElement.webkitRequestFullScreen;
@@ -28,7 +25,6 @@ class Player extends React.Component {
     }
 
   }
-
 
   render() { 
     const {
@@ -56,7 +52,6 @@ class Player extends React.Component {
         onEnd={this.props.onEnd} />
     </div>
     )
-    
   }
 }
 

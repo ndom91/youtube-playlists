@@ -14,6 +14,7 @@ class Playlist extends React.Component {
   }
 
   getVideoDetails = async (id) => {
+    const host = window.location.hostname
     const KEY = 'AIzaSyCAvRM6NKv8bRkO4uJ1ZP8N9nv-qhQRLMQ'
     const response = await youtube.get('/videos', {
       params: {
@@ -21,7 +22,7 @@ class Playlist extends React.Component {
         part: 'snippet',
         key: KEY
       },
-      headers: { 'Access-Control-Allow-Origin': 'http://127.0.0.1:3000', "Content-Type": 'application/json'},
+      headers: { 'Access-Control-Allow-Origin': host, "Content-Type": 'application/json'},
       crossdomain: true
     })
 
@@ -47,10 +48,7 @@ class Playlist extends React.Component {
     if(videoUrl) {
       const videoId = videoUrl.substring(videoUrl.indexOf('v=')+2,videoUrl.length)
       if(!this.state.videoIds.includes(videoId)) {
-
-        // console.log('videoId: ', videoId)
         this.state.videoIds.push(videoId)
-
         const videoDeetsPromise = this.getVideoDetails(videoId)
         const videoDeets = Promise.resolve(videoDeetsPromise)
         videoDeets.then(deets => {
@@ -75,9 +73,7 @@ class Playlist extends React.Component {
     } = this.props
 
     const videoUrl = videoListP[videoListP.length - 1]
-
     this.updateList(videoUrl)  
-
 
     return(
       videoDeetsList.map((video) => {

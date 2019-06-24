@@ -36,7 +36,6 @@ class Mainwrapper extends React.Component {
   }
 
   onVideoEnd = e => {
-    // next video
     this.startNextVideo()
   }
 
@@ -55,9 +54,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-
   handleFullscreen = e => {
-    // console.log(e)
     if(videoOpts.fullscreen === 1) {
       videoOpts = {...videoOpts, 
         fullscreen: 0
