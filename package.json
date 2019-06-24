@@ -2,7 +2,7 @@
   "name": "youtube-playlists",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ndom91.github.io/youtube-playlists",
+  "homepage": "https://youtube.ndo.dev",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
