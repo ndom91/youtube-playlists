@@ -22,7 +22,7 @@ Then simply replace the placeholder `KEY = 'GOOGLE_API'` in `src/components/play
 
 ## Contributing
 
-This is very much still in beta stage, but you can visit my staging instance (hosted on github pages) at [youtube.ndo.dev](https://youtube.ndo.dev) or run it locally by:
+This is very much still in beta stage, but you can run it locally by:
 
 1. Clone the repo `git clone https://github.com/ndom91/youtube-playlists`  
 2. Install dependencies `npm i`  
