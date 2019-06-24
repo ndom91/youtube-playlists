@@ -3,7 +3,7 @@
   "description": "Create on-the-fly YouTube playlists!",
   "version": "0.5.0",
   "private": false,
-  "homepage": ".",
+  "homepage": "https://youtube.ndo.dev",
   "start_url": ".",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
