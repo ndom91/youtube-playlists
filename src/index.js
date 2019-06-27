@@ -54,6 +54,10 @@ class Mainwrapper extends React.Component {
     }
   }
 
+  clearVideos = e => {
+    this.setState({ videoList: [] })
+  }
+
   handleFullscreen = e => {
     if(videoOpts.fullscreen === 1) {
       videoOpts = {...videoOpts, 
@@ -81,7 +85,8 @@ class Mainwrapper extends React.Component {
         <Sidebar 
           handleFullscreen={this.handleFullscreen} 
           handleAutoplay={this.handleAutoplay} 
-          onPlayClick={this.startNextVideo}  
+          onPlay={this.startNextVideo}  
+          onClear={this.clearVideos}
           videos={this.state.videoList} />
         <Player 
           videoId={this.state.activeVideo} 

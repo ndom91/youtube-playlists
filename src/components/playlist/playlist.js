@@ -3,6 +3,8 @@ import Videocard from '../videocard/videocard'
 import './playlist.css'
 import youtube from '../apis/youtube';
 
+// let nully = 0
+
 class Playlist extends React.Component {
   constructor(props) {
     super(props)
@@ -15,7 +17,7 @@ class Playlist extends React.Component {
 
   getVideoDetails = async (id) => {
     const host = window.location.hostname
-    const KEY = 'GOOGLE_API'
+    const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
     const response = await youtube.get('/videos', {
       params: {
         id: id,
@@ -44,9 +46,17 @@ class Playlist extends React.Component {
     }
   }
 
+  // setNully = e => {
+  //   nully++
+  //   this.setState({ counter: nully })
+  // }
+
   updateList = (videoUrl) => {
+    console.log(videoUrl)
+    console.log(typeof(videoUrl))
     if(videoUrl) {
       const videoId = videoUrl.substring(videoUrl.indexOf('v=')+2,videoUrl.length)
+      // nully--
       if(!this.state.videoIds.includes(videoId)) {
         this.state.videoIds.push(videoId)
         const videoDeetsPromise = this.getVideoDetails(videoId)
@@ -55,7 +65,12 @@ class Playlist extends React.Component {
           this.setState({ videoDeetsList: [...this.state.videoDeetsList, deets] })
         })
       }
-    }
+    } 
+    // else {
+    //   if (!this.state.counter > 1) {
+    //     this.setState({ videoDeetsList: [], videoIds: [] }, this.setNully())
+    //   }
+    // }
   }
 
   removeVid = (id) => {
@@ -71,6 +86,10 @@ class Playlist extends React.Component {
     const { 
       videoListP = []
     } = this.props
+
+    // console.log('nully', nully)
+    // console.log('videoListP', videoListP)
+    // console.log('videoListP TO', typeof(videoListP))
 
     const videoUrl = videoListP[videoListP.length - 1]
     this.updateList(videoUrl)  

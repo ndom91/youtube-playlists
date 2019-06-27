@@ -2,12 +2,6 @@ import React from 'react'
 import './sidebar.css'
 
 class Sidebar extends React.Component {
-  clearVideos = (v) => {
-
-    const { videos } = this.props
-    console.log(videos)
-  }
-
   render() {
     return (
       <div className="item sidebar">
@@ -26,14 +20,14 @@ class Sidebar extends React.Component {
         <div className="btn-wrapper">
           <button
             className="fancy-button pop-onhover bg-gradient1"
-            onClick={this.props.onPlayClick}
+            onClick={this.props.onPlay}
             >
               <span>Play</span>
           </button>
 
           <button
             className="fancy-button pop-onhover bg-gradient3"
-            onClick={this.clearVideos}
+            onClick={this.props.onClear}
             >
               <span>Clear</span>
           </button>
