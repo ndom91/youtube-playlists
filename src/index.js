@@ -7,11 +7,14 @@ import Droptarget from './components/droptarget/droptarget'
 import Playlist from './components/playlist/playlist'
 import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
+import Darkmode from 'darkmode-js'
 import * as serviceWorker from './serviceWorker'
 
 const granimColor = ({"default-state": {gradients: [['#FE802D', '#D04ED6'],['#D04ED6', '#FF9C3F']], transitionSpeed: 5000, loop: true}});
     
 let videoOpts = {}
+
+new Darkmode().showWidget();
 
 class Mainwrapper extends React.Component {
   constructor(props) {
