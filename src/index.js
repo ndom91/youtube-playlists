@@ -28,7 +28,6 @@ var darkmodeOptions = {
 }
 
 const darkmode = new Darkmode(darkmodeOptions)
-darkmode.toggle()
 darkmode.showWidget()
 
 console.log(darkmode.isActivated())
