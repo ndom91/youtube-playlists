@@ -17,6 +17,15 @@ code {
   height: 100vh;
 }
 
+.darkmode-layer,
+.darkmode--activated,
+.darkmode-background,
+.darkmode-layer--simple,
+.darkmode-layer--button,
+.darkmode-toggle {
+  z-index: 201;
+}
+
 .container {
   margin: 0 auto;
   margin-top: 5%;
@@ -45,7 +54,7 @@ code {
 .player {
   grid-row: 2 / 4;
   grid-column: 2 / 4;
-  z-index: 200;
+  z-index: 202;
 }
 
 /* .content-2 {

@@ -14,7 +14,24 @@ const granimColor = ({"default-state": {gradients: [['#FE802D', '#D04ED6'],['#D0
     
 let videoOpts = {}
 
-new Darkmode().showWidget();
+var darkmodeOptions = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: '🌓' // default: ''
+}
+
+const darkmode = new Darkmode(darkmodeOptions)
+darkmode.toggle()
+darkmode.showWidget()
+
+console.log(darkmode.isActivated())
 
 class Mainwrapper extends React.Component {
   constructor(props) {
