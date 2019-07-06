@@ -7,11 +7,30 @@ import Droptarget from './components/droptarget/droptarget'
 import Playlist from './components/playlist/playlist'
 import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
+import Darkmode from 'darkmode-js'
 import * as serviceWorker from './serviceWorker'
 
 const granimColor = ({"default-state": {gradients: [['#FE802D', '#D04ED6'],['#D04ED6', '#FF9C3F']], transitionSpeed: 5000, loop: true}});
     
 let videoOpts = {}
+
+var darkmodeOptions = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: '🌓' // default: ''
+}
+
+const darkmode = new Darkmode(darkmodeOptions)
+darkmode.showWidget()
+
+console.log(darkmode.isActivated())
 
 class Mainwrapper extends React.Component {
   constructor(props) {
