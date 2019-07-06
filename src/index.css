@@ -40,7 +40,7 @@ code {
   z-index: 200;
   display: inline-block;
   position: relative;
-}
+} 
 
 .player {
   grid-row: 2 / 4;
