@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Fjalla+One&display=swap');
+@import 'components/css/variables';
 
 body {
   margin: 0;
@@ -14,7 +15,8 @@ code {
 
 .granim {
   z-index: -100;
-  height: 100vh;
+  /* height: 100%;
+  width: 100%; */
 }
 
 .darkmode-layer,
@@ -24,6 +26,15 @@ code {
 .darkmode-layer--button,
 .darkmode-toggle {
   z-index: 201;
+}
+
+#root {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #ffafbd, #ffc3a0);
+  /* background-image: linear-gradient( 91.3deg,  rgba(135,174,220,1) 1.5%, rgba(255,255,255,1) 100.3% ); */
+  /* background-color: #66EE66; */
 }
 
 .container {
@@ -57,18 +68,6 @@ code {
   z-index: 202;
 }
 
-/* .content-2 {
-  grid-row: 3 / 4;
-  grid-column: 2 / 3;
-  z-index: 200;
-}
-
-.content-3 {
-  grid-row: 3 / 4;
-  grid-column: 3 / 4;
-  z-index: 200;
-} */
-
 .footer {
   grid-row: 4 / 5;
   grid-column: 1 / 4;
@@ -76,9 +75,6 @@ code {
   justify-content: left !important;
   padding: 0 10px;
 }
-
-
-/* PLACEHOLDER COLORS */
 
 .item {
   background-color: #1EAAFC;

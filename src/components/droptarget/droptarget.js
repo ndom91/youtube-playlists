@@ -1,8 +1,9 @@
-import React from 'react' 
-import './droptarget.css'
+import React from 'react'
+import './droptarget.min.css'
+import { toast } from 'react-toastify'
 
 class Droptarget extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -11,44 +12,46 @@ class Droptarget extends React.Component {
     }
   }
 
-  dragover_handler = (ev) => {
+  dragoverHandler = (ev) => {
     ev.preventDefault()
     const el = document.getElementById('dropTarget')
     el.style.visibility = 'visible'
-    ev.dataTransfer.dropEffect = "link"
+    ev.dataTransfer.dropEffect = 'link'
   }
 
-  drop_handler = (ev) => {
+  dropHandler = (ev) => {
     ev.preventDefault()
     ev.persist()
-    var data = ev.dataTransfer.getData("text/plain")
-    if(!data.includes('youtube')) {
-      alert('Must be a YouTube Link!')
+    var data = ev.dataTransfer.getData('text/plain')
+    if (!data.includes('youtube')) {
+      toast.warn('Must be a YouTube Link!')
+      const el = document.getElementById('dropTarget')
+      el.style.visibility = 'hidden'
       return
     }
 
-    let list = [...this.state.videoList, data]
+    const list = [...this.state.videoList, data]
 
-    this.setState({ 
+    this.setState({
       videoList: list,
       listCount: this.state.listCount + 1
     })
 
     this.props.callbackFromParent(list)
-    
+
     const el = document.getElementById('dropTarget')
     el.style.visibility = 'hidden'
   }
 
-  render() { 
-    return <div 
-          id="dropTarget" 
-          className="fullDroptarget"
-          onDrop={this.drop_handler}
-          onDragOver={this.dragover_handler}
-          >
-            Drop YouTube Video Here
-          </div>
+  render () {
+    return <div
+      id='dropTarget'
+      className='fullDroptarget'
+      onDrop={this.dropHandler}
+      onDragOver={this.dragoverHandler}
+    >
+      Drop YouTube Video Here
+    </div>
   }
 }
 

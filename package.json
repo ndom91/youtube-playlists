@@ -1,9 +1,11 @@
 {
   "name": "youtube-playlists",
   "description": "Create on-the-fly YouTube playlists!",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": false,
   "homepage": "https://youtube.ndo.dev",
+  "repository": "https://github.com/ndom91/youtube-playlists",
+  "license": "MIT",
   "start_url": ".",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
@@ -17,6 +19,7 @@
     "react-dom": "^16.8.6",
     "react-granim": "^1.1.0",
     "react-scripts": "3.0.1",
+    "react-toastify": "^5.3.1",
     "react-youtube": "^7.9.0",
     "styled-components": "^4.3.2"
   },
@@ -41,5 +44,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "standard": {
+    "ignore": [
+      "public/*",
+      "node_modules/*"
+    ],
+    "plugins": [
+      "html"
+    ],
+    "parser": "babel-eslint"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "standard": "*"
   }
 }
