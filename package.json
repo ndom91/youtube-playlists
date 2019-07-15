@@ -56,7 +56,6 @@
     "parser": "babel-eslint"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.2",
     "eslint-plugin-html": "^6.0.0",
     "standard": "*"
   }
