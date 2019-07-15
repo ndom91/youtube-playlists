@@ -10,6 +10,7 @@ import Modal from './components/modal/modal'
 import Darkmode from 'darkmode-js'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
+import youtube from './components/apis/youtube'
 import * as serviceWorker from './serviceWorker'
 
 let videoOpts = {}
@@ -99,16 +100,61 @@ class Mainwrapper extends React.Component {
     // console.log(e)
   }
 
+  getVideoDetails = async (id) => {
+    const host = window.location.hostname
+    const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
+    const response = await youtube.get('/videos', {
+      params: {
+        id: id,
+        part: 'snippet',
+        key: KEY
+      },
+      headers: { 'Access-Control-Allow-Origin': host, 'Content-Type': 'application/json' },
+      crossdomain: true
+    })
+
+    if (response.data.items) {
+      const videoDetails = response.data.items[0].snippet
+      const channel = videoDetails.channelTitle
+      const title = videoDetails.localized.title
+      const thumbnail = videoDetails.thumbnails.medium.url
+
+      return {
+        id: id,
+        url: 'https://youtube.com/watch?v=' + id,
+        title: title,
+        channel: channel,
+        thumb: thumbnail
+      }
+    } else {
+      toast.error('Video Info Loading Failed')
+    }
+  }
+
   handleFocus = e => {
     navigator.clipboard.readText()
       .then(text => {
         if (text.includes('youtube') && !this.state.videoList.includes(text)) {
-          const children = (
-            <span>There is a YouTube link in your clipboard: <br />
-              <span className='link-text'>{text}</span>
-              <br />Would you like to add it?</span>
-          )
-          this.setState({ youtubeClipboard: true, modalChildren: children, link: text })
+          const videoId = text.substring(text.indexOf('v=') + 2, text.length)
+          const videoInfoPromise = this.getVideoDetails(videoId)
+          const videoInfo = Promise.resolve(videoInfoPromise)
+          videoInfo.then(details => {
+            console.log(details)
+            const children = (
+              <div>
+                <div className='thumb-fade' />
+                <img className='clipboard-video-thumb' src={details.thumb} />
+                <span className='modal-text'>We've detected a YouTube link in your clipboard! <br />
+                  <span className='link-text'>
+                    {details.channel}
+                    <br />
+                    {details.title}
+                  </span>
+                  <br />Would you like to add it?</span>
+              </div>
+            )
+            this.setState({ youtubeClipboard: true, modalChildren: children, link: text })
+          })
         }
       })
   }
@@ -150,6 +196,7 @@ class Mainwrapper extends React.Component {
           className='item footer playlist' >
           <Playlist
             onFocus={this.handleFocus}
+            getVideoDetails={this.getVideoDetails}
             videoListP={this.state.videoList} />
         </div>
         <Modal
