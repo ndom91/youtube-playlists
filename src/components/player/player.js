@@ -12,7 +12,7 @@ class Player extends React.Component {
   }
 
   _onReady = e => {
-    console.log(e.target)
+    // console.log(e.target)
   }
 
   _makeFullscreen = e => {
@@ -31,7 +31,7 @@ class Player extends React.Component {
     } = this.props
 
     const opts = {
-      height: '290',
+      height: '270',
       width: '540',
       playerVars: {
         autoplay: 1

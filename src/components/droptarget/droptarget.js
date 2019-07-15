@@ -24,7 +24,10 @@ class Droptarget extends React.Component {
     ev.persist()
     var data = ev.dataTransfer.getData('text/plain')
     if (!data.includes('youtube')) {
-      toast.warn('Must be a YouTube Link!')
+      toast.info('Must be a YouTube Link!', {
+        className: 'info-toast',
+        progressClassName: 'progress-toast'
+      })
       const el = document.getElementById('dropTarget')
       el.style.visibility = 'hidden'
       return

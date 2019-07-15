@@ -2,34 +2,34 @@ import React from 'react'
 import './sidebar.min.css'
 
 class Sidebar extends React.Component {
-  render() {
+  render () {
     return (
-      <div className="item sidebar">
+      <div className='item sidebar'>
 
-        <ul className="ks-cboxtags">
-            <li>
-              <input type="checkbox" id="checkboxOne" onChange={this.props.handleFullscreen} value="Fullscreen" />
-              <label htmlFor="checkboxOne">Fullscreen</label>
-            </li>
-            <li>
-              <input type="checkbox" id="checkboxTwo" onChange={this.props.handleAutoplay}  value="Auto-Play" />
-              <label htmlFor="checkboxTwo">Auto-Play</label>
-            </li>
+        <ul className='ks-cboxtags'>
+          <li>
+            <input type='checkbox' id='checkboxOne' onChange={this.props.handleFullscreen} value='Fullscreen' />
+            <label htmlFor='checkboxOne'>Fullscreen</label>
+          </li>
+          <li>
+            <input type='checkbox' id='checkboxTwo' onChange={this.props.handleAutoplay} value='Auto-Play' />
+            <label htmlFor='checkboxTwo'>Auto-Play</label>
+          </li>
         </ul>
 
-        <div className="btn-wrapper">
+        <div className='btn-wrapper'>
           <button
-            className="fancy-button pop-onhover bg-gradient1"
+            className='fancy-button pop-onhover bg-gradient1'
             onClick={this.props.onPlay}
-            >
-              <span>Play</span>
+          >
+            <span>Play</span>
           </button>
 
           <button
-            className="fancy-button pop-onhover bg-gradient3"
+            className='fancy-button pop-onhover bg-gradient3'
             onClick={this.props.onClear}
-            >
-              <span>Clear</span>
+          >
+            <span>Clear</span>
           </button>
         </div>
       </div>

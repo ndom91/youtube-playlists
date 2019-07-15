@@ -46,8 +46,8 @@ class Playlist extends React.Component {
   }
 
   updateList = (videoUrl) => {
-    console.log(videoUrl)
-    console.log(typeof (videoUrl))
+    // console.log(videoUrl)
+    // console.log(typeof (videoUrl))
     if (videoUrl) {
       const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
       if (!this.state.videoIds.includes(videoId)) {
@@ -62,8 +62,10 @@ class Playlist extends React.Component {
   }
 
   removeVid = (id) => {
-    const remainder = this.state.videoDeetsList.filter(video => video.id !== id)
-    this.setState({ videoDeetsList: remainder })
+    const remainderDeets = this.state.videoDeetsList.filter(video => video.id !== id)
+    const remainderIds = this.state.videoIds.filter(video => video !== id)
+    console.log(remainderDeets, remainderIds)
+    this.setState({ videoDeetsList: remainderDeets, videoIds: remainderIds })
   }
 
   render () {
