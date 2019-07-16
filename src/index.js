@@ -143,7 +143,7 @@ class Mainwrapper extends React.Component {
             const children = (
               <div>
                 <div className='thumb-fade' />
-                <img className='clipboard-video-thumb' src={details.thumb} />
+                <img alt='video thumbnail' className='clipboard-video-thumb' src={details.thumb} />
                 <span className='modal-text'>We've detected a YouTube link in your clipboard! <br />
                   <span className='link-text'>
                     {details.channel}
