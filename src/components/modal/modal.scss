@@ -10,19 +10,27 @@
   left: 50%;
   transform: translate(-50%, 50%);
   box-shadow: 0 0 35px 5px rgba(0,0,0,0.7);
+  transition: all 200ms linear;
 }
 
-.modal:before {
+.modal:after {
   background: rgba(0,0,0,0.4);
   z-index: 499;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
 }
 
 .display-block {
   display: block;
+  transition: all 200ms linear;
 }
 
 .display-none {
   display: none;
+  transition: all 200ms linear;
 }
 
 .clipboard-video-thumb {
@@ -45,44 +53,67 @@
   height: 100%;
   border-radius: 0 5px 5px 0;
   // background: linear-gradient(to right,rgba(254, 249, 215, 0) 0%, rgba(210, 153, 194, 1) 100%);
-  background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgb(252, 188, 188) 45%);
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%,#B39CD0 45%);
 }
 
 .modal-text {
   position: absolute;
-  text-align: right;
-  max-width: 400px;
-  top: 5px;
+  text-align: center;
+  width: 300px;
   right: 7px;
   color: #fff;
   font-size: 1.2rem;
+  font-family: 'Ubuntu Mono', 'monospace';
+  font-weight: 800;
+  padding: 10px 20px;
   z-index: 150;
-}
 
-.link-text {
-  color: #5e3e81;
+  & + .modal-header-text {
+    top: 5px;
+    height:20px;
+  }
+
+  & + .video-text {
+    top: 45px;
+    color: #5e3e81;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  & + .footer-text {
+    bottom: 55px;
+  }
 }
 
 .modal button {
   z-index: 120;
   position: absolute;
   bottom: 0;
-  background: linear-gradient(to right, #5e3e81, #2f0743);
   color: #fff;
   width: 80px;
   height: 40px;
   border-radius: 5px;
-  transition: all 300ms linear;
+  transition: all 150ms linear;
+}
+
+.btn-add {
+  right: 200px;
+  background: linear-gradient(to right, #FF6F91, #FF9671);
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0 20px 2px rgba(54, 3, 102, 0.6);
+    // box-shadow: 0 0 20px 2px #D65DB1;
+    border: 4px #fff solid;
   }
 }
 
 .btn-close {
-  right: 15px;
-}
-.btn-add {
-  right: 105px;
+  right: 80px;
+  background: linear-gradient(to right, rgba(255, 151, 113, 0.774), rgba(249, 249, 113, 0.658));
+
+  &:hover {
+    cursor: pointer;
+    border: 4px #fff solid;
+    // box-shadow: 0 0 10px 2px rgba(246, 242, 203, 0.288);
+  }
 }

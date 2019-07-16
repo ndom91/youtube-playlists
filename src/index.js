@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import './index.min.css'
 import Header from './components/header/header'
 import Droptarget from './components/droptarget/droptarget'
-import Playlist from './components/playlist/playlist'
 import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
+import Videocard from './components/videocard/videocard'
 import Modal from './components/modal/modal'
 import Darkmode from 'darkmode-js'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
@@ -36,10 +36,17 @@ class Mainwrapper extends React.Component {
     super(props)
 
     this.state = {
-      videoList: [],
+      // videoList: [],
       activeVideo: '',
-      youtubeClipboard: false
+      youtubeClipboard: false,
+      videoDetailsList: [],
+      videoIds: []
     }
+  }
+
+  makeVisible = e => {
+    const el = document.getElementById('dropTarget')
+    el.style.visibility = 'visible'
   }
 
   onLoad = e => {
@@ -48,15 +55,35 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  playlistFn = (dataFromChild) => {
-    this.setState({
-      videoList: dataFromChild
-    })
+  handleDrop = (videoUrl) => {
+    videoUrl = videoUrl[0]
+    // const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+    this.updateVideoDetailsList(videoUrl)
+    // this.renderVideoCards()
+    // const newVideoDetailsPromise = this.getVideoDetails(videoId)
+    // const newVideoDetails = Promise.resolve(newVideoDetailsPromise)
+    // this.setState({
+    //   videoList: videoUrl
+    // })
+    // this.setState({ videoList: videoUrl, videoDetailsList: [...this.state.videoDetailsList, newVideoDetails] })
   }
 
-  makeVisible = e => {
-    const el = document.getElementById('dropTarget')
-    el.style.visibility = 'visible'
+  updateVideoDetailsList = (videoUrl) => {
+    if (videoUrl) {
+      const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+
+      if (!this.state.videoIds.includes(videoId)) {
+        // this.state.videoIds.push(videoId)
+        const videoDetailsPromise = this.getVideoDetails(videoId)
+        const videoDetails = Promise.resolve(videoDetailsPromise)
+        videoDetails.then(videoDetail => {
+          this.setState({
+            videoDetailsList: [...this.state.videoDetailsList, videoDetail],
+            videoIds: [...this.state.videoIds, videoId]
+          })
+        })
+      }
+    }
   }
 
   onVideoEnd = e => {
@@ -64,14 +91,14 @@ class Mainwrapper extends React.Component {
   }
 
   startNextVideo = e => {
-    const videoList = this.state.videoList
-    if (videoList.length !== 0) {
-      const videoUrl = videoList[0]
-      const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+    const videoIds = this.state.videoIds
+    if (videoIds.length !== 0) {
+      const videoId = videoIds[0]
+      // const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
       this.setState({ activeVideo: videoId })
       // TODO - remove video also from playlist state
-      const remainder = this.state.videoList.filter(video => video !== videoUrl)
-      this.setState({ videoList: remainder })
+      const videoIdsRemaining = this.state.videoIds.filter(video => video !== videoId)
+      this.setState({ videoIds: videoIdsRemaining })
     } else {
       toast('No Videos available to play!', {
         className: 'info-toast',
@@ -80,8 +107,79 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  clearVideos = e => {
-    this.setState({ videoList: [] })
+  getVideoDetails = async (id) => {
+    const host = window.location.hostname
+    const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
+    const response = await youtube.get('/videos', {
+      params: {
+        id: id,
+        part: 'snippet',
+        key: KEY
+      },
+      headers: { 'Access-Control-Allow-Origin': host, 'Content-Type': 'application/json' },
+      crossdomain: true
+    })
+
+    if (response.data.items[0]) {
+      console.log(response.data)
+      const videoDetails = response.data.items[0].snippet
+      const channel = videoDetails.channelTitle
+      const title = videoDetails.localized.title
+      const thumbnail = videoDetails.thumbnails.medium.url
+
+      return {
+        id: id,
+        url: 'https://youtube.com/watch?v=' + id,
+        title: title,
+        channel: channel,
+        thumb: thumbnail
+      }
+    } else {
+      toast.error('Video Info Loading Failed')
+    }
+  }
+
+  removeVid = (videoId) => {
+    const oldDetailArray = this.state.videoDetailsList.filter(video => video.id !== videoId)
+    const oldVideoIds = this.state.videoIds.filter(video => video !== videoId)
+    console.log(oldDetailArray, oldVideoIds)
+    this.setState({ videoDetailsList: oldDetailArray, videoIds: oldVideoIds })
+  }
+
+  handleFocus = e => {
+    navigator.clipboard.readText()
+      .then(text => {
+        const videoId = text.substring(text.indexOf('v=') + 2, text.length)
+        if (text.includes('youtube') && !this.state.videoIds.includes(videoId)) {
+          const videoInfoPromise = this.getVideoDetails(videoId)
+          const videoInfo = Promise.resolve(videoInfoPromise)
+          videoInfo.then(details => {
+            console.log(details)
+            const children = (
+              <div>
+                <div className='thumb-fade' />
+                <img alt='video thumbnail' className='clipboard-video-thumb' src={details.thumb} />
+                <div className='modal-text modal-header-text'>
+                  We've detected a YouTube link in your clipboard
+                </div>
+                <div className='modal-text video-text'>
+                  {/* {details.channel}
+                  <br /> */}
+                  {details.title}
+                </div>
+                <div className='modal-text footer-text'>
+                  Would you like to add it?
+                </div>
+              </div>
+            )
+            this.setState({ youtubeClipboard: true, modalChildren: children, link: text })
+          })
+        }
+      })
+  }
+
+  clearVideos = () => {
+    this.setState({ videoIds: [], videoDetailsList: [] })
   }
 
   handleFullscreen = e => {
@@ -100,77 +198,64 @@ class Mainwrapper extends React.Component {
     // console.log(e)
   }
 
-  getVideoDetails = async (id) => {
-    const host = window.location.hostname
-    const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
-    const response = await youtube.get('/videos', {
-      params: {
-        id: id,
-        part: 'snippet',
-        key: KEY
-      },
-      headers: { 'Access-Control-Allow-Origin': host, 'Content-Type': 'application/json' },
-      crossdomain: true
-    })
+  handleModalAdd = () => {
+    const {
+      link
+    } = this.state
 
-    if (response.data.items) {
-      const videoDetails = response.data.items[0].snippet
-      const channel = videoDetails.channelTitle
-      const title = videoDetails.localized.title
-      const thumbnail = videoDetails.thumbnails.medium.url
-
-      return {
-        id: id,
-        url: 'https://youtube.com/watch?v=' + id,
-        title: title,
-        channel: channel,
-        thumb: thumbnail
-      }
-    } else {
-      toast.error('Video Info Loading Failed')
-    }
-  }
-
-  handleFocus = e => {
-    navigator.clipboard.readText()
-      .then(text => {
-        if (text.includes('youtube') && !this.state.videoList.includes(text)) {
-          const videoId = text.substring(text.indexOf('v=') + 2, text.length)
-          const videoInfoPromise = this.getVideoDetails(videoId)
-          const videoInfo = Promise.resolve(videoInfoPromise)
-          videoInfo.then(details => {
-            console.log(details)
-            const children = (
-              <div>
-                <div className='thumb-fade' />
-                <img alt='video thumbnail' className='clipboard-video-thumb' src={details.thumb} />
-                <span className='modal-text'>We've detected a YouTube link in your clipboard! <br />
-                  <span className='link-text'>
-                    {details.channel}
-                    <br />
-                    {details.title}
-                  </span>
-                  <br />Would you like to add it?</span>
-              </div>
-            )
-            this.setState({ youtubeClipboard: true, modalChildren: children, link: text })
-          })
-        }
-      })
-  }
-
-  handleModalAdd = e => {
-    this.setState({
-      videoList: [...this.state.videoList, this.state.link]
-    })
+    this.updateVideoDetailsList(link)
     this.setState({ youtubeClipboard: false, link: null })
   }
 
   handleModalClose = e => {
+    e.preventDefault()
     this.setState({ youtubeClipboard: false })
   }
 
+  renderVideoCards = () => {
+    const {
+      videoDetailsList
+    } = this.state
+
+    videoDetailsList && videoDetailsList.map((video) => {
+      console.log('video', video)
+
+      return (
+        <Videocard
+          key={video.id}
+          id={video.id}
+          url={video.url}
+          title={video.title}
+          channel={video.channel}
+          thumbnail={video.thumb}
+          onRemove={this.removeVid(video.id)}
+        />
+      )
+    })
+  }
+
   render () {
+    const {
+      videoDetailsList
+    } = this.state
+
+    const PlaylistJSX = (
+      <span className='playlist-container'>
+        {videoDetailsList &&
+        videoDetailsList.map((video) => (
+          <Videocard
+            key={video.id}
+            id={video.id}
+            url={video.url}
+            title={video.title}
+            channel={video.channel}
+            thumbnail={video.thumb}
+            onRemove={this.removeVid}
+          />
+        ))}
+      </span>
+    )
+
     return (
       <div
         onLoad={this.onLoad}
@@ -178,7 +263,7 @@ class Mainwrapper extends React.Component {
         onFocus={this.handleFocus}
         className='container'>
         <Droptarget
-          callbackFromParent={this.playlistFn} />
+          callbackFromParent={this.handleDrop} />
         <Header />
         <Sidebar
           handleFullscreen={this.handleFullscreen}
@@ -194,10 +279,21 @@ class Mainwrapper extends React.Component {
         <div
           id='playlist'
           className='item footer playlist' >
-          <Playlist
-            onFocus={this.handleFocus}
-            getVideoDetails={this.getVideoDetails}
-            videoListP={this.state.videoList} />
+          {PlaylistJSX}
+          {/* <Playlist>
+            {videoDetailsList &&
+            videoDetailsList.map((video) => (
+              <Videocard
+                key={video.id}
+                id={video.id}
+                url={video.url}
+                title={video.title}
+                channel={video.channel}
+                thumbnail={video.thumb}
+                onRemove={this.removeVid}
+              />
+            ))}
+          </Playlist> */}
         </div>
         <Modal
           show={this.state.youtubeClipboard}

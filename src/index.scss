@@ -50,6 +50,10 @@ code {
   color: rgb(60, 133, 60);
 }
 
+.playlist-container {
+  display: inline;
+}
+
 .progress-toast {
   background: #fff !important;
 }
@@ -123,6 +127,7 @@ code {
 }
 
 .footer {
+  display: inherit;
   background-color: #6C52D9;
   background-image: linear-gradient(160deg, #6C52D9 0%, #9B8AE6 127%);
 }
