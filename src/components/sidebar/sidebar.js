@@ -19,14 +19,14 @@ class Sidebar extends React.Component {
 
         <div className='btn-wrapper'>
           <button
-            className='fancy-button pop-onhover bg-gradient1'
+            className='fancy-button btn-play'
             onClick={this.props.onPlay}
           >
             <span>Play</span>
           </button>
 
           <button
-            className='fancy-button pop-onhover bg-gradient3'
+            className='fancy-button btn-clear'
             onClick={this.props.onClear}
           >
             <span>Clear</span>

@@ -36,7 +36,6 @@ class Mainwrapper extends React.Component {
     super(props)
 
     this.state = {
-      // videoList: [],
       activeVideo: '',
       youtubeClipboard: false,
       videoDetailsList: [],
@@ -57,15 +56,8 @@ class Mainwrapper extends React.Component {
 
   handleDrop = (videoUrl) => {
     videoUrl = videoUrl[0]
-    // const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+
     this.updateVideoDetailsList(videoUrl)
-    // this.renderVideoCards()
-    // const newVideoDetailsPromise = this.getVideoDetails(videoId)
-    // const newVideoDetails = Promise.resolve(newVideoDetailsPromise)
-    // this.setState({
-    //   videoList: videoUrl
-    // })
-    // this.setState({ videoList: videoUrl, videoDetailsList: [...this.state.videoDetailsList, newVideoDetails] })
   }
 
   updateVideoDetailsList = (videoUrl) => {
@@ -73,7 +65,6 @@ class Mainwrapper extends React.Component {
       const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
 
       if (!this.state.videoIds.includes(videoId)) {
-        // this.state.videoIds.push(videoId)
         const videoDetailsPromise = this.getVideoDetails(videoId)
         const videoDetails = Promise.resolve(videoDetailsPromise)
         videoDetails.then(videoDetail => {
@@ -94,9 +85,7 @@ class Mainwrapper extends React.Component {
     const videoIds = this.state.videoIds
     if (videoIds.length !== 0) {
       const videoId = videoIds[0]
-      // const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
       this.setState({ activeVideo: videoId })
-      // TODO - remove video also from playlist state
       const videoIdsRemaining = this.state.videoIds.filter(video => video !== videoId)
       this.setState({ videoIds: videoIdsRemaining })
     } else {
@@ -280,20 +269,6 @@ class Mainwrapper extends React.Component {
           id='playlist'
           className='item footer playlist' >
           {PlaylistJSX}
-          {/* <Playlist>
-            {videoDetailsList &&
-            videoDetailsList.map((video) => (
-              <Videocard
-                key={video.id}
-                id={video.id}
-                url={video.url}
-                title={video.title}
-                channel={video.channel}
-                thumbnail={video.thumb}
-                onRemove={this.removeVid}
-              />
-            ))}
-          </Playlist> */}
         </div>
         <Modal
           show={this.state.youtubeClipboard}

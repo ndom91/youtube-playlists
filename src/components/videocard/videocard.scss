@@ -9,7 +9,6 @@
 }
 
 article.card {
-  /* left: 50%; */
   margin: auto 0;
   width: 150px;
   height: 150px;
@@ -77,14 +76,6 @@ article.card .infos .channel {
   right: 8px;
   bottom: 80px;
 }
-
-/* article.card .infos .time {
-  display: inline-block;
-  margin-top: 20px;
-  opacity: 0;
-  transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
-  float: right;
-} */
 
 article.card:hover .infos {
   -webkit-transform: translateY(-70px);

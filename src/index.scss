@@ -112,22 +112,18 @@ code {
 }
 
 .header {
-  background-color: #1EAAFC;
-  background-image: linear-gradient(160deg, #6C52D9 0%, #9B8AE6 127%);
+  background-image: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
 }
 
 .sidebar {
-  // background-image: linear-gradient(203deg, #3EDFD7 0%, #29A49D 90%);
-  background-image: linear-gradient(to top, #3f51b1 0%, #7b5fac 25%, #8f6aae 38%, #a86aa4 50%, #cc6b8e 82%, #f18271 100%);
+  background-image: linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%);
 }
 
 .player {
   background-image: #000;
-  // background-image: linear-gradient(130deg, #6C52D9 0%, #1EAAFC 85%, #3EDFD7 100%);
 }
 
 .footer {
   display: inherit;
-  background-color: #6C52D9;
-  background-image: linear-gradient(160deg, #6C52D9 0%, #9B8AE6 127%);
+  background-image: linear-gradient( 145deg, #BC78EC 10%, #3B2667 100%);
 }

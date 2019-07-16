@@ -6,14 +6,6 @@ import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import './videocard.min.css'
 
 class Videocard extends React.Component {
-  // constructor (props) {
-  //   super(props)
-
-  //   // this.state = {
-  //   //   isResolved: false
-  //   // }
-  // }
-
   handleOnClick = (e) => {
     e.preventDefault()
   }
