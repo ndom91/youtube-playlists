@@ -20,7 +20,7 @@ var darkmodeOptions = {
   right: 'unset', // default: '32px'
   left: '32px', // default: 'unset'
   time: '0.5s', // default: '0.3s'
-  mixColor: '#eee', // default: '#fff'
+  mixColor: '#9B89B3', // default: '#fff'
   backgroundColor: '#fff', // default: '#fff'
   buttonColorDark: '#100f2c', // default: '#100f2c'
   buttonColorLight: '#fff', // default: '#fff'
@@ -98,7 +98,7 @@ class Mainwrapper extends React.Component {
 
   getVideoDetails = async (id) => {
     const host = window.location.hostname
-    const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
+    const KEY = 'GOOGLE_API'
     const response = await youtube.get('/videos', {
       params: {
         id: id,
