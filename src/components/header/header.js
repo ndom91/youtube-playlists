@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './youtube-logo2.png'
+import logo from './youtube-logo3-white.png'
 import './header.min.css'
 
 function Header () {
