@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Fugaz+One&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Fugaz+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Kalam:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
 @import url('./../css/font-awesome.min.css');
 @import '../css/variables';
 
@@ -11,7 +13,8 @@
 button {
   background: none;
   border: none;
-  font-family: 'Fugaz One';
+  font-family: 'Permanent Marker';
+  font-weight: 700 !important;
   outline: none;
   align-self: flex-end;
   margin-bottom: 15px !important;
@@ -103,6 +106,7 @@ ul.ks-cboxtags li label{
     background-color: rgba(255, 255, 255, .4);
     color: #fff;
     color: rgb(118, 81, 199);
+    font-family: 'Permanent Marker';
     border-radius: 25px;
     white-space: nowrap;
     margin: 3px 0px;
@@ -140,10 +144,10 @@ ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
     // content: "\f00c";
     content: "\f058";
     // transform-origin: center;
-    transform-origin: 50% 48.95%;
-    transform: rotate(360deg);
-    filter: blur(0);
-    transition: all 150ms ease;
+    // transform-origin: 50% 48.95%;
+    // transform: rotate(360deg);
+    // filter: blur(0);
+    // transition: all 50ms ease;
 }
 
 ul.ks-cboxtags li input[type="checkbox"]:checked + label {

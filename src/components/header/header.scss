@@ -1,9 +1,11 @@
 @import url('/../css/font-awesome.min.css');
 @import '../css/variables';
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
 
 .Header {
     grid-row: 1 / 2;
     grid-column: 1 / 4;
+    font-family: 'Permanent Marker';
     font-size: 56px;
     color: #fff;
     z-index: 100;
