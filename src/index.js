@@ -13,7 +13,19 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import youtube from './components/apis/youtube'
 import * as serviceWorker from './serviceWorker'
 import LogRocket from 'logrocket'
+import setupLogRocketReact from 'logrocket-react'
+import * as Sentry from '@sentry/browser'
+
+// Setup Logging + Error Tracking
+Sentry.init({ dsn: 'https://83420173404a484990bfa245540d8f2c@sentry.io/1508017' })
 LogRocket.init('4ayekz/youtube-playlists')
+setupLogRocketReact(LogRocket)
+
+LogRocket.getSessionURL(sessionURL => {
+  Sentry.configureScope(scope => {
+    scope.setExtra('sessionURL', sessionURL)
+  })
+})
 
 let videoOpts = {}
 
