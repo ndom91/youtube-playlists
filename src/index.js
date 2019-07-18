@@ -147,10 +147,7 @@ class Mainwrapper extends React.Component {
   }
 
   removeVid = (videoId) => {
-    const oldDetailArray = this.state.videoDetailsList.filter(video => video.id !== videoId)
-    const oldVideoIds = this.state.videoIds.filter(video => video !== videoId)
-    console.log(oldDetailArray, oldVideoIds)
-    this.setState({ videoDetailsList: oldDetailArray, videoIds: oldVideoIds })
+    this.setState({ videoIds: this.state.videoIds.filter(video => video !== videoId), videoDetailsList: this.state.videoDetailsList.filter(video => video.id !== videoId) })
   }
 
   handleFocus = e => {
@@ -219,28 +216,6 @@ class Mainwrapper extends React.Component {
     this.setState({ youtubeClipboard: false })
   }
 
-  renderVideoCards = () => {
-    const {
-      videoDetailsList
-    } = this.state
-
-    videoDetailsList && videoDetailsList.map((video) => {
-      console.log('video', video)
-
-      return (
-        <Videocard
-          key={video.id}
-          id={video.id}
-          url={video.url}
-          title={video.title}
-          channel={video.channel}
-          thumbnail={video.thumb}
-          onRemove={this.removeVid(video.id)}
-        />
-      )
-    })
-  }
-
   render () {
     const {
       videoDetailsList
@@ -257,7 +232,7 @@ class Mainwrapper extends React.Component {
             title={video.title}
             channel={video.channel}
             thumbnail={video.thumb}
-            onRemove={this.removeVid}
+            onRemove={() => this.removeVid(video.id)}
           />
         ))}
       </span>
