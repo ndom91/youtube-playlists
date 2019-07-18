@@ -27,8 +27,7 @@ class Sidebar extends React.Component {
 
           <button
             className='fancy-button btn-clear'
-            onClick={nonExistentHandler}
-            // onClick={this.props.onClearrrr}
+            onClick={this.props.onClearrrr}
           >
             <span>Clear</span>
           </button>
