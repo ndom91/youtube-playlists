@@ -12,6 +12,8 @@ import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import youtube from './components/apis/youtube'
 import * as serviceWorker from './serviceWorker'
+import LogRocket from 'logrocket'
+LogRocket.init('4ayekz/youtube-playlists')
 
 let videoOpts = {}
 
