@@ -7,17 +7,20 @@ import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
 import Videocard from './components/videocard/videocard'
 import Modal from './components/modal/modal'
-import Darkmode from 'darkmode-js'
+// import Darkmode from 'darkmode-js'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import youtube from './components/apis/youtube'
-import * as serviceWorker from './serviceWorker'
+// import * as serviceWorker from './serviceWorker'
 import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
 import * as Sentry from '@sentry/browser'
 
 // Setup Logging + Error Tracking
-Sentry.init({ dsn: 'https://83420173404a484990bfa245540d8f2c@sentry.io/1508017' })
+Sentry.init({
+  dsn: 'https://1dff941d871e43fca1a0f9e05651fc06@sentry.ndo.dev/2',
+  release: 'youtube-playlist@1.3'
+})
 LogRocket.init('4ayekz/youtube-playlists')
 setupLogRocketReact(LogRocket)
 
@@ -28,22 +31,6 @@ LogRocket.getSessionURL(sessionURL => {
 })
 
 let videoOpts = {}
-
-var darkmodeOptions = {
-  bottom: '64px', // default: '32px'
-  right: 'unset', // default: '32px'
-  left: '32px', // default: 'unset'
-  time: '0.5s', // default: '0.3s'
-  mixColor: '#9B89B3', // default: '#fff'
-  backgroundColor: '#fff', // default: '#fff'
-  buttonColorDark: '#100f2c', // default: '#100f2c'
-  buttonColorLight: '#fff', // default: '#fff'
-  saveInCookies: false, // default: true,
-  label: '🌓' // default: ''
-}
-
-const darkmode = new Darkmode(darkmodeOptions)
-darkmode.showWidget()
 
 class Mainwrapper extends React.Component {
   constructor (props) {
@@ -289,4 +276,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-serviceWorker.unregister()
+// serviceWorker.unregister()

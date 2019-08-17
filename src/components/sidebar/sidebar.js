@@ -12,7 +12,7 @@ class Sidebar extends React.Component {
             <label htmlFor='checkboxOne'>Fullscreen</label>
           </li>
           <li>
-            <input type='checkbox' id='checkboxTwo' onChange={this.props.handleAutoplay} value='Auto-Play' />
+            <input checked type='checkbox' id='checkboxTwo' onChange={this.props.handleAutoplay} value='Auto-Play' />
             <label htmlFor='checkboxTwo'>Auto-Play</label>
           </li>
         </ul>
@@ -27,7 +27,7 @@ class Sidebar extends React.Component {
 
           <button
             className='fancy-button btn-clear'
-            onClick={this.props.onClearrrr}
+            onClick={this.props.onClear}
           >
             <span>Clear</span>
           </button>
