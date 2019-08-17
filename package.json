@@ -14,6 +14,7 @@
     "@sentry/browser": "^5.5.0",
     "axios": "^0.19.0",
     "darkmode-js": "^1.3.4",
+    "lodash": "^4.17.15",
     "logrocket": "^1.0.2",
     "logrocket-react": "^3.0.0",
     "react": "^16.8.6",
@@ -31,7 +32,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,18 +50,39 @@
       "last 1 safari version"
     ]
   },
-  "standard": {
-    "ignore": [
-      "public/*",
-      "node_modules/*"
-    ],
-    "plugins": [
-      "html"
-    ],
-    "parser": "babel-eslint"
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint './src/**/*.{js,jsx,ts,tsx}'",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 80,
+    "tabWidth": 2
   },
   "devDependencies": {
+    "@types/eslint": "^4.16.8",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.8.5",
+    "@types/styled-components": "^4.1.18",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-react": "^1.1.7",
     "eslint-plugin-html": "^6.0.0",
-    "standard": "*"
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.3"
   }
 }

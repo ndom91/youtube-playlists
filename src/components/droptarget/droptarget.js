@@ -3,7 +3,7 @@ import './droptarget.min.css'
 import { toast } from 'react-toastify'
 
 class Droptarget extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -12,17 +12,17 @@ class Droptarget extends React.Component {
     }
   }
 
-  dragoverHandler = (ev) => {
+  dragoverHandler = ev => {
     ev.preventDefault()
     const el = document.getElementById('dropTarget')
     el.style.visibility = 'visible'
     ev.dataTransfer.dropEffect = 'link'
   }
 
-  dropHandler = (ev) => {
+  dropHandler = ev => {
     ev.preventDefault()
     ev.persist()
-    var data = ev.dataTransfer.getData('text/plain')
+    const data = ev.dataTransfer.getData('text/plain')
     if (!data.includes('youtube')) {
       toast.info('Must be a YouTube Link!', {
         className: 'info-toast',
@@ -46,15 +46,17 @@ class Droptarget extends React.Component {
     el.style.visibility = 'hidden'
   }
 
-  render () {
-    return <div
-      id='dropTarget'
-      className='fullDroptarget'
-      onDrop={this.dropHandler}
-      onDragOver={this.dragoverHandler}
-    >
-      Drop YouTube Video Here
-    </div>
+  render() {
+    return (
+      <div
+        id="dropTarget"
+        className="fullDroptarget"
+        onDrop={this.dropHandler}
+        onDragOver={this.dragoverHandler}
+      >
+        Drop YouTube Video Here
+      </div>
+    )
   }
 }
 

@@ -1,10 +1,10 @@
 # YouTube Playlists
 
-![CircleCI](https://img.shields.io/circleci/build/github/ndom91/youtube-playlists.svg?style=flat-square)
+![GitHub](https://img.shields.io/github/license/ndom91/youtube-playlists.svg?style=flat-square)
+![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/tag-pre/ndom91/youtube-playlists.svg?&style=flat-square)
 ![David](https://img.shields.io/david/ndom91/youtube-playlists.svg?style=flat-square)
 ![GitHub issues](https://img.shields.io/github/issues-raw/ndom91/youtube-playlists.svg?style=flat-square)
-![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/tag-pre/ndom91/youtube-playlists.svg?&style=flat-square)
-![GitHub](https://img.shields.io/github/license/ndom91/youtube-playlists.svg?style=flat-square)
+![CircleCI](https://img.shields.io/circleci/build/github/ndom91/youtube-playlists.svg?style=flat-square)
 
 React app for creating on-the-fly YouTube playlists.
 

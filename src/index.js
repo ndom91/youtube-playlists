@@ -7,11 +7,12 @@ import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
 import Videocard from './components/videocard/videocard'
 import Modal from './components/modal/modal'
-// import Darkmode from 'darkmode-js'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import youtube from './components/apis/youtube'
+import _ from 'lodash'
 // import * as serviceWorker from './serviceWorker'
+
 import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
 import * as Sentry from '@sentry/browser'
@@ -33,37 +34,40 @@ LogRocket.getSessionURL(sessionURL => {
 let videoOpts = {}
 
 class Mainwrapper extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
       activeVideo: '',
-      youtubeClipboard: false,
+      isClipboardModalVisible: false,
       videoDetailsList: [],
       videoIds: []
     }
   }
 
-  makeVisible = e => {
+  makeVisible = () => {
     const el = document.getElementById('dropTarget')
     el.style.visibility = 'visible'
   }
 
-  onLoad = e => {
+  onLoad = () => {
     navigator.permissions.query({
       name: 'clipboard-read'
     })
   }
 
-  handleDrop = (videoUrl) => {
+  handleDrop = videoUrl => {
     videoUrl = videoUrl[0]
 
     this.updateVideoDetailsList(videoUrl)
   }
 
-  updateVideoDetailsList = (videoUrl) => {
+  updateVideoDetailsList = videoUrl => {
     if (videoUrl) {
-      const videoId = videoUrl.substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+      const videoId = videoUrl.substring(
+        videoUrl.indexOf('v=') + 2,
+        videoUrl.length
+      )
 
       if (!this.state.videoIds.includes(videoId)) {
         const videoDetailsPromise = this.getVideoDetails(videoId)
@@ -78,16 +82,18 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  onVideoEnd = e => {
+  onVideoEnd = () => {
     this.startNextVideo()
   }
 
-  startNextVideo = e => {
+  startNextVideo = () => {
     const videoIds = this.state.videoIds
     if (videoIds.length !== 0) {
       const videoId = videoIds[0]
       this.setState({ activeVideo: videoId })
-      const videoIdsRemaining = this.state.videoIds.filter(video => video !== videoId)
+      const videoIdsRemaining = this.state.videoIds.filter(
+        video => video !== videoId
+      )
       this.setState({ videoIds: videoIdsRemaining })
     } else {
       toast('No Videos available to play!', {
@@ -97,10 +103,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  // testing pre-commit hook
-  // testing pre-commit hook
-
-  getVideoDetails = async (id) => {
+  getVideoDetails = async id => {
     const host = window.location.hostname
     const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
     // const KEY = 'GOOGLE_API'
@@ -110,7 +113,10 @@ class Mainwrapper extends React.Component {
         part: 'snippet',
         key: KEY
       },
-      headers: { 'Access-Control-Allow-Origin': host, 'Content-Type': 'application/json' },
+      headers: {
+        'Access-Control-Allow-Origin': host,
+        'Content-Type': 'application/json'
+      },
       crossdomain: true
     })
 
@@ -133,95 +139,110 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  removeVid = (videoId) => {
-    this.setState({ videoIds: this.state.videoIds.filter(video => video !== videoId), videoDetailsList: this.state.videoDetailsList.filter(video => video.id !== videoId) })
+  removeVid = videoId => {
+    this.setState({
+      videoIds: this.state.videoIds.filter(video => video !== videoId),
+      videoDetailsList: this.state.videoDetailsList.filter(
+        video => video.id !== videoId
+      )
+    })
   }
 
-  handleFocus = e => {
-    navigator.clipboard.readText()
-      .then(text => {
-        const videoId = text.substring(text.indexOf('v=') + 2, text.length)
-        if (text.includes('youtube') && !this.state.videoIds.includes(videoId)) {
-          const videoInfoPromise = this.getVideoDetails(videoId)
-          const videoInfo = Promise.resolve(videoInfoPromise)
-          videoInfo.then(details => {
-            console.log(details)
-            const children = (
-              <div>
-                <div className='thumb-fade' />
-                <img alt='video thumbnail' className='clipboard-video-thumb' src={details.thumb} />
-                <div className='modal-text modal-header-text'>
-                  We've detected a YouTube link in your clipboard
-                </div>
-                <div className='modal-text video-text'>
-                  {/* {details.channel}
+  handleFocus = () => {
+    navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
+      if (result.state === 'granted' || result.state === 'prompt') {
+        navigator.clipboard.readText().then(text => {
+          const videoId = text.substring(text.indexOf('v=') + 2, text.length)
+          if (
+            text.includes('youtube') &&
+            !this.state.videoIds.includes(videoId)
+          ) {
+            const videoInfoPromise = this.getVideoDetails(videoId)
+            const videoInfo = Promise.resolve(videoInfoPromise)
+            videoInfo.then(details => {
+              console.log(details)
+              const children = (
+                <div>
+                  <div className="thumb-fade" />
+                  <img
+                    alt="video thumbnail"
+                    className="clipboard-video-thumb"
+                    src={details.thumb}
+                  />
+                  <div className="modal-text modal-header-text">
+                    We've detected a YouTube link in your clipboard
+                  </div>
+                  <div className="modal-text video-text">
+                    {/* {details.channel}
                   <br /> */}
-                  {details.title}
+                    {details.title}
+                  </div>
+                  <div className="modal-text footer-text">
+                    Would you like to add it?
+                  </div>
                 </div>
-                <div className='modal-text footer-text'>
-                  Would you like to add it?
-                </div>
-              </div>
-            )
-            this.setState({ youtubeClipboard: true, modalChildren: children, link: text })
-          })
-        }
-      })
+              )
+              this.setState({
+                isClipboardModalVisible: true,
+                modalChildren: children,
+                link: text
+              })
+            })
+          }
+        })
+      }
+    })
   }
 
   clearVideos = () => {
     this.setState({ videoIds: [], videoDetailsList: [] })
   }
 
-  handleFullscreen = e => {
+  handleFullscreen = () => {
     if (videoOpts.fullscreen === 1) {
-      videoOpts = { ...videoOpts,
-        fullscreen: 0
-      }
+      videoOpts = { ...videoOpts, fullscreen: 0 }
     } else {
-      videoOpts = { ...videoOpts,
-        fullscreen: 1
-      }
+      videoOpts = { ...videoOpts, fullscreen: 1 }
     }
   }
 
-  handleAutoplay = e => {
+  handleAutoplay = () => {
     // console.log(e)
   }
 
   handleModalAdd = () => {
-    const {
-      link
-    } = this.state
+    const { link } = this.state
 
     this.updateVideoDetailsList(link)
-    this.setState({ youtubeClipboard: false, link: null })
+    this.setState({ isClipboardModalVisible: false, link: null })
   }
 
   handleModalClose = e => {
     e.preventDefault()
-    this.setState({ youtubeClipboard: false })
+    this.setState({ isClipboardModalVisible: false })
   }
 
-  render () {
-    const {
-      videoDetailsList
-    } = this.state
+  render() {
+    const { videoDetailsList } = this.state
+
+    const throttledFocus = _.throttle(this.handleFocus, 30000, {
+      trailing: false
+    })
 
     const PlaylistJSX = (
-      <span className='playlist-container'>
+      <span className="playlist-container">
         {videoDetailsList &&
-        videoDetailsList.map((video) => (
-          <Videocard
-            key={video.id}
-            id={video.id}
-            url={video.url}
-            title={video.title}
-            channel={video.channel}
-            thumbnail={video.thumb}
-            onRemove={() => this.removeVid(video.id)}
-          />
-        ))}
+          videoDetailsList.map(video => (
+            <Videocard
+              key={video.id}
+              id={video.id}
+              url={video.url}
+              title={video.title}
+              channel={video.channel}
+              thumbnail={video.thumb}
+              onRemove={() => this.removeVid(video.id)}
+            />
+          ))}
       </span>
     )
 
@@ -229,10 +250,10 @@ class Mainwrapper extends React.Component {
       <div
         onLoad={this.onLoad}
         onDragOver={this.makeVisible}
-        onFocus={this.handleFocus}
-        className='container'>
-        <Droptarget
-          callbackFromParent={this.handleDrop} />
+        onFocus={throttledFocus}
+        className="container"
+      >
+        <Droptarget callbackFromParent={this.handleDrop} />
         <Header />
         <Sidebar
           handleFullscreen={this.handleFullscreen}
@@ -240,26 +261,27 @@ class Mainwrapper extends React.Component {
           onPlay={this.startNextVideo}
           onClear={this.clearVideos}
           onFocus={this.handleFocus}
-          videos={this.state.videoList} />
+          videos={this.state.videoList}
+        />
         <Player
           videoId={this.state.activeVideo}
           onEnd={this.onVideoEnd}
-          videoOpts={videoOpts} />
-        <div
-          id='playlist'
-          className='item footer playlist' >
+          videoOpts={videoOpts}
+        />
+        <div id="playlist" className="item footer playlist">
           {PlaylistJSX}
         </div>
         <Modal
-          show={this.state.youtubeClipboard}
+          show={this.state.isClipboardModalVisible}
           handleAdd={this.handleModalAdd}
           handleClose={this.handleModalClose}
-          children={this.state.modalChildren}
-        />
+        >
+          {this.state.modalChildren}
+        </Modal>
         <ToastContainer
           transition={Bounce}
           autoclose={3000}
-          className='toast-container'
+          className="toast-container"
           closeOnClick
           pauseOnVisibilityChange={false}
           pauseOnHover={false}
@@ -271,9 +293,6 @@ class Mainwrapper extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <Mainwrapper />,
-  document.getElementById('root')
-)
+ReactDOM.render(<Mainwrapper />, document.getElementById('root'))
 
 // serviceWorker.unregister()

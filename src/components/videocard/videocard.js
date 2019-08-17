@@ -6,20 +6,14 @@ import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import './videocard.min.css'
 
 class Videocard extends React.Component {
-  handleOnClick = (e) => {
+  handleOnClick = e => {
     e.preventDefault()
   }
 
-  render () {
+  render() {
     library.add(fas, faTrash)
 
-    const {
-      id,
-      url,
-      title,
-      channel,
-      thumbnail
-    } = this.props
+    const { id, url, title, channel, thumbnail } = this.props
 
     const Thumb = styled.article`
       width: auto;
@@ -31,23 +25,27 @@ class Videocard extends React.Component {
 
     const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
 
-    return <div
-      id='videocard'
-      className='videocard'
-      onClick={this.handleOnClick}
-      key={id}
-    >
-      <button onClick={this.props.onRemove} className='btn-floating'>{deleteIcon}</button>
-      <article className='card'>
-        <a href={url}>
-          <Thumb />
-          <div className='infos'>
-            <h2 className='title'>{title}</h2>
-            <h3 className='channel'>{channel}</h3>
-          </div>
-        </a>
-      </article>
-    </div>
+    return (
+      <div
+        id="videocard"
+        className="videocard"
+        onClick={this.handleOnClick}
+        key={id}
+      >
+        <button onClick={this.props.onRemove} className="btn-floating">
+          {deleteIcon}
+        </button>
+        <article className="card">
+          <a href={url}>
+            <Thumb />
+            <div className="infos">
+              <h2 className="title">{title}</h2>
+              <h3 className="channel">{channel}</h3>
+            </div>
+          </a>
+        </article>
+      </div>
+    )
   }
 }
 
