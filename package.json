@@ -1,7 +1,7 @@
 {
   "name": "youtube-playlists",
   "description": "Create on-the-fly YouTube playlists!",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "homepage": "https://youtube.ndo.dev",
   "repository": "https://github.com/ndom91/youtube-playlists",

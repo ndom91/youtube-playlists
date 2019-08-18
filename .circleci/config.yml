@@ -1,5 +1,4 @@
 defaults: &defaults
-  #working_directory: ./circleci
   docker:
     - image: circleci/node:10
 
@@ -29,7 +28,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-          sed -i "s/GOOGLE_API/${GOOGLE_API}/" ./src/index.js
+          sed -i "s/YOUTUBE_API_KEY/${GOOGLE_API}/" ./src/index.js
           npm run build
       - persist_to_workspace:
           root: .
@@ -102,18 +101,6 @@ jobs:
               rm -rf gh-pages-branch
 
               echo "Finished GitHub pages Deployment!"
-
-  # deploy-prod:
-  #   <<: *defaults
-  #   steps:
-  #     - checkout
-  #     - attach_workspace:
-  #         at: .
-  #     - deploy:
-  #         name: Deploy to Production
-  #         command: |
-  #             echo "iooooooo"
-
 
 workflows:
   version: 2

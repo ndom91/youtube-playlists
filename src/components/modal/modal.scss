@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
 @import '../css/variables';
 
 .modal {
@@ -64,7 +65,7 @@
   right: 7px;
   color: #fff;
   font-size: 1.2rem;
-  font-family: 'Luckiest Guy';
+  font-family: 'Luckiest Guy', Tahoma, Sans-Serif;
   font-weight: 800;
   padding: 10px 20px;
   z-index: 150;
@@ -95,8 +96,7 @@
   width: 80px;
   height: 40px;
   border-radius: 5px;
-  transition: all 150ms linear;
-  font-family: 'Luckiest Guy';
+  font-family: 'Luckiest Guy', Tahoma, Sans-Serif;
   font-size: 1.1rem;
   letter-spacing: 1px;
   background-size: 200% 100%;
