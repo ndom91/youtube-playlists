@@ -14,6 +14,11 @@ import _ from 'lodash'
 import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
 import * as Sentry from '@sentry/browser'
+import ReactGA from 'react-ga'
+
+// Google Analytics
+ReactGA.initialize('UA-111339084-6')
+ReactGA.pageview(window.location.pathname + window.location.search)
 
 // Setup Logging + Error Tracking
 Sentry.init({
