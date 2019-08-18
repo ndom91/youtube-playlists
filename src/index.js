@@ -9,9 +9,7 @@ import Videocard from './components/videocard/videocard'
 import Modal from './components/modal/modal'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-import youtube from './components/apis/youtube'
 import _ from 'lodash'
-// import * as serviceWorker from './serviceWorker'
 
 import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
@@ -70,10 +68,6 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  handleDrop = videoUrl => {
-    this.updateVideoDetailsList(videoUrl)
-  }
-
   updateVideoDetailsList = videoUrl => {
     if (videoUrl) {
       const videoId = videoUrl
@@ -81,11 +75,10 @@ class Mainwrapper extends React.Component {
         .substring(0, 11)
 
       if (!this.state.videoIds.includes(videoId)) {
-        const videoDetailsPromise = this.getVideoDetails(videoId)
-        const videoDetails = Promise.resolve(videoDetailsPromise)
-        videoDetails.then(videoDetail => {
+        const videoDetails = this.getVideoDetails(videoId)
+        videoDetails.then(details => {
           this.setState({
-            videoDetailsList: [...this.state.videoDetailsList, videoDetail],
+            videoDetailsList: [...this.state.videoDetailsList, details],
             videoIds: [...this.state.videoIds, videoId]
           })
         })
@@ -115,39 +108,16 @@ class Mainwrapper extends React.Component {
   }
 
   getVideoDetails = async id => {
-    const host = window.location.hostname
-    const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
-    // const KEY = 'YOUTUBE_API_KEY'
-
-    const response = await youtube.get('/videos', {
-      params: {
-        id: id,
-        part: 'snippet',
-        key: KEY
-      },
+    return fetch(`https://yt-details.ndo.workers.dev/?vid=${id}`, {
+      // method: 'GET',
+      // mode: 'cors',
       headers: {
-        'Access-Control-Allow-Origin': host,
         'Content-Type': 'application/json'
       },
       crossdomain: true
     })
-
-    if (response.data.items[0]) {
-      const videoDetails = response.data.items[0].snippet
-      const channel = videoDetails.channelTitle
-      const title = videoDetails.localized.title
-      const thumbnail = videoDetails.thumbnails.medium.url
-
-      return {
-        id: id,
-        url: 'https://youtube.com/watch?v=' + id,
-        title: title,
-        channel: channel,
-        thumb: thumbnail
-      }
-    } else {
-      toast.error('Video Info Loading Failed')
-    }
+      .then(resp => resp.json())
+      .then(json => json)
   }
 
   removeVid = videoId => {
@@ -174,8 +144,7 @@ class Mainwrapper extends React.Component {
             !this.state.videoIds.includes(videoId) &&
             !this.state.skippedClipboardVideos.includes(videoId)
           ) {
-            const videoInfoPromise = this.getVideoDetails(videoId)
-            const videoInfo = Promise.resolve(videoInfoPromise)
+            const videoInfo = this.getVideoDetails(videoId)
             videoInfo.then(details => {
               const children = (
                 <div>
@@ -188,11 +157,7 @@ class Mainwrapper extends React.Component {
                   <div className="modal-text modal-header-text">
                     We've detected a YouTube link in your clipboard
                   </div>
-                  <div className="modal-text video-text">
-                    {/* {details.channel}
-                  <br /> */}
-                    {details.title}
-                  </div>
+                  <div className="modal-text video-text">{details.title}</div>
                   <div className="modal-text footer-text">
                     Would you like to add it?
                   </div>
@@ -229,8 +194,16 @@ class Mainwrapper extends React.Component {
   handleModalAdd = () => {
     const { clipboardLink } = this.state
 
+    const videoId = clipboardLink
+      .substring(clipboardLink.indexOf('v=') + 2, clipboardLink.length)
+      .substring(0, 11)
+
     this.updateVideoDetailsList(clipboardLink)
-    this.setState({ isClipboardModalVisible: false, clipboardLink: null })
+    this.setState({
+      isClipboardModalVisible: false,
+      skippedClipboardVideos: [...this.state.skippedClipboardVideos, videoId],
+      clipboardLink: null
+    })
   }
 
   handleModalClose = e => {
@@ -240,17 +213,16 @@ class Mainwrapper extends React.Component {
       .substring(clipboardLink.indexOf('v=') + 2, clipboardLink.length)
       .substring(0, 11)
     this.setState({
-      skippedClipboardVideos: [...this.state.skippedClipboardVideos, videoId]
+      skippedClipboardVideos: [...this.state.skippedClipboardVideos, videoId],
+      isClipboardModalVisible: false,
+      clipboardLink: null
     })
-    this.setState({ isClipboardModalVisible: false, clipboardLink: null })
   }
 
   render() {
     const { videoDetailsList } = this.state
 
-    const throttledFocus = _.throttle(this.handleFocus, 30000, {
-      trailing: false
-    })
+    const throttledFocus = _.debounce(this.handleFocus, 1000)
 
     const PlaylistJSX = (
       <span className="playlist-container">
@@ -276,14 +248,13 @@ class Mainwrapper extends React.Component {
         onFocus={throttledFocus}
         className="container"
       >
-        <Droptarget callbackFromParent={this.handleDrop} />
+        <Droptarget callbackFromParent={this.updateVideoDetailsList} />
         <Header />
         <Sidebar
           handleFullscreen={this.handleFullscreen}
           handleAutoplay={this.handleAutoplay}
           onPlay={this.startNextVideo}
           onClear={this.clearVideos}
-          onFocus={this.handleFocus}
           videos={this.state.videoList}
         />
         <Player
@@ -317,5 +288,3 @@ class Mainwrapper extends React.Component {
 }
 
 ReactDOM.render(<Mainwrapper />, document.getElementById('root'))
-
-// serviceWorker.unregister()
