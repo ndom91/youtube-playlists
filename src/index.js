@@ -116,7 +116,8 @@ class Mainwrapper extends React.Component {
 
   getVideoDetails = async id => {
     const host = window.location.hostname
-    const KEY = 'YOUTUBE_API_KEY'
+    const KEY = 'AIzaSyAcgdqeDAFIlGkeUtE7PUJqB5GWomKobBY'
+    // const KEY = 'YOUTUBE_API_KEY'
 
     const response = await youtube.get('/videos', {
       params: {
