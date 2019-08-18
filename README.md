@@ -31,5 +31,5 @@ This is very much still in beta stage, but you can run it locally by:
 
 ## Screenshots
 
-![screenshot 1](https://imgur.com/e7rd3Rk.png)
+![screenshot 1](https://imgur.com/80espJg.png)
 
