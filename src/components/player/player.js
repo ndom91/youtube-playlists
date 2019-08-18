@@ -3,7 +3,7 @@ import YouTube from 'react-youtube'
 import './player.min.css'
 
 class Player extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -11,24 +11,25 @@ class Player extends React.Component {
     }
   }
 
-  _onReady = e => {
+  _onReady = () => {
     // console.log(e.target)
   }
 
-  _makeFullscreen = e => {
+  _makeFullscreen = () => {
     if (this.props.videoOpts.fullscreen === 1) {
-      var playerElement = document.getElementById('widget2')
-      var requestFullScreen = playerElement.requestFullScreen || playerElement.mozRequestFullScreen || playerElement.webkitRequestFullScreen
+      const playerElement = document.getElementById('widget2')
+      const requestFullScreen =
+        playerElement.requestFullScreen ||
+        playerElement.mozRequestFullScreen ||
+        playerElement.webkitRequestFullScreen
       if (requestFullScreen) {
         requestFullScreen.bind(playerElement)()
       }
     }
   }
 
-  render () {
-    const {
-      videoId
-    } = this.props
+  render() {
+    const { videoId } = this.props
 
     const opts = {
       height: '270',
@@ -40,15 +41,14 @@ class Player extends React.Component {
     }
 
     return (
-      <div
-        id='playerWrapper'
-        className='item player'>
+      <div id="playerWrapper" className="item player">
         <YouTube
           videoId={videoId}
           opts={opts}
           onReady={this._onReady}
           onPlay={this._makeFullscreen}
-          onEnd={this.props.onEnd} />
+          onEnd={this.props.onEnd}
+        />
       </div>
     )
   }

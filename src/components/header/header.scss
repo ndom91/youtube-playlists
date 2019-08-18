@@ -1,28 +1,25 @@
 @import url('/../css/font-awesome.min.css');
 @import '../css/variables';
-@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
 
 .Header {
-    grid-row: 1 / 2;
-    grid-column: 1 / 4;
-    font-family: 'Permanent Marker';
-    font-size: 56px;
-    color: #fff;
-    z-index: 100;
-    display: subgrid;
-    align-items: center;
+  font-family: 'Luckiest Guy' !important;
+  font-size: 56px;
+  color: #fff;
+  z-index: 100;
+  display: flex;
+  justify-content: space-around;
 }
 
 .youtube-logo {
-  width: 180px;
-  height: 180px;
-  margin: 30px;
-  display: inline;
+  width: 175px;
+  height: 175px;
 }
 
 .youtube-logo,
 .header-text {
   line-height: 200px;
-  margin: auto 0;
+  letter-spacing: 3px;
 }
 
