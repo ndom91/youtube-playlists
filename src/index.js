@@ -109,8 +109,6 @@ class Mainwrapper extends React.Component {
 
   getVideoDetails = async id => {
     return fetch(`https://yt-details.ndo.workers.dev/?vid=${id}`, {
-      // method: 'GET',
-      // mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -231,7 +229,6 @@ class Mainwrapper extends React.Component {
             <Videocard
               key={video.id}
               id={video.id}
-              url={video.url}
               title={video.title}
               channel={video.channel}
               thumbnail={video.thumb}

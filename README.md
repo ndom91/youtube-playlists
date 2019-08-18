@@ -18,7 +18,15 @@ Once you've got your playlist organized, press "Play" and the application will b
 
 The only requirement to host your own instance is a YouTube API Key. You can visit [developers.google.com/youtube/v3/getting-started](https://developers.google.com/youtube/v3/getting-started) to view how to get one.
 
-Then simply replace the placeholder `KEY = 'YOUTUBE_API_KEY'` in `src/index.js` on line 120 with your key.
+The functionality to get the youtube video details is provided through a serverless function, running on a Cloudflare Worker in the demo instance. I've provided the code for it as well, in the `serverless_youtube.js` file. 
+
+If you want to setup your own instance, you need to do the following:
+
+1. Get your own YouTube API Key
+2. Sign up for Cloudflare Workers
+3. Create a new worker and copy the code from `serverless_youtube.js` into the Web UI
+4. Insert your YouTube API Key on line 2 in the variable `key`
+5. Adjust the `fetch` URL in `src/index.js` on line 111
 
 ## Contributing
 
