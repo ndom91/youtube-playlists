@@ -28,7 +28,6 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-          sed -i "s/YOUTUBE_API_KEY/${GOOGLE_API}/" ./src/index.js
           npm run build
       - persist_to_workspace:
           root: .
