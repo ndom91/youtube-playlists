@@ -20,8 +20,12 @@ import * as Sentry from '@sentry/browser'
 // Setup Logging + Error Tracking
 Sentry.init({
   dsn: 'https://1dff941d871e43fca1a0f9e05651fc06@sentry.ndo.dev/2',
-  release: 'youtube-playlist@1.3'
+  release: 'youtube-playlist@1.3',
+  autoBreadcrumbs: {
+    console: false
+  }
 })
+
 LogRocket.init('4ayekz/youtube-playlists')
 setupLogRocketReact(LogRocket)
 
@@ -41,8 +45,18 @@ class Mainwrapper extends React.Component {
       activeVideo: '',
       isClipboardModalVisible: false,
       videoDetailsList: [],
-      videoIds: []
+      videoIds: [],
+      skippedClipboardVideos: [],
+      eventId: null
     }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    Sentry.withScope(scope => {
+      scope.setExtras(errorInfo)
+      const eventId = Sentry.captureException(error)
+      this.setState({ eventId })
+    })
   }
 
   makeVisible = () => {
@@ -57,17 +71,14 @@ class Mainwrapper extends React.Component {
   }
 
   handleDrop = videoUrl => {
-    videoUrl = videoUrl[0]
-
     this.updateVideoDetailsList(videoUrl)
   }
 
   updateVideoDetailsList = videoUrl => {
     if (videoUrl) {
-      const videoId = videoUrl.substring(
-        videoUrl.indexOf('v=') + 2,
-        videoUrl.length
-      )
+      const videoId = videoUrl
+        .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+        .substring(0, 11)
 
       if (!this.state.videoIds.includes(videoId)) {
         const videoDetailsPromise = this.getVideoDetails(videoId)
@@ -96,7 +107,7 @@ class Mainwrapper extends React.Component {
       )
       this.setState({ videoIds: videoIdsRemaining })
     } else {
-      toast('No Videos available to play!', {
+      toast('No Videos Available!', {
         className: 'info-toast',
         progressClassName: 'progress-toast'
       })
@@ -121,7 +132,6 @@ class Mainwrapper extends React.Component {
     })
 
     if (response.data.items[0]) {
-      console.log(response.data)
       const videoDetails = response.data.items[0].snippet
       const channel = videoDetails.channelTitle
       const title = videoDetails.localized.title
@@ -152,15 +162,20 @@ class Mainwrapper extends React.Component {
     navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
       if (result.state === 'granted' || result.state === 'prompt') {
         navigator.clipboard.readText().then(text => {
-          const videoId = text.substring(text.indexOf('v=') + 2, text.length)
+          let videoId
+          if (text.includes('youtube.com/watch')) {
+            videoId = text
+              .substring(text.indexOf('v=') + 2, text.length)
+              .substring(0, 11)
+          }
           if (
-            text.includes('youtube') &&
-            !this.state.videoIds.includes(videoId)
+            text.includes('youtube.com/watch') &&
+            !this.state.videoIds.includes(videoId) &&
+            !this.state.skippedClipboardVideos.includes(videoId)
           ) {
             const videoInfoPromise = this.getVideoDetails(videoId)
             const videoInfo = Promise.resolve(videoInfoPromise)
             videoInfo.then(details => {
-              console.log(details)
               const children = (
                 <div>
                   <div className="thumb-fade" />
@@ -185,7 +200,7 @@ class Mainwrapper extends React.Component {
               this.setState({
                 isClipboardModalVisible: true,
                 modalChildren: children,
-                link: text
+                clipboardLink: text
               })
             })
           }
@@ -211,15 +226,22 @@ class Mainwrapper extends React.Component {
   }
 
   handleModalAdd = () => {
-    const { link } = this.state
+    const { clipboardLink } = this.state
 
-    this.updateVideoDetailsList(link)
-    this.setState({ isClipboardModalVisible: false, link: null })
+    this.updateVideoDetailsList(clipboardLink)
+    this.setState({ isClipboardModalVisible: false, clipboardLink: null })
   }
 
   handleModalClose = e => {
+    const { clipboardLink } = this.state
     e.preventDefault()
-    this.setState({ isClipboardModalVisible: false })
+    const videoId = clipboardLink
+      .substring(clipboardLink.indexOf('v=') + 2, clipboardLink.length)
+      .substring(0, 11)
+    this.setState({
+      skippedClipboardVideos: [...this.state.skippedClipboardVideos, videoId]
+    })
+    this.setState({ isClipboardModalVisible: false, clipboardLink: null })
   }
 
   render() {

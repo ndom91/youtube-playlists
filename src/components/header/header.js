@@ -1,12 +1,12 @@
 import React from 'react'
-import logo from './youtube-logo3-white.png'
+import logo from './youtube.svg'
 import './header.min.css'
 
 function Header() {
   return (
     <div className="item header Header">
       <img src={logo} className="youtube-logo" alt="logo" />
-      <span className="header-text">YT Playlists</span>
+      <span className="header-text">YouTube Playlists</span>
     </div>
   )
 }

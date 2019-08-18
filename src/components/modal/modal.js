@@ -13,10 +13,10 @@ class Modal extends React.Component {
       <div className={showHideClassName}>
         <section className="modal-main">
           {children}
-          <button className="btn-add" onClick={handleAdd}>
+          <button className="modal-btn btn-add" onClick={handleAdd}>
             Add
           </button>
-          <button className="btn-close" onClick={handleClose}>
+          <button className="modal-btn btn-close" onClick={handleClose}>
             Close
           </button>
         </section>
