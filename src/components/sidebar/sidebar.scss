@@ -30,7 +30,7 @@ button {
 .fancy-button {
   margin: 7px;
   font-weight: 400 !important;
-  font-family: 'Luckiest Guy';
+  font-family: 'Luckiest Guy', Tahoma, Sans-Serif;
   font-size: 1.1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -39,7 +39,6 @@ button {
   position: relative;
   height: 50px;
   border-radius: 2em;
-  transition: all 0.3s ease-out;
   background-size: 200% 100%;
   -o-transition: all .4s ease-in-out;
   -webkit-transition: all .4s ease-in-out;

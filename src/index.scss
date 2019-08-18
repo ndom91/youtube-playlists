@@ -1,5 +1,3 @@
-// @import url('https://fonts.googleapis.com/css?family=Caveat+Brush&display=swap');
-// @import url('https://fonts.googleapis.com/css?family=Gaegu:400,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
 @import 'components/css/variables';
 
@@ -10,7 +8,7 @@ html, body {
 }
 
 .sidebar > * {
-    font-family: 'Luckiest Guy';
+    font-family: 'Luckiest Guy', Tahoma, Sans-Serif;
     // font-weight: 700;
 }
 
@@ -46,7 +44,7 @@ code {
   background-image: radial-gradient( circle 346px at 0.3% 100%,  rgba(62,76,167,0.9) 0%, rgba(255,99,145,0.9) 100% ) !important;
   color: #fff !important;
   font-size: 1.2em;
-  font-family: 'Luckiest Guy' !important;
+  font-family: 'Luckiest Guy', Tahoma, Sans-Serif !important;
   font-weight: 700;
   letter-spacing: 2px;
   border-radius: 10px !important;
