@@ -1,4 +1,4 @@
-@import '../css/font-awesome.min.css';
+@import url('../css/font-awesome.min.css');
 @import '../css/variables';
 
 .btn-wrapper {
@@ -16,11 +16,11 @@ button {
 }
 
 .btn-play {
-  background: linear-gradient( 135deg, #FF6FD8 0%, #512ed3 50%);
+  background: linear-gradient(135deg, #ff6fd8 0%, #512ed3 50%);
 }
 
 .btn-clear {
-  background: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 50%);
+  background: linear-gradient(135deg, #ee9ae5 10%, #5961f9 50%);
 }
 
 .fancy-button:hover {
@@ -40,9 +40,9 @@ button {
   height: 50px;
   border-radius: 2em;
   background-size: 200% 100%;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 
   &:before {
     content: '';
@@ -87,14 +87,15 @@ button {
   position: relative;
   z-index: 2;
   -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transform-style: preserve-3d;
   transition: all 0.3s ease-out;
 }
 
-.btn-play:hover, .btn-clear:hover {
+.btn-play:hover,
+.btn-clear:hover {
   background-position: 100% 20%;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 ul.ks-cboxtags {
@@ -103,14 +104,14 @@ ul.ks-cboxtags {
   padding: 0px;
   margin-top: 15px;
 }
-ul.ks-cboxtags li{
+ul.ks-cboxtags li {
   outline: none;
   margin: 5px;
   display: flex;
   justify-content: center;
   align-items: stretch;
 }
-ul.ks-cboxtags li label{
+ul.ks-cboxtags li label {
   display: flex;
   width: 70%;
   white-space: nowrap;
@@ -132,24 +133,24 @@ ul.ks-cboxtags li label::before {
   font-style: normal;
   font-variant: normal;
   text-rendering: auto;
-  font-family: "FontAwesome";
+  font-family: 'FontAwesome';
   font-weight: 900;
   font-size: 1.5rem;
   padding: 4px 8px 4px 2px;
-  content: "\f10c";
-  transition: transform .3s ease-in-out;
+  content: '\f10c';
+  transition: transform 0.3s ease-in-out;
 }
 
-ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
-  content: "\f058";
+ul.ks-cboxtags li input[type='checkbox']:checked + label::before {
+  content: '\f058';
 }
 
-ul.ks-cboxtags li input[type="checkbox"]:checked + label {
-  background-image: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
+ul.ks-cboxtags li input[type='checkbox']:checked + label {
+  background-image: linear-gradient(135deg, #3b2667 10%, #bc78ec 100%);
   color: #fff;
 }
 
-ul.ks-cboxtags li input[type="checkbox"] {
+ul.ks-cboxtags li input[type='checkbox'] {
   position: absolute;
   opacity: 0;
 }
