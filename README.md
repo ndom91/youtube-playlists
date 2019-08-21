@@ -1,5 +1,7 @@
 # YouTube Playlists
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ndom91/youtube-playlists.svg)](https://greenkeeper.io/)
+
 ![GitHub](https://img.shields.io/github/license/ndom91/youtube-playlists.svg?style=flat-square)
 ![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/tag-pre/ndom91/youtube-playlists.svg?&style=flat-square)
 ![David](https://img.shields.io/david/ndom91/youtube-playlists.svg?style=flat-square)
