@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import { css } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -15,13 +15,15 @@ class Videocard extends React.Component {
 
     const { id, url, title, channel, thumbnail } = this.props
 
-    const Thumb = styled.article`
-      width: auto;
-      height: 113px;
-      background: url(${thumbnail}) no-repeat center;
-      background-size: cover;
-      border-radius: 3px;
-    `
+    const cardThumbnail = {
+      width: 'auto',
+      height: '120px',
+      marginLeft: '-30px',
+      marginTop: '-5px',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      borderRadius: '3px'
+    }
 
     const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
 
@@ -37,7 +39,11 @@ class Videocard extends React.Component {
         </button>
         <article className="card">
           <a href={url}>
-            <Thumb />
+            <img
+              style={cardThumbnail}
+              className="cardThumbnail"
+              src={thumbnail}
+            ></img>
             <div className="infos">
               <h2 className="title">{title}</h2>
               <h3 className="channel">{channel}</h3>

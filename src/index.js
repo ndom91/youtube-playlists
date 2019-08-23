@@ -276,7 +276,6 @@ class Mainwrapper extends React.Component {
         onFocus={throttledFocus}
         className="container"
       >
-        {/* {fetchInProgress ? FetchSpinner : undefined} */}
         <FetchSpinner />
         <Droptarget callbackFromParent={this.updateVideoDetailsList} />
         <Header />

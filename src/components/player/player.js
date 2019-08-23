@@ -32,7 +32,7 @@ class Player extends React.Component {
     const { videoId } = this.props
 
     const opts = {
-      height: '270',
+      height: '303',
       width: '540',
       playerVars: {
         autoplay: 1
