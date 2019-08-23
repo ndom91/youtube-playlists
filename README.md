@@ -21,7 +21,7 @@ Once you've got your playlist organized, press "Play" and the application will b
 
 The only requirement to host your own instance is a YouTube API Key. You can visit [developers.google.com/youtube/v3/getting-started](https://developers.google.com/youtube/v3/getting-started) to view how to get one.
 
-The functionality to get the YouTube video details, in my implementation, is provided through a serverless function running on a Cloudflare Worker. You can find the code for it in the `serverless_youtube.js` file. These few functions can simply be copied back into `index.js` if you prefer.
+The functionality to get the YouTube video details, in my implementation, is provided through a serverless function running on a Cloudflare Worker. You can find the code for it in the `serverless_youtube.js` file. These few functions can simply be copied back into `index.js` if you prefer to not use a worker / serverless function.
 
 ## 👷 Getting Started
 
