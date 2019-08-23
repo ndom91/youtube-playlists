@@ -10,6 +10,7 @@ import Modal from './components/modal/modal'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import _ from 'lodash'
+import { setCookie, getCookie } from './helper'
 
 import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
@@ -71,6 +72,17 @@ class Mainwrapper extends React.Component {
     navigator.permissions.query({
       name: 'clipboard-read'
     })
+    if (!getCookie('showedInstructions')) {
+      setCookie('showedInstructions', 1, 365)
+      toast('Drag a YouTube video onto the page to get started!', {
+        className: 'info-toast',
+        position: toast.POSITION.BOTTOM_LEFT,
+        progress: 0,
+        onOpen: () => {
+          setTimeout(toast.dismiss, 5000)
+        }
+      })
+    }
   }
 
   updateVideoDetailsList = videoUrl => {
