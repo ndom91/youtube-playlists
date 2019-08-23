@@ -1,4 +1,4 @@
-# 📺 YouTube Playlists
+# 📽️ YouTube Playlists
 
 ![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/tag-pre/ndom91/youtube-playlists.svg?&style=flat-square)
 ![GitHub](https://img.shields.io/github/license/ndom91/youtube-playlists.svg?style=flat-square)
@@ -29,7 +29,7 @@ If you want to setup your own instance, you need to do the following:
 4. Insert your YouTube API Key on line 2 in the variable `key`
 5. Adjust the `fetch` URL in `src/index.js` on line 111
 
-## 👥 Contributing
+## 🙏 Contributing
 
 This is very much still in beta stage, but you can run it locally by:
 
@@ -38,6 +38,6 @@ This is very much still in beta stage, but you can run it locally by:
 3. Start dev server `npm start`
 4. Visit `localhost:3000`
 
-## 💻 Screenshot
+## 📺 Screenshot
 
 ![screenshot 1](https://imgur.com/OsuNEJi.gif)
