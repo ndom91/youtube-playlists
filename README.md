@@ -45,3 +45,7 @@ This is very much still in beta stage, but you can run it locally by:
 ## 📺 Screenshot
 
 ![screenshot 1](https://imgur.com/OsuNEJi.gif)
+
+---
+
+#### 📝 License: [`MIT`](https://github.com/ndom91/youtube-playlists/blob/master/LICENSE)
