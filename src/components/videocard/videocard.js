@@ -41,6 +41,7 @@ class Videocard extends React.Component {
             <img
               style={cardThumbnail}
               className="cardThumbnail"
+              alt="Video Thumbnail"
               src={thumbnail}
             ></img>
             <div className="infos">
