@@ -51,7 +51,8 @@ class Mainwrapper extends React.Component {
       videoDetailsList: [],
       videoIds: [],
       skippedClipboardVideos: [],
-      eventId: null
+      eventId: null,
+      fetchInProgress: false
     }
   }
 
@@ -90,13 +91,14 @@ class Mainwrapper extends React.Component {
       const videoId = videoUrl
         .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
         .substring(0, 11)
-
+      this.setState({ fetchInProgress: true })
       if (!this.state.videoIds.includes(videoId)) {
         const videoDetails = this.getVideoDetails(videoId)
         videoDetails.then(details => {
           this.setState({
             videoDetailsList: [...this.state.videoDetailsList, details],
-            videoIds: [...this.state.videoIds, videoId]
+            videoIds: [...this.state.videoIds, videoId],
+            fetchInProgress: false
           })
         })
       }
@@ -239,6 +241,18 @@ class Mainwrapper extends React.Component {
 
     const throttledFocus = _.debounce(this.handleFocus, 1000)
 
+    const FetchSpinner = () => {
+      if (this.state.fetchInProgress) {
+        return (
+          <div className="fetchSpinnerDiv">
+            <div className="loader"></div>
+          </div>
+        )
+      } else {
+        return null
+      }
+    }
+
     const PlaylistJSX = (
       <span className="playlist-container">
         {videoDetailsList &&
@@ -262,6 +276,8 @@ class Mainwrapper extends React.Component {
         onFocus={throttledFocus}
         className="container"
       >
+        {/* {fetchInProgress ? FetchSpinner : undefined} */}
+        <FetchSpinner />
         <Droptarget callbackFromParent={this.updateVideoDetailsList} />
         <Header />
         <Sidebar
