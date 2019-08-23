@@ -7,7 +7,9 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/ndom91/youtube-playlists.svg?style=flat-square)](https://greenkeeper.io/)
 ![CircleCI](https://img.shields.io/circleci/build/github/ndom91/youtube-playlists.svg?style=flat-square)
 
-⚛️ React app for creating on-the-fly YouTube playlists. Demo available at: [`youtube.ndo.dev`](https://youtube.ndo.dev)  
+⚛️ React app for creating on-the-fly YouTube playlists. 
+
+> **Demo available at**: [`youtube.ndo.dev`](https://youtube.ndo.dev)  
 
 ## 🏁 Getting Started
 
