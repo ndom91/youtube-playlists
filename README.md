@@ -5,7 +5,8 @@
 ![David](https://img.shields.io/david/ndom91/youtube-playlists.svg?style=flat-square)
 ![GitHub issues](https://img.shields.io/github/issues-raw/ndom91/youtube-playlists.svg?style=flat-square)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ndom91/youtube-playlists.svg?style=flat-square)](https://greenkeeper.io/)
-![CircleCI](https://img.shields.io/circleci/build/github/ndom91/youtube-playlists.svg?style=flat-square)
+[![Actions Status](https://github.com/ndom91/youtube-playlists/workflows/build-and-deploy/badge.svg)](https://github.com/ndom91/youtube-playlists/actions)
+
 
 ⚛️ React app for creating on-the-fly YouTube playlists. 
 
@@ -33,7 +34,6 @@ In order to setup your own instance, you need to do the following:
 4. Insert your YouTube API Key on line 2 in the variable `key` of the worker code
 5. Adjust the `fetch` URL in `src/index.js` on line 111
 6. Deploy  
-> My implementation is being built via CircleCI and deployed to Github Pages. See [`.circleci/config.yml`](https://github.com/ndom91/youtube-playlists/blob/master/.circleci/config.yml)
 
 ## 🙏 Contributing
 
