@@ -29,7 +29,7 @@ class Player extends React.Component {
   }
 
   render() {
-    const { videoId } = this.props
+    const { videoId, onEnd } = this.props
 
     const opts = {
       height: '303',
@@ -47,7 +47,7 @@ class Player extends React.Component {
           opts={opts}
           onReady={this._onReady}
           onPlay={this._makeFullscreen}
-          onEnd={this.props.onEnd}
+          onEnd={onEnd}
         />
       </div>
     )

@@ -39,8 +39,6 @@ LogRocket.getSessionURL(sessionURL => {
   })
 })
 
-let videoOpts = {}
-
 class Mainwrapper extends React.Component {
   constructor(props) {
     super(props)
@@ -52,7 +50,11 @@ class Mainwrapper extends React.Component {
       videoIds: [],
       skippedClipboardVideos: [],
       eventId: null,
-      fetchInProgress: false
+      fetchInProgress: false,
+      videoOpts: {
+        fullscreen: 0,
+        autoplay: 1
+      }
     }
   }
 
@@ -106,7 +108,15 @@ class Mainwrapper extends React.Component {
   }
 
   onVideoEnd = () => {
-    this.startNextVideo()
+    const { videoOpts } = this.state
+
+    if (videoOpts.autoplay === 1) {
+      const videoDetailsRemaining = this.state.videoDetailsList.filter(
+        video => video.id !== this.state.activeVideo
+      )
+      this.setState({ videoDetailsList: videoDetailsRemaining })
+      this.startNextVideo()
+    }
   }
 
   startNextVideo = () => {
@@ -197,15 +207,21 @@ class Mainwrapper extends React.Component {
   }
 
   handleFullscreen = () => {
+    const { videoOpts } = this.state
     if (videoOpts.fullscreen === 1) {
-      videoOpts = { ...videoOpts, fullscreen: 0 }
+      this.setState({ videoOpts: { ...videoOpts, fullscreen: 0 } })
     } else {
-      videoOpts = { ...videoOpts, fullscreen: 1 }
+      this.setState({ videoOpts: { ...videoOpts, fullscreen: 1 } })
     }
   }
 
   handleAutoplay = () => {
-    // console.log(e)
+    const { videoOpts } = this.state
+    if (videoOpts.autoplay === 1) {
+      this.setState({ videoOpts: { ...videoOpts, autoplay: 0 } })
+    } else {
+      this.setState({ videoOpts: { ...videoOpts, autoplay: 1 } })
+    }
   }
 
   handleModalAdd = () => {
@@ -237,7 +253,14 @@ class Mainwrapper extends React.Component {
   }
 
   render() {
-    const { videoDetailsList } = this.state
+    const {
+      videoDetailsList,
+      videoList,
+      videoOpts,
+      activeVideo,
+      modalChildren,
+      isClipboardModalVisible
+    } = this.state
 
     const throttledFocus = _.debounce(this.handleFocus, 1000)
 
@@ -284,10 +307,11 @@ class Mainwrapper extends React.Component {
           handleAutoplay={this.handleAutoplay}
           onPlay={this.startNextVideo}
           onClear={this.clearVideos}
-          videos={this.state.videoList}
+          videos={videoList}
+          videoOpts={videoOpts}
         />
         <Player
-          videoId={this.state.activeVideo}
+          videoId={activeVideo}
           onEnd={this.onVideoEnd}
           videoOpts={videoOpts}
         />
@@ -295,11 +319,11 @@ class Mainwrapper extends React.Component {
           {PlaylistJSX}
         </div>
         <Modal
-          show={this.state.isClipboardModalVisible}
+          show={isClipboardModalVisible}
           handleAdd={this.handleModalAdd}
           handleClose={this.handleModalClose}
         >
-          {this.state.modalChildren}
+          {modalChildren}
         </Modal>
         <ToastContainer
           transition={Bounce}

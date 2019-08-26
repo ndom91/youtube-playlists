@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Khand:400&display=swap');
 @import '../css/variables';
 
 .videocard {
@@ -25,15 +26,14 @@ article a {
 article.card .thumb {
   width: auto;
   height: 110px;
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/new-york-city.png") no-repeat center;
   background-size: cover;
   border-radius: 3px;
 }
 
 article.card .infos {
   width: auto;
-  height: 180px;
-  margin-top: -5px;
+  height: 177px;
+  margin-top: -7px;
   position: relative;
   padding: 5px 8px;
   background: #fff;
@@ -48,8 +48,9 @@ article.card .infos .title {
   position: relative;
   margin: 1px 0;
   color: #152536;
-  font-family: "Grotesque Black", sans-serif;
-  font-size: 0.75rem;
+  font-family: "Khand", sans-serif;
+  line-height:15px;
+  font-size: 1rem;
   text-transform: uppercase;
   text-shadow: 0 0 0px #32577f;
   height: 3.6em;
@@ -70,16 +71,16 @@ article.card .infos .title:after {
 article.card .infos .channel, article.card .infos .time {
   margin-bottom: 10px;
   text-transform: uppercase;
-  font-size: .75rem;
+  font-size: 1rem;
   color: rgba(21, 37, 54, 0.7);
-  font-family: "Grotesque", sans-serif;
+  font-family: "Khand", sans-serif;
 }
 
 article.card .infos .channel {
   text-align: right !important;
   position: absolute;
   right: 8px;
-  bottom: 80px;
+  bottom: 70px;
 }
 
 article.card:hover .infos {

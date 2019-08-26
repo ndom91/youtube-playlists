@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker:400&display=swap');
 @import url('../css/font-awesome.min.css');
 @import '../css/variables';
 
@@ -28,10 +30,11 @@ button {
 }
 
 .fancy-button {
-  margin: 7px;
+  margin: 5px;
+  // font-family: 'Luckiest Guy', Tahoma, Sans-Serif;
+  font-family: "Permanent Marker", sans-serif;
   font-weight: 400 !important;
-  font-family: 'Luckiest Guy', Tahoma, Sans-Serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   letter-spacing: 1px;
   text-transform: uppercase;
   line-height: 34px;
@@ -82,7 +85,7 @@ button {
 }
 
 .fancy-button span {
-  padding: 20px 20px;
+  padding: 15px 15px;
   border-radius: 50em;
   position: relative;
   z-index: 2;
@@ -120,6 +123,7 @@ ul.ks-cboxtags li label {
   background-color: $color-light;
   color: $color-dark;
   font-size: 1.1rem;
+  font-family: "Permanent Marker", sans-serif;
   border-radius: 25px;
   user-select: none;
   outline: none;

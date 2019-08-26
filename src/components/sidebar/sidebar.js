@@ -3,6 +3,7 @@ import './sidebar.min.css'
 
 class Sidebar extends React.Component {
   render() {
+    const { handleFullscreen, handleAutoplay, onPlay, onClear } = this.props
     return (
       <div className="item sidebar">
         <div className="checkBoxWrapper">
@@ -11,33 +12,30 @@ class Sidebar extends React.Component {
               <input
                 type="checkbox"
                 id="checkboxOne"
-                onChange={this.props.handleFullscreen}
+                onChange={handleFullscreen}
                 value="Fullscreen"
               />
               <label htmlFor="checkboxOne">Fullscreen</label>
             </li>
             <li>
               <input
-                checked
+                defaultChecked
                 type="checkbox"
                 id="checkboxTwo"
-                onChange={this.props.handleAutoplay}
-                value="Auto-Play"
+                onChange={handleAutoplay}
+                value="checked"
               />
-              <label htmlFor="checkboxTwo">Auto-Play</label>
+              <label htmlFor="checkboxTwo">Autoplay</label>
             </li>
           </ul>
         </div>
 
         <div className="btn-wrapper">
-          <button className="fancy-button btn-play" onClick={this.props.onPlay}>
+          <button className="fancy-button btn-play" onClick={onPlay}>
             <span className="ripple">Play</span>
           </button>
 
-          <button
-            className="fancy-button btn-clear "
-            onClick={this.props.onClear}
-          >
+          <button className="fancy-button btn-clear " onClick={onClear}>
             <span className="ripple">Clear</span>
           </button>
         </div>

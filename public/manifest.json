@@ -1,6 +1,6 @@
 {
-  "short_name": "YouTube ",
-  "name": "Create React App Sample",
+  "short_name": "YouTube Playlists",
+  "name": "Youtube - Dynamic Playlists",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#FE802D"
+  "theme_color": "#3B2667",
+  "background_color": "#BC78EC"
 }
