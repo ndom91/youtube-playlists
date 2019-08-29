@@ -5,7 +5,7 @@
 ![David](https://img.shields.io/david/ndom91/youtube-playlists.svg?style=flat-square)
 ![GitHub issues](https://img.shields.io/github/issues-raw/ndom91/youtube-playlists.svg?style=flat-square)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ndom91/youtube-playlists.svg?style=flat-square)](https://greenkeeper.io/)
-[![Actions Status](https://github.com/ndom91/youtube-playlists/workflows/build-and-deploy/badge.svg)](https://github.com/ndom91/youtube-playlists/actions)
+[![Actions Status](https://github.com/ndom91/youtube-playlists/workflows/Build%20and%20Deploy/badge.svg)](https://github.com/ndom91/youtube-playlists/actions)
 
 
 ⚛️ React app for creating on-the-fly YouTube playlists. 
