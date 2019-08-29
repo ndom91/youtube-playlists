@@ -2,15 +2,15 @@ import React from 'react'
 import './droptarget.min.css'
 import { toast } from 'react-toastify'
 
-class Droptarget extends React.Component {
-  dragoverHandler = ev => {
+const Droptarget = props => {
+  const dragoverHandler = ev => {
     ev.preventDefault()
     const el = document.getElementById('dropTarget')
     el.style.visibility = 'visible'
     ev.dataTransfer.dropEffect = 'link'
   }
 
-  dropHandler = ev => {
+  const dropHandler = ev => {
     ev.preventDefault()
     ev.persist()
     const droppedUrl = ev.dataTransfer.getData('text/plain')
@@ -24,22 +24,20 @@ class Droptarget extends React.Component {
       return
     }
 
-    this.props.callbackFromParent(droppedUrl)
+    props.callbackFromParent(droppedUrl)
 
     const el = document.getElementById('dropTarget')
     el.style.visibility = 'hidden'
   }
 
-  render() {
-    return (
-      <div
-        id="dropTarget"
-        className="fullDroptarget"
-        onDrop={this.dropHandler}
-        onDragOver={this.dragoverHandler}
-      ></div>
-    )
-  }
+  return (
+    <div
+      id="dropTarget"
+      className="fullDroptarget"
+      onDrop={dropHandler}
+      onDragOver={dragoverHandler}
+    ></div>
+  )
 }
 
 export default Droptarget
