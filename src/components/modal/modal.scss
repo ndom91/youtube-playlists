@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Francois+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap');
 @import '../css/variables';
 
 .modal {
@@ -65,17 +66,16 @@
   right: 7px;
   color: #fff;
   font-size: 1.2rem;
-  font-family: 'Permanent Marker', Tahoma, Sans-Serif;
   font-weight: 800;
   padding: 10px 20px;
   z-index: 150;
 
-  & + .modal-header-text {
-    top: 5px;
-    height:20px;
+  &.modal-header-text {
+    font-family: 'Didact Gothic', Tahoma, Sans-Serif !important;
   }
 
-  & + .video-text {
+  &.video-text {
+    font-family: 'Francois One', Tahoma, Sans-Serif;
     top: 50px;
     color: #5e3e81;
     text-overflow: ellipsis;
@@ -83,7 +83,8 @@
     max-height: 45px;
   }
 
-  & + .footer-text {
+  &.footer-text {
+    font-family: 'Didact Gothic', Tahoma, Sans-Serif;
     bottom: 47px;
   }
 }
@@ -96,7 +97,7 @@
   width: 80px;
   height: 40px;
   border-radius: 5px;
-  font-family: 'Permanent Marker', Tahoma, Sans-Serif;
+  font-family: 'Francois One', Tahoma, Sans-Serif;
   font-size: 1.1rem;
   letter-spacing: 1px;
   background-size: 200% 100%;

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Khand:400&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Francois+One:400&display=swap');
 @import '../css/variables';
 
 .videocard {
@@ -48,9 +48,9 @@ article.card .infos .title {
   position: relative;
   margin: 1px 0;
   color: #152536;
-  font-family: "Khand", sans-serif;
+  font-family: 'Francois One', sans-serif;
   line-height:15px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   text-shadow: 0 0 0px #32577f;
   height: 3.6em;
@@ -71,9 +71,9 @@ article.card .infos .title:after {
 article.card .infos .channel, article.card .infos .time {
   margin-bottom: 10px;
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: rgba(21, 37, 54, 0.7);
-  font-family: "Khand", sans-serif;
+  font-family: 'Francois One', sans-serif;
 }
 
 article.card .infos .channel {

@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css?family=Permanent+Marker:400&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Francois+One:400&display=swap');
 @import url('../css/font-awesome.min.css');
 @import '../css/variables';
 
@@ -31,8 +30,7 @@ button {
 
 .fancy-button {
   margin: 5px;
-  // font-family: 'Luckiest Guy', Tahoma, Sans-Serif;
-  font-family: "Permanent Marker", sans-serif;
+  font-family: 'Francois One', sans-serif;
   font-weight: 400 !important;
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -123,7 +121,7 @@ ul.ks-cboxtags li label {
   background-color: $color-light;
   color: $color-dark;
   font-size: 1.1rem;
-  font-family: "Permanent Marker", sans-serif;
+  font-family: 'Francois One', sans-serif;
   border-radius: 25px;
   user-select: none;
   outline: none;
