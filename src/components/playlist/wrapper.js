@@ -8,7 +8,6 @@ class PlaylistWrapper extends Component {
     return (
       <DndProvider backend={HTML5Backend}>
         <Playlist
-          // id={1}
           videoDetailsList={this.props.videoDetailsList}
           onRemove={this.props.onRemove}
         />

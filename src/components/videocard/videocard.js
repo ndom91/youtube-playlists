@@ -1,11 +1,23 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import flow from 'lodash/flow'
+import { getEmptyImage } from 'react-dnd-html5-backend'
+import { createDragPreview } from 'react-dnd-text-dragpreview'
 import './videocard.min.css'
+
+const dragPreviewStyle = {
+  backgroundColor: 'rgb(68, 67, 67)',
+  borderColor: '#F96816',
+  color: 'white',
+  fontSize: 15,
+  paddingTop: 4,
+  paddingRight: 7,
+  paddingBottom: 6,
+  paddingLeft: 7
+}
 
 const handleOnClick = e => {
   e.preventDefault()
@@ -18,17 +30,20 @@ class Videocard extends React.Component {
   }
 
   componentDidMount() {
-    // // Use empty image as a drag preview so browsers don't draw it
-    // // and we can draw whatever we want on the custom drag layer instead.
-    // this.props.connectDragPreview(getEmptyImage(), {
-    //   // IE fallback: specify that we'd rather screenshot the node
-    //   // when it already knows it's being dragged so we can hide it with CSS.
-    //   captureDraggingState: true
-    // })
+    this.props.connectDragPreview(getEmptyImage(), {
+      captureDraggingState: true
+    })
 
-    const img = new Image()
-    img.src = this.props.cardThumbnail
-    img.onload = () => this.props.connectDragPreview(img)
+    this.dragPreview = createDragPreview('Moving Video', dragPreviewStyle)
+    this.props.connectDragPreview(this.dragPreview)
+  }
+
+  componentDidUpdate(prevProps) {
+    this.dragPreview = createDragPreview(
+      `${prevProps.title.slice(0, 25).concat('...')}`,
+      dragPreviewStyle,
+      this.dragPreview
+    )
   }
 
   render() {
@@ -62,7 +77,7 @@ class Videocard extends React.Component {
           id="videocard"
           className="videocard"
           style={{
-            opacity: isDragging ? 0.5 : 1,
+            opacity: isDragging ? 0.3 : 1,
             cusor: 'move'
           }}
           onClick={handleOnClick}
@@ -98,63 +113,21 @@ const cardSource = {
       listId: props.listId,
       card: props.card
     }
-  },
-
-  endDrag(props, monitor) {
-    const item = monitor.getItem()
-    const dropResult = monitor.getDropResult()
-
-    if (dropResult && dropResult.listId !== item.listId) {
-      // props.onRemove(item.index)
-    }
   }
 }
 
 const cardTarget = {
-  hover(props, monitor, component) {
+  hover(props, monitor) {
     const dragIndex = monitor.getItem().index
     const hoverIndex = props.index
     const sourceListId = monitor.getItem().listId
 
-    // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
       return
     }
 
-    // Determine rectangle on screen
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect()
-
-    // Get vertical middle
-    const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2
-
-    // Determine mouse position
-    const clientOffset = monitor.getClientOffset()
-
-    // Get pixels to the top
-    const hoverClientX = clientOffset.x - hoverBoundingRect.left
-
-    // Only perform the move when the mouse has crossed half of the items height
-    // When dragging downwards, only move when the cursor is below 50%
-    // When dragging upwards, only move when the cursor is above 50%
-
-    // Dragging downwards
-    if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
-      return
-    }
-
-    // Dragging upwards
-    if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
-      return
-    }
-
-    // Time to actually perform the action
     if (props.listId === sourceListId) {
       props.moveCard(dragIndex, hoverIndex)
-
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
       monitor.getItem().index = hoverIndex
     }
   }

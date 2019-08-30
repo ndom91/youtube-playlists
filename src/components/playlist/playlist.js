@@ -9,8 +9,7 @@ class Playlist extends React.Component {
     this.state = { videos: props.videoDetailsList }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // console.log('cWU', nextProps.videoDetailsList, this.state.videos)
+  componentWillUpdate(nextProps) {
     if (nextProps.videoDetailsList.length !== this.state.videos.length) {
       this.setState({ videos: nextProps.videoDetailsList })
     }
@@ -30,7 +29,6 @@ class Playlist extends React.Component {
     const { videos } = this.state
     const dragCard = videos[dragIndex]
 
-    console.log('1', this.state.videos)
     this.setState(
       update(this.state, {
         videos: {
@@ -38,19 +36,13 @@ class Playlist extends React.Component {
         }
       })
     )
-    console.log('2', this.state.videos)
   }
 
   render() {
-    const { canDrop, isOver } = this.props
-    const isActive = canDrop && isOver
-
-    const backgroundColor = isActive ? 'lightgreen' : 'rgba(0,0,0,0)'
-
     const { videos } = this.state
 
     return (
-      <span style={{ backgroundColor }} className="playlist-container">
+      <span className="playlist-container">
         {videos &&
           videos.map((video, index) => (
             <Videocard
@@ -72,12 +64,9 @@ class Playlist extends React.Component {
 }
 
 const cardTarget = {
-  drop(props, monitor, component) {
-    const { id } = props
-    const sourceObj = monitor.getItem()
-    if (id !== sourceObj.listId) component.pushCard(sourceObj.card)
+  drop(props) {
     return {
-      listId: id
+      listId: props.id
     }
   }
 }
