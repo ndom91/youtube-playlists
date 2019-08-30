@@ -1,0 +1,16 @@
+.fullDroptarget {
+  position:absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  // opacity: 1;
+  z-index: 1003;
+  pointer-events: none;
+  // visibility: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

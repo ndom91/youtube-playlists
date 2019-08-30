@@ -1,7 +1,7 @@
 import React from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library, config } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import flow from 'lodash/flow'
 import { getEmptyImage } from 'react-dnd-html5-backend'
@@ -27,6 +27,7 @@ class Videocard extends React.Component {
   constructor(props) {
     super(props)
     library.add(fas, faTrash)
+    config.autoA11y = true
   }
 
   componentDidMount() {

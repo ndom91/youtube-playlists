@@ -21,7 +21,8 @@ class Player extends React.Component {
       const requestFullScreen =
         playerElement.requestFullScreen ||
         playerElement.mozRequestFullScreen ||
-        playerElement.webkitRequestFullScreen
+        playerElement.webkitRequestFullScreen ||
+        playerElement.msRequestFullScreen
       if (requestFullScreen) {
         requestFullScreen.bind(playerElement)()
       }
@@ -35,7 +36,8 @@ class Player extends React.Component {
       height: '303',
       width: '540',
       playerVars: {
-        autoplay: 1
+        autoplay: 1,
+        modestbranding: 1
       }
       // https://developers.google.com/youtube/player_parameters
     }

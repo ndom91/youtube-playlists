@@ -9,7 +9,7 @@ class Playlist extends React.Component {
     this.state = { videos: props.videoDetailsList }
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (nextProps.videoDetailsList.length !== this.state.videos.length) {
       this.setState({ videos: nextProps.videoDetailsList })
     }
@@ -38,11 +38,15 @@ class Playlist extends React.Component {
     )
   }
 
+  handleDragOver(event) {
+    event.stopPropagation()
+  }
+
   render() {
     const { videos } = this.state
 
     return (
-      <span className="playlist-container">
+      <span onDragOver={this.handleDragOver} className="playlist-container">
         {videos &&
           videos.map((video, index) => (
             <Videocard

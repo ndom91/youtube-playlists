@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 // import HTML5Backend from 'react-dnd-html5-backend'
 import './index.min.css'
 import Header from './components/header/header'
-import Droptarget from './components/droptarget/droptarget'
+import Dropzone from './components/dropzone/dropzone'
 import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
 import Modal from './components/modal/modal'
@@ -70,7 +70,7 @@ class Mainwrapper extends React.Component {
   }
 
   makeVisible = () => {
-    const el = document.getElementById('dropTarget')
+    const el = document.getElementById('droptarget')
     el.style.visibility = 'visible'
   }
 
@@ -289,7 +289,7 @@ class Mainwrapper extends React.Component {
         className="container"
       >
         <FetchSpinner />
-        <Droptarget callbackFromParent={this.updateVideoDetailsList} />
+        <Dropzone addVideoOnDrop={this.updateVideoDetailsList} />
         <Header />
         <Sidebar
           handleFullscreen={this.handleFullscreen}
