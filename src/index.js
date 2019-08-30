@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 import './index.min.css'
 import Header from './components/header/header'
 import Droptarget from './components/droptarget/droptarget'
 import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
-import Videocard from './components/videocard/videocard'
 import Modal from './components/modal/modal'
+import Playlist from './components/playlist/playlist'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import _ from 'lodash'
@@ -171,6 +173,7 @@ class Mainwrapper extends React.Component {
             !this.state.videoIds.includes(videoId) &&
             !this.state.skippedClipboardVideos.includes(videoId)
           ) {
+            this.setState({ fetchInProgress: true })
             const videoInfo = this.getVideoDetails(videoId)
             videoInfo.then(details => {
               const children = (
@@ -193,7 +196,8 @@ class Mainwrapper extends React.Component {
               this.setState({
                 isClipboardModalVisible: true,
                 modalChildren: children,
-                clipboardLink: text
+                clipboardLink: text,
+                fetchInProgress: false
               })
             })
           }
@@ -276,22 +280,6 @@ class Mainwrapper extends React.Component {
       }
     }
 
-    const PlaylistJSX = (
-      <span className="playlist-container">
-        {videoDetailsList &&
-          videoDetailsList.map(video => (
-            <Videocard
-              key={video.id}
-              id={video.id}
-              title={video.title}
-              channel={video.channel}
-              thumbnail={video.thumb}
-              onRemove={() => this.removeVid(video.id)}
-            />
-          ))}
-      </span>
-    )
-
     return (
       <div
         onLoad={this.onLoad}
@@ -316,7 +304,12 @@ class Mainwrapper extends React.Component {
           videoOpts={videoOpts}
         />
         <div id="playlist" className="item footer playlist">
-          {PlaylistJSX}
+          <DndProvider backend={HTML5Backend}>
+            <Playlist
+              onRemove={this.removeVid}
+              videoDetailsList={videoDetailsList}
+            />
+          </DndProvider>
         </div>
         <Modal
           show={isClipboardModalVisible}
