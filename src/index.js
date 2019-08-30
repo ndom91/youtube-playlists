@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
+// import { DndProvider } from 'react-dnd'
+// import HTML5Backend from 'react-dnd-html5-backend'
 import './index.min.css'
 import Header from './components/header/header'
 import Droptarget from './components/droptarget/droptarget'
 import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
 import Modal from './components/modal/modal'
-import Playlist from './components/playlist/playlist'
+// import Playlist from './components/playlist/playlist'
+import PlaylistWrapper from './components/playlist/wrapper'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import _ from 'lodash'
@@ -304,12 +305,10 @@ class Mainwrapper extends React.Component {
           videoOpts={videoOpts}
         />
         <div id="playlist" className="item footer playlist">
-          <DndProvider backend={HTML5Backend}>
-            <Playlist
-              onRemove={this.removeVid}
-              videoDetailsList={videoDetailsList}
-            />
-          </DndProvider>
+          <PlaylistWrapper
+            onRemove={this.removeVid}
+            videoDetailsList={videoDetailsList}
+          />
         </div>
         <Modal
           show={isClipboardModalVisible}
