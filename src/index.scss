@@ -113,6 +113,7 @@ body {
 
 .playlist-container {
   display: inline;
+  z-index: 1001;
 }
 
 .progress-toast {

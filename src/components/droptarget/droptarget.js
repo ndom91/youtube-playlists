@@ -5,16 +5,20 @@ import { toast } from 'react-toastify'
 const Droptarget = props => {
   const dragoverHandler = ev => {
     ev.preventDefault()
-    const el = document.getElementById('dropTarget')
-    el.style.visibility = 'visible'
-    ev.dataTransfer.dropEffect = 'link'
+    // const droppedUrl = ev.dataTransfer.getData('text/plain')
+    console.log(ev.nativeEvent)
+    if (ev.nativeEvent.srcElement !== ev.nativeEvent.target) {
+      const el = document.getElementById('dropTarget')
+      el.style.visibility = 'visible'
+      ev.dataTransfer.dropEffect = 'link'
+    }
   }
 
   const dropHandler = ev => {
     ev.preventDefault()
     ev.persist()
     const droppedUrl = ev.dataTransfer.getData('text/plain')
-    if (!droppedUrl.includes('youtube.com/watch')) {
+    if (droppedUrl && !droppedUrl.includes('youtube.com/watch')) {
       toast.info('Must be a YouTube Link!', {
         className: 'info-toast',
         progressClassName: 'progress-toast'
