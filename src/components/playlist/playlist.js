@@ -9,20 +9,28 @@ class Playlist extends React.Component {
     this.state = { videos: props.videoDetailsList }
   }
 
-  // componentWillReceiveProps() {
-  //   this.setState({ videos: this.props.videoDetailsList })
-  // }
-
   componentWillUpdate(nextProps, nextState) {
-    if (nextProps.videoDetailsList !== this.state.videos) {
+    // console.log('cWU', nextProps.videoDetailsList, this.state.videos)
+    if (nextProps.videoDetailsList.length !== this.state.videos.length) {
       this.setState({ videos: nextProps.videoDetailsList })
     }
+  }
+
+  pushCard(card) {
+    this.setState(
+      update(this.state, {
+        videos: {
+          $push: [card]
+        }
+      })
+    )
   }
 
   moveCard = (dragIndex, hoverIndex) => {
     const { videos } = this.state
     const dragCard = videos[dragIndex]
 
+    console.log('1', this.state.videos)
     this.setState(
       update(this.state, {
         videos: {
@@ -30,13 +38,7 @@ class Playlist extends React.Component {
         }
       })
     )
-    // this.setState(
-    //   update(this.state, {
-    //     videos: {
-    //       $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
-    //     }
-    //   })
-    // )
+    console.log('2', this.state.videos)
   }
 
   render() {
@@ -61,7 +63,7 @@ class Playlist extends React.Component {
               channel={video.channel}
               thumbnail={video.thumb}
               onRemove={() => this.props.onRemove(video.id)}
-              moveCard={this.moveCard}
+              moveCard={this.moveCard.bind(this)}
             />
           ))}
       </span>

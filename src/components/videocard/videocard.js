@@ -17,8 +17,32 @@ class Videocard extends React.Component {
     library.add(fas, faTrash)
   }
 
+  componentDidMount() {
+    // // Use empty image as a drag preview so browsers don't draw it
+    // // and we can draw whatever we want on the custom drag layer instead.
+    // this.props.connectDragPreview(getEmptyImage(), {
+    //   // IE fallback: specify that we'd rather screenshot the node
+    //   // when it already knows it's being dragged so we can hide it with CSS.
+    //   captureDraggingState: true
+    // })
+
+    const img = new Image()
+    img.src = this.props.cardThumbnail
+    img.onload = () => this.props.connectDragPreview(img)
+  }
+
   render() {
-    const { id, onRemove, url, title, channel, thumbnail } = this.props
+    const {
+      id,
+      onRemove,
+      url,
+      title,
+      channel,
+      thumbnail,
+      isDragging,
+      connectDragSource,
+      connectDropTarget
+    } = this.props
 
     const cardThumbnail = {
       width: 'auto',
@@ -31,8 +55,6 @@ class Videocard extends React.Component {
     }
 
     const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
-
-    const { isDragging, connectDragSource, connectDropTarget } = this.props
 
     return connectDragSource(
       connectDropTarget(
@@ -144,6 +166,7 @@ export default flow(
   })),
   DragSource('VIDEOCARD', cardSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
   }))
 )(Videocard)
