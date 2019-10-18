@@ -1,15 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-// import { DndProvider } from 'react-dnd'
-// import HTML5Backend from 'react-dnd-html5-backend'
 import './index.min.css'
 import Header from './components/header/header'
 import Dropzone from './components/dropzone/dropzone'
 import Sidebar from './components/sidebar/sidebar'
 import Player from './components/player/player'
 import Modal from './components/modal/modal'
-// import Playlist from './components/playlist/playlist'
-import PlaylistWrapper from './components/playlist/wrapper'
+import Playlist from './components/playlist/playlist'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import _ from 'lodash'
@@ -19,6 +16,8 @@ import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
 import * as Sentry from '@sentry/browser'
 import ReactGA from 'react-ga'
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 // Google Analytics
 ReactGA.initialize('UA-111339084-6')
@@ -50,7 +49,6 @@ class Mainwrapper extends React.Component {
       activeVideo: '',
       isClipboardModalVisible: false,
       videoDetailsList: [],
-      videoIds: [],
       skippedClipboardVideos: [],
       eventId: null,
       fetchInProgress: false,
@@ -97,12 +95,11 @@ class Mainwrapper extends React.Component {
         .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
         .substring(0, 11)
       this.setState({ fetchInProgress: true })
-      if (!this.state.videoIds.includes(videoId)) {
+      if (!this.state.videoDetailsList.some(e => e.id === videoId)) {
         const videoDetails = this.getVideoDetails(videoId)
         videoDetails.then(details => {
           this.setState({
             videoDetailsList: [...this.state.videoDetailsList, details],
-            videoIds: [...this.state.videoIds, videoId],
             fetchInProgress: false
           })
         })
@@ -123,14 +120,12 @@ class Mainwrapper extends React.Component {
   }
 
   startNextVideo = () => {
-    const videoIds = this.state.videoIds
-    if (videoIds.length !== 0) {
-      const videoId = videoIds[0]
+    const videos = this.state.videoDetailsList
+    if (videos.length !== 0) {
+      const videoId = videos[0].id
       this.setState({ activeVideo: videoId })
-      const videoIdsRemaining = this.state.videoIds.filter(
-        video => video !== videoId
-      )
-      this.setState({ videoIds: videoIdsRemaining })
+      const videoIdsRemaining = videos.filter(video => video.id !== videoId)
+      this.setState({ videoDetailsList: videoIdsRemaining })
     } else {
       toast('No Videos Available!', {
         className: 'info-toast',
@@ -152,7 +147,6 @@ class Mainwrapper extends React.Component {
 
   removeVid = videoId => {
     this.setState({
-      videoIds: this.state.videoIds.filter(video => video !== videoId),
       videoDetailsList: this.state.videoDetailsList.filter(
         video => video.id !== videoId
       )
@@ -257,6 +251,13 @@ class Mainwrapper extends React.Component {
     })
   }
 
+  updateVideoListOrder = videoList => {
+    console.log(videoList)
+    this.setState({
+      videoDetailsList: videoList
+    })
+  }
+
   render() {
     const {
       videoDetailsList,
@@ -305,10 +306,13 @@ class Mainwrapper extends React.Component {
           videoOpts={videoOpts}
         />
         <div id="playlist" className="item footer playlist">
-          <PlaylistWrapper
-            onRemove={this.removeVid}
-            videoDetailsList={videoDetailsList}
-          />
+          <DndProvider backend={HTML5Backend}>
+            <Playlist
+              videoDetailsList={videoDetailsList}
+              onRemove={this.removeVid}
+              updateVideoListOrder={this.updateVideoListOrder}
+            />
+          </DndProvider>
         </div>
         <Modal
           show={isClipboardModalVisible}

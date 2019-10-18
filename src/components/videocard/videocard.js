@@ -24,13 +24,13 @@ const handleOnClick = e => {
 }
 
 class Videocard extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     library.add(fas, faTrash)
     config.autoA11y = true
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.connectDragPreview(getEmptyImage(), {
       captureDraggingState: true
     })
@@ -39,7 +39,7 @@ class Videocard extends React.Component {
     this.props.connectDragPreview(this.dragPreview)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     this.dragPreview = createDragPreview(
       `${prevProps.title.slice(0, 25).concat('...')}`,
       dragPreviewStyle,
@@ -47,7 +47,7 @@ class Videocard extends React.Component {
     )
   }
 
-  render() {
+  render () {
     const {
       id,
       onRemove,
@@ -75,8 +75,8 @@ class Videocard extends React.Component {
     return connectDragSource(
       connectDropTarget(
         <div
-          id="videocard"
-          className="videocard"
+          id='videocard'
+          className='videocard'
           style={{
             opacity: isDragging ? 0.3 : 1,
             cusor: 'move'
@@ -84,20 +84,20 @@ class Videocard extends React.Component {
           onClick={handleOnClick}
           key={id}
         >
-          <button onClick={onRemove} className="btn-floating">
+          <button onClick={onRemove} className='btn-floating'>
             {deleteIcon}
           </button>
-          <article className="card">
+          <article className='card'>
             <a href={url}>
               <img
                 style={cardThumbnail}
-                className="cardThumbnail"
-                alt="Video Thumbnail"
+                className='cardThumbnail'
+                alt='Video Thumbnail'
                 src={thumbnail}
-              ></img>
-              <div className="infos">
-                <h2 className="title">{title}</h2>
-                <h3 className="channel">{channel}</h3>
+              />
+              <div className='infos'>
+                <h2 className='title'>{title}</h2>
+                <h3 className='channel'>{channel}</h3>
               </div>
             </a>
           </article>
@@ -108,7 +108,7 @@ class Videocard extends React.Component {
 }
 
 const cardSource = {
-  beginDrag(props) {
+  beginDrag (props) {
     return {
       index: props.index,
       listId: props.listId,
@@ -118,7 +118,7 @@ const cardSource = {
 }
 
 const cardTarget = {
-  hover(props, monitor) {
+  hover (props, monitor) {
     const dragIndex = monitor.getItem().index
     const hoverIndex = props.index
     const sourceListId = monitor.getItem().listId

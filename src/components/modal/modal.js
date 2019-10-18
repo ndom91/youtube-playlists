@@ -8,12 +8,12 @@ const Modal = props => {
 
   return (
     <div className={showHideClassName}>
-      <section className="modal-main">
+      <section className='modal-main'>
         {children}
-        <button className="modal-btn btn-add" onClick={handleAdd}>
+        <button className='modal-btn btn-add' onClick={handleAdd}>
           Add
         </button>
-        <button className="modal-btn btn-close" onClick={handleClose}>
+        <button className='modal-btn btn-close' onClick={handleClose}>
           Close
         </button>
       </section>

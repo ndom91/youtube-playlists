@@ -1,8 +1,13 @@
 .hoverDropZone {
+  position: relative;
   height: 35vw;
   width: 55vh;
   z-index: 1002;
-  background: linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%);
+  background: linear-gradient(
+    135deg, 
+   rgba(250, 215, 161, 1) 10%, 
+   rgba(233, 109, 113, 1) 100%
+  );
   border-radius: 15px;
   border: 10px solid #fff;
   // display: none;
@@ -13,14 +18,15 @@
   font-family: 'Francois One', sans-serif;
   text-align: center;
   line-height: 35vh;
-  box-shadow: 0 0 65px 10px #000;
-
+  box-shadow: 0 0 1165px 1110px rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: flex-start;
 }
 
-.dropZoneCloseBtn{
+.dropZoneCloseBtn {
+  position: absolute;
+  right: 0;
   z-index: 1;
   color: #fff;
   width: 37px;
@@ -31,9 +37,8 @@
   background-image: linear-gradient( 145deg, #BC78EC 10%, #3B2667 100%);
   border-radius: 50%;
   -webkit-transition: background-color .3s;
-  transition: background-color .3s;
+  transition: all 250ms linear;
   cursor: pointer;
-  vertical-align: middle;
   border: none;
 }
 

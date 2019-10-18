@@ -30,17 +30,17 @@ const Droptarget = props => {
     el.style.visibility = 'hidden'
   }
 
-  const hideDropTarget = e => {
+  const hideDropTarget = () => {
     const el = document.getElementById('droptarget')
     el.style.visibility = 'hidden'
   }
 
   return (
-    <div id="droptarget" onDrop={dropHandler} className="hoverDropZone">
-      <button onClick={hideDropTarget} className="dropZoneCloseBtn">
+    <div id='droptarget' onDrop={dropHandler} className='hoverDropZone'>
+      <button onClick={hideDropTarget} className='dropZoneCloseBtn'>
         {deleteIcon}
       </button>
-      Drop Video Here
+      <div>Drop Video Here</div>
     </div>
   )
 }

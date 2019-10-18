@@ -4,18 +4,25 @@ import Videocard from '../videocard/videocard'
 import { DropTarget } from 'react-dnd'
 
 class Playlist extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
-    this.state = { videos: props.videoDetailsList }
+    this.state = {
+      videos: []
+    }
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (nextProps.videoDetailsList.length !== this.state.videos.length) {
+  UNSAFE_componentWillUpdate (nextProps) {
+    // console.log(nextProps.videoDetailsList.length)
+    // console.log(this.state.videos.length)
+    if (
+      nextProps.videoDetailsList &&
+      nextProps.videoDetailsList.length !== this.state.videos.length
+    ) {
       this.setState({ videos: nextProps.videoDetailsList })
     }
   }
 
-  pushCard(card) {
+  pushCard (card) {
     this.setState(
       update(this.state, {
         videos: {
@@ -25,7 +32,7 @@ class Playlist extends React.Component {
     )
   }
 
-  moveCard = (dragIndex, hoverIndex) => {
+  moveCard (dragIndex, hoverIndex) {
     const { videos } = this.state
     const dragCard = videos[dragIndex]
 
@@ -36,17 +43,18 @@ class Playlist extends React.Component {
         }
       })
     )
+    this.props.updateVideoListOrder(this.state.videos)
   }
 
-  handleDragOver(event) {
+  handleDragOver (event) {
     event.stopPropagation()
   }
 
-  render() {
+  render () {
     const { videos } = this.state
 
     return (
-      <span onDragOver={this.handleDragOver} className="playlist-container">
+      <span onDragOver={this.handleDragOver} className='playlist-container'>
         {videos &&
           videos.map((video, index) => (
             <Videocard
@@ -68,7 +76,7 @@ class Playlist extends React.Component {
 }
 
 const cardTarget = {
-  drop(props) {
+  drop (props) {
     return {
       listId: props.id
     }

@@ -4,38 +4,38 @@ import './sidebar.min.css'
 const Sidebar = props => {
   const { handleFullscreen, handleAutoplay, onPlay, onClear } = props
   return (
-    <div className="item sidebar">
-      <div className="checkBoxWrapper">
-        <ul className="ks-cboxtags">
+    <div className='item sidebar'>
+      <div className='checkBoxWrapper'>
+        <ul className='ks-cboxtags'>
           <li>
             <input
-              type="checkbox"
-              id="checkboxOne"
+              type='checkbox'
+              id='checkboxOne'
               onChange={handleFullscreen}
-              value="Fullscreen"
+              value='Fullscreen'
             />
-            <label htmlFor="checkboxOne">Fullscreen</label>
+            <label htmlFor='checkboxOne'>Fullscreen</label>
           </li>
           <li>
             <input
               defaultChecked
-              type="checkbox"
-              id="checkboxTwo"
+              type='checkbox'
+              id='checkboxTwo'
               onChange={handleAutoplay}
-              value="checked"
+              value='checked'
             />
-            <label htmlFor="checkboxTwo">Autoplay</label>
+            <label htmlFor='checkboxTwo'>Autoplay</label>
           </li>
         </ul>
       </div>
 
-      <div className="btn-wrapper">
-        <button className="fancy-button btn-play" onClick={onPlay}>
-          <span className="ripple">Play</span>
+      <div className='btn-wrapper'>
+        <button className='fancy-button btn-play' onClick={onPlay}>
+          <span className='ripple'>Play</span>
         </button>
 
-        <button className="fancy-button btn-clear " onClick={onClear}>
-          <span className="ripple">Clear</span>
+        <button className='fancy-button btn-clear ' onClick={onClear}>
+          <span className='ripple'>Clear</span>
         </button>
       </div>
     </div>
