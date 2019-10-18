@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Francois+One:400&display=swap');
 @import url('../css/font-awesome.min.css');
-@import '../css/variables';
+@import url('../css/variables.css');
 
 .btn-wrapper {
   display: flex;
@@ -47,7 +46,7 @@ button {
 
   &:before {
     content: '';
-    background-color: $color-light;
+    background-color: rgba(255, 255, 255, .4);;
     border-radius: 50%;
     display: block;
     position: absolute;
@@ -118,8 +117,8 @@ ul.ks-cboxtags li label {
   white-space: nowrap;
   margin: 3px 0px;
   padding: 10px 32px;
-  background-color: $color-light;
-  color: $color-dark;
+    background-color: rgba(255, 255, 255, .4);;
+  color: rgb(118, 81, 199);
   font-size: 1.1rem;
   font-family: 'Francois One', sans-serif;
   border-radius: 25px;

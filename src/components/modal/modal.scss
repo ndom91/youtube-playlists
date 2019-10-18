@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Francois+One&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap');
-@import '../css/variables';
+@import url('../css/variables.css');
 
 .modal {
   width: 670px;
@@ -71,7 +69,8 @@
   z-index: 150;
 
   &.modal-header-text {
-    font-family: 'Didact Gothic', Tahoma, Sans-Serif !important;
+    font-family: 'Didact Gothic', Tahoma, Sans-Serif;
+    font-weight: 400;
   }
 
   &.video-text {
@@ -85,6 +84,7 @@
 
   &.footer-text {
     font-family: 'Didact Gothic', Tahoma, Sans-Serif;
+    font-weight: 400;
     bottom: 47px;
   }
 }

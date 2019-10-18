@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Francois+One:400&display=swap');
-@import '../css/variables';
+@import url('../css/variables.css');
 
 .videocard {
   width: 150px;
@@ -7,6 +6,7 @@
   margin: 25px 10px;
   position: relative;
   display: inline-block;
+  z-index: 1001;
 }
 
 article.card {
