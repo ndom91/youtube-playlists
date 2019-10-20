@@ -11,10 +11,6 @@ class Player extends React.Component {
     }
   }
 
-  _onReady = () => {
-    // console.log(e.target)
-  }
-
   _makeFullscreen = () => {
     if (this.props.videoOpts.fullscreen === 1) {
       const playerElement = document.getElementById('widget2')
@@ -47,7 +43,6 @@ class Player extends React.Component {
         <YouTube
           videoId={videoId}
           opts={opts}
-          onReady={this._onReady}
           onPlay={this._makeFullscreen}
           onEnd={onEnd}
         />

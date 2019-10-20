@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
 @import 'components/css/variables';
 
 body {
@@ -22,7 +21,6 @@ body {
 }
 
 .info-toast {
-  // background-image: radial-gradient( circle 346px at 0.3% 100%,  rgba(62,76,167,0.9) 0%, rgba(255,99,145,0.9) 100% ) !important;
   background: rgba(70, 51, 93, 0.78) !important;
   color: #fff !important;
   font-size: 1.4em;
@@ -52,59 +50,132 @@ body {
   transition: all 150ms ease-in-out;
 }
 
-.loader {
-  // color: #6C52D9;
-  color: #E96D71;
-  font-size: 90px;
-  text-indent: -9999em;
-  overflow: hidden;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  margin: 72px auto;
+// .loader {
+//   color: #E96D71;
+//   font-size: 90px;
+//   text-indent: -9999em;
+//   overflow: hidden;
+//   width: 1em;
+//   height: 1em;
+//   border-radius: 50%;
+//   margin: 72px auto;
+//   position: relative;
+//   transform: sk-scaleout;
+//   animation: load6 1.7s infinite ease, round 1.7s infinite ease, sk-scaleout 1s ease-in-out;
+// }
+// @keyframes sk-scaleout {
+//     0% {
+//         opacity: 0;
+//     }
+//     100% {
+//         opacity: 1;
+//     }
+// }
+// @keyframes load6 {
+//   0% {
+//     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+//   }
+//   5%,
+//   95% {
+//     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+//   }
+//   10%,
+//   59% {
+//     box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+//   }
+//   20% {
+//     box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+//   }
+//   38% {
+//     box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+//   }
+//   100% {
+//     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+//   }
+// }
+// @keyframes round {
+//   0% {
+//     -webkit-transform: rotate(0deg);
+//     transform: rotate(0deg);
+//   }
+//   100% {
+//     -webkit-transform: rotate(360deg);
+//     transform: rotate(360deg);
+//   }
+// }
+
+$size: 120px;
+
+.cube-container {
   position: relative;
-  transform: sk-scaleout;
-  animation: load6 1.7s infinite ease, round 1.7s infinite ease, sk-scaleout 1s ease-in-out;
+  perspective: $size * 4;
+  width: $size;
+  height: $size;  
+  margin: calc(50vh - 30px - 50px) auto;
+  box-shadow: 0 0 0 1000px rgba(0,0,0,0.7);
+  transition: all 150ms linear;
 }
-@keyframes sk-scaleout {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+
+#cube {
+  width: $size;
+  height: $size;
+  position: absolute;
+  transform-style: preserve-3d;
 }
-@keyframes load6 {
-  0% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+
+#cube div {
+  margin: 0;
+  width: $size;
+  height: $size;
+  display: block;
+  position: absolute;
+}
+
+#cube .front  { transform: rotateY(   0deg ) translateZ( $size/2 ); background-color: #7CD4DF; }
+#cube .back   { transform: rotateX( 180deg ) translateZ( $size/2 ); background-color: #89BA5F; }
+#cube .right  { transform: rotateY(  90deg ) translateZ( $size/2 ); background-color: #E4B83A; }
+#cube .left   { transform: rotateY( -90deg ) translateZ( $size/2 ); background-color: #C386C6; }
+#cube .top    { transform: rotateX(  90deg ) translateZ( $size/2 ); background-color: #cb732b; }
+#cube .bottom { transform: rotateX( -90deg ) translateZ( $size/2 ); background-color: #C75875; }
+#cube         { transform: translateZ( - $size/2 ); }
+
+@keyframes rubrik {
+  0%{
+    transform: rotateY(0)rotateZ(0)rotateX(0);
   }
-  5%,
-  95% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  16.6%{
+    transform: rotateY(90deg)rotateZ(0)rotateX(0);
   }
-  10%,
-  59% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  33.2%{
+    transform: rotateY(90deg)rotateZ(90deg)rotateX(0);
   }
-  20% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+  49.8%{
+    transform: rotateY(90deg)rotateZ(180deg)rotateX(0);
   }
-  38% {
-    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
-  }
-  100% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  66.4%{
+    transform: rotateY(180deg)rotateZ(180deg)rotateX(0);
+  }  
+  83%{
+    transform: rotateY(180deg)rotateZ(180deg)rotateX(-90deg);
+  }  
+  100%{
+    transform: rotateY(180deg)rotateZ(180deg)rotateX(-180deg);
   }
 }
-@keyframes round {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+
+#cube {
+	animation: rubrik 4s infinite cubic-bezier(.68,-.55,.265,1.55);
+}
+
+#shadow { 
+  width: $size;
+  height: 5px;
+  position: absolute;
+  top: $size*2.5;
+  left: 0;
+  background: black;
+  opacity: 0.05;
+  border-radius: 40%;
 }
 
 
@@ -125,7 +196,7 @@ body {
   margin: 0 auto;
   margin-top: 5%;
   display: grid;
-  width: 900px;
+  width: 880px;
   height: auto;
   grid-template-columns: 250px 1fr 1fr;
   grid-template-rows: 200px 5fr 1fr 200px;
@@ -164,12 +235,10 @@ body {
 }
 
 .item {
-  // background-image: linear-gradient(130deg, #6C52D9 0%, #1EAAFC 85%, #3EDFD7 100%);
   background: #ececec;
   box-shadow: 0 0 20px 5px rgba(103, 58, 183, 0.2);
   color: #ffffff;
   border-radius: 15px;
-  // border: 6px solid rgb(240, 240, 240);
   border: 5px solid rgba(155, 39, 176, 0.15);
   display: flex;
   justify-content: center;
@@ -178,12 +247,10 @@ body {
 }
 
 .header {
-  // background: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
   background: rgba(156, 39, 176, 0.5);
 }
 
 .sidebar {
-  // background: linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%);
   background: rgba(118, 81, 199, 0.6);
 }
 
@@ -194,6 +261,5 @@ body {
 
 .footer {
   display: inherit;
-  // background-image: linear-gradient( 145deg, #BC78EC 10%, #3B2667 100%);
   background: rgba(250, 215, 161, 0.7);
 }

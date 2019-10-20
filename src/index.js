@@ -161,39 +161,35 @@ class Mainwrapper extends React.Component {
             videoId = text
               .substring(text.indexOf('v=') + 2, text.length)
               .substring(0, 11)
-          }
-          if (
-            text.includes('youtube.com/watch') &&
-            !this.state.videoIds.includes(videoId) &&
-            !this.state.skippedClipboardVideos.includes(videoId)
-          ) {
-            this.setState({ fetchInProgress: true })
-            const videoInfo = this.getVideoDetails(videoId)
-            videoInfo.then(details => {
-              const children = (
-                <div>
-                  <div className="thumb-fade" />
-                  <img
-                    alt="video thumbnail"
-                    className="clipboard-video-thumb"
-                    src={details.thumb}
-                  />
-                  <div className="modal-text modal-header-text">
-                    We've detected a YouTube link in your clipboard
+            if (!this.state.videoDetailsList.some(v => v.id === videoId) && !this.state.skippedClipboardVideos.includes(videoId)) {
+              this.setState({ fetchInProgress: true })
+              const videoInfo = this.getVideoDetails(videoId)
+              videoInfo.then(details => {
+                const children = (
+                  <div>
+                    <div className="thumb-fade" />
+                    <img
+                      alt="video thumbnail"
+                      className="clipboard-video-thumb"
+                      src={details.thumb}
+                    />
+                    <div className="modal-text modal-header-text">
+                      We've detected a YouTube link in your clipboard
+                    </div>
+                    <div className="modal-text video-text">{details.title}</div>
+                    <div className="modal-text footer-text">
+                      Would you like to add it?
+                    </div>
                   </div>
-                  <div className="modal-text video-text">{details.title}</div>
-                  <div className="modal-text footer-text">
-                    Would you like to add it?
-                  </div>
-                </div>
-              )
-              this.setState({
-                isClipboardModalVisible: true,
-                modalChildren: children,
-                clipboardLink: text,
-                fetchInProgress: false
+                )
+                this.setState({
+                  isClipboardModalVisible: true,
+                  modalChildren: children,
+                  clipboardLink: text,
+                  fetchInProgress: false
+                })
               })
-            })
+            }
           }
         })
       }
@@ -273,7 +269,19 @@ class Mainwrapper extends React.Component {
       if (this.state.fetchInProgress) {
         return (
           <div className="fetchSpinnerDiv">
-            <div className="loader"></div>
+            {/* <div className="loader"></div> */}
+            <div class='cube-container'>
+              <div id='cube'>
+                <div class='front'></div>
+                <div class='back'></div>
+                <div class='right'></div>
+                <div class='left'></div>
+                <div class='top'></div>
+                <div class='bottom'></div>
+              </div>
+              <div id='shadow'>"</div>
+            </div>
+
           </div>
         )
       } else {
