@@ -127,9 +127,8 @@ class Mainwrapper extends React.Component {
       const videoIdsRemaining = videos.filter(video => video.id !== videoId)
       this.setState({ videoDetailsList: videoIdsRemaining })
     } else {
-      toast('No Videos Available!', {
-        className: 'info-toast',
-        progressClassName: 'progress-toast'
+      toast('No Videos Available', {
+        className: 'info-toast'
       })
     }
   }
@@ -323,12 +322,13 @@ class Mainwrapper extends React.Component {
         </Modal>
         <ToastContainer
           transition={Bounce}
-          autoclose={3000}
+          autoclose={1500}
           className="toast-container"
           closeOnClick
           pauseOnVisibilityChange={false}
           pauseOnHover={false}
           pauseOnFocusLoss={false}
+          hideProgressBar={true}
           closeButton={false}
         />
       </div>
