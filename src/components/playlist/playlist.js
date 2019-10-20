@@ -64,7 +64,7 @@ class Playlist extends React.Component {
                 <div class='top' />
                 <div class='bottom' />
               </div>
-              <div id='shadow'>"</div>
+              <div id='shadow'>,</div>
             </div>
 
           </div>
