@@ -1,7 +1,8 @@
 .hoverDropZone {
   position: relative;
-  height: 35vw;
-  width: 55vh;
+  height: 35vh;
+  width: 55vw;
+  max-width: 550px;
   z-index: 1002;
   background: linear-gradient(
     135deg, 
