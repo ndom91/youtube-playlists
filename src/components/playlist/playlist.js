@@ -12,8 +12,6 @@ class Playlist extends React.Component {
   }
 
   UNSAFE_componentWillUpdate (nextProps) {
-    // console.log(nextProps.videoDetailsList.length)
-    // console.log(this.state.videos.length)
     if (
       nextProps.videoDetailsList &&
       nextProps.videoDetailsList.length !== this.state.videos.length
