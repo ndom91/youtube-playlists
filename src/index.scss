@@ -124,7 +124,7 @@ body {
   margin: 0 auto;
   margin-top: 5%;
   display: grid;
-  width: 850px;
+  width: 900px;
   height: auto;
   grid-template-columns: 250px 1fr 1fr;
   grid-template-rows: 200px 5fr 1fr 200px;
@@ -159,6 +159,7 @@ body {
   justify-content: left !important;
   padding: 0 10px;
   margin-bottom: auto;
+  min-height: 200px;
 }
 
 .item {
