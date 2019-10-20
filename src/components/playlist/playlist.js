@@ -51,6 +51,29 @@ class Playlist extends React.Component {
   render () {
     const { videos } = this.state
 
+    const FetchSpinner = () => {
+      if (this.props.fetchInProgress) {
+        return (
+          <div className='fetchSpinnerDiv'>
+            <div class='cube-container'>
+              <div id='cube'>
+                <div class='front' />
+                <div class='back' />
+                <div class='right' />
+                <div class='left' />
+                <div class='top' />
+                <div class='bottom' />
+              </div>
+              <div id='shadow'>"</div>
+            </div>
+
+          </div>
+        )
+      } else {
+        return null
+      }
+    }
+
     return (
       <span onDragOver={this.handleDragOver} className='playlist-container'>
         {videos &&
@@ -68,6 +91,7 @@ class Playlist extends React.Component {
               moveCard={this.moveCard.bind(this)}
             />
           ))}
+        <FetchSpinner />
       </span>
     )
   }

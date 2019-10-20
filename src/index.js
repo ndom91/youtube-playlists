@@ -260,34 +260,34 @@ class Mainwrapper extends React.Component {
       videoOpts,
       activeVideo,
       modalChildren,
-      isClipboardModalVisible
+      isClipboardModalVisible,
+      fetchInProgress
     } = this.state
 
     const throttledFocus = _.debounce(this.handleFocus, 1000)
 
-    const FetchSpinner = () => {
-      if (this.state.fetchInProgress) {
-        return (
-          <div className="fetchSpinnerDiv">
-            {/* <div className="loader"></div> */}
-            <div class='cube-container'>
-              <div id='cube'>
-                <div class='front'></div>
-                <div class='back'></div>
-                <div class='right'></div>
-                <div class='left'></div>
-                <div class='top'></div>
-                <div class='bottom'></div>
-              </div>
-              <div id='shadow'>"</div>
-            </div>
+    // const FetchSpinner = () => {
+    //   if (this.state.fetchInProgress) {
+    //     return (
+    //       <div className="fetchSpinnerDiv">
+    //         <div class='cube-container'>
+    //           <div id='cube'>
+    //             <div class='front'></div>
+    //             <div class='back'></div>
+    //             <div class='right'></div>
+    //             <div class='left'></div>
+    //             <div class='top'></div>
+    //             <div class='bottom'></div>
+    //           </div>
+    //           <div id='shadow'>"</div>
+    //         </div>
 
-          </div>
-        )
-      } else {
-        return null
-      }
-    }
+    //       </div>
+    //     )
+    //   } else {
+    //     return null
+    //   }
+    // }
 
     return (
       <div
@@ -296,7 +296,7 @@ class Mainwrapper extends React.Component {
         onFocus={throttledFocus}
         className="container"
       >
-        <FetchSpinner />
+        {/* <FetchSpinner /> */}
         <Dropzone addVideoOnDrop={this.updateVideoDetailsList} />
         <Header />
         <Sidebar
@@ -318,6 +318,7 @@ class Mainwrapper extends React.Component {
               videoDetailsList={videoDetailsList}
               onRemove={this.removeVid}
               updateVideoListOrder={this.updateVideoListOrder}
+              fetchInProgress={fetchInProgress}
             />
           </DndProvider>
         </div>
