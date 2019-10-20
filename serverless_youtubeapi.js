@@ -1,21 +1,18 @@
-async function getVideoDetails(id, hostname) {
+async function getVideoDetails (id, hostname) {
   const key = 'YOUTUBE_API_KEY'
   if (!id) {
     return 'Please provide an id'
   }
 
-  const response = await fetch(
-    `https://www.googleapis.com/youtube/v3/videos?id=${id}&part=snippet&key=${key}`,
-    {
-      headers: {
-        'Access-Control-Allow-Origin': hostname,
-        'Content-Type': 'application/json'
-      },
-      crossdomain: true
-    }
-  )
+  const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${id}&part=snippet&key=${key}`, {
+    headers: {
+      'Access-Control-Allow-Origin': hostname,
+      'Content-Type': 'application/json'
+    },
+    crossdomain: true
+  })
     .then(resp => resp.json())
-    .then(response => {
+    .then((response) => {
       const videoDetails = response.items[0].snippet
       const channel = videoDetails.channelTitle
       const title = videoDetails.localized.title
@@ -37,11 +34,12 @@ async function getVideoDetails(id, hostname) {
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
+  // 'Access-Control-Allow-Origin': "https://yourdomain",
   'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type'
 }
 
-async function handleRequest(request) {
+async function handleRequest (request) {
   const url = new URL(request.url)
   const hostname = url.hostname
   const videoId = url.searchParams.get('vid')
@@ -53,13 +51,7 @@ async function handleRequest(request) {
 }
 
 addEventListener('fetch', event => {
-  if (event.request.method === 'OPTIONS') {
-    return event.respondWith(handleRequest(event.request))
-  } else if (
-    event.request.method === 'GET' ||
-    event.request.method === 'HEAD' ||
-    event.request.method === 'POST'
-  ) {
+  if (event.request.method !== 'PUT' || event.request.method !== 'DELETE') {
     return event.respondWith(handleRequest(event.request))
   } else {
     return new Response(null, {
