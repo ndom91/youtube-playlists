@@ -99,8 +99,6 @@ class Mainwrapper extends React.Component {
   }
 
   incrementJoyride = (state) => {
-    console.log(state)
-    console.log(state.type)
     if (state.type === 'tour:end' || state.type === 'tour:start') {
       const joyrideCount = window.localStorage.getItem('joyrideCount') || 0
       window.localStorage.setItem('joyrideCount', parseInt(joyrideCount) + 1)
@@ -116,17 +114,6 @@ class Mainwrapper extends React.Component {
     navigator.permissions.query({
       name: 'clipboard-read'
     })
-    if (!getCookie('showedInstructions')) {
-      setCookie('showedInstructions', 1, 365)
-      toast('Drag a YouTube video onto the page to get started!', {
-        className: 'info-toast',
-        position: toast.POSITION.BOTTOM_LEFT,
-        progress: 0,
-        onOpen: () => {
-          setTimeout(toast.dismiss, 5000)
-        }
-      })
-    }
   }
 
   updateVideoDetailsList = videoUrl => {
