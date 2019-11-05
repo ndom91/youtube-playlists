@@ -11,6 +11,7 @@ import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import _ from 'lodash'
 import { setCookie, getCookie } from './helper'
+import Joyride from 'react-joyride'
 
 import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
@@ -55,7 +56,28 @@ class Mainwrapper extends React.Component {
       videoOpts: {
         fullscreen: 0,
         autoplay: 1
-      }
+      },
+      joyrideRun: false,
+      steps: [
+        {
+          target: '.container',
+          title: 'Drop Target',
+          content: 'To begin, drag and drop a YouTube video onto this area.',
+          placementBeacon: 'top',
+          placement: 'auto'
+        },
+        {
+          target: '.footer.playlist',
+          title: 'Playlist',
+          content: 'Your videos will appear here. You can drag and drop to change the order.',
+        },
+        {
+          target: '.item.sidebar',
+          title: 'Controls',
+          content: 'These are your controls, you can change options as well as start / clear the playlist.',
+          placement: 'right'
+        }
+      ]
     }
   }
 
@@ -65,6 +87,24 @@ class Mainwrapper extends React.Component {
       const eventId = Sentry.captureException(error)
       this.setState({ eventId })
     })
+  }
+
+  componentDidMount () {
+    const joyrideCount = window.localStorage.getItem('joyrideCount')
+    if (joyrideCount < 4) {
+      this.setState({
+        joyrideRun: true
+      })
+    }
+  }
+
+  incrementJoyride = (state) => {
+    console.log(state)
+    console.log(state.type)
+    if (state.type === 'tour:end' || state.type === 'tour:start') {
+      const joyrideCount = window.localStorage.getItem('joyrideCount') || 0
+      window.localStorage.setItem('joyrideCount', parseInt(joyrideCount) + 1)
+    }
   }
 
   makeVisible = () => {
@@ -261,33 +301,12 @@ class Mainwrapper extends React.Component {
       activeVideo,
       modalChildren,
       isClipboardModalVisible,
-      fetchInProgress
+      fetchInProgress,
+      steps,
+      joyrideRun
     } = this.state
 
     const throttledFocus = _.debounce(this.handleFocus, 1000)
-
-    // const FetchSpinner = () => {
-    //   if (this.state.fetchInProgress) {
-    //     return (
-    //       <div className="fetchSpinnerDiv">
-    //         <div class='cube-container'>
-    //           <div id='cube'>
-    //             <div class='front'></div>
-    //             <div class='back'></div>
-    //             <div class='right'></div>
-    //             <div class='left'></div>
-    //             <div class='top'></div>
-    //             <div class='bottom'></div>
-    //           </div>
-    //           <div id='shadow'>"</div>
-    //         </div>
-
-    //       </div>
-    //     )
-    //   } else {
-    //     return null
-    //   }
-    // }
 
     return (
       <div
@@ -296,7 +315,20 @@ class Mainwrapper extends React.Component {
         onFocus={throttledFocus}
         className="container"
       >
-        {/* <FetchSpinner /> */}
+        <Joyride
+          steps={steps}
+          showSkipButton
+          continuous
+          showProgress
+          run={joyrideRun}
+          styles={{
+            options: {
+              zIndex: 1001,
+              primaryColor: '#ff4242'
+            }
+          }}
+          callback={this.incrementJoyride}
+          />
         <Dropzone addVideoOnDrop={this.updateVideoDetailsList} />
         <Header />
         <Sidebar
