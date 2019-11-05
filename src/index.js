@@ -10,7 +10,6 @@ import Playlist from './components/playlist/playlist'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import _ from 'lodash'
-import { setCookie, getCookie } from './helper'
 import Joyride from 'react-joyride'
 
 import LogRocket from 'logrocket'
