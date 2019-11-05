@@ -1,7 +1,7 @@
 {
   "name": "youtube-playlists",
   "description": "Create on-the-fly YouTube playlists!",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "homepage": "https://youtube.ndo.dev",
   "repository": "https://github.com/ndom91/youtube-playlists",
   "license": "MIT",
@@ -30,7 +30,6 @@
     "react-dom": "^16.10.2",
     "react-ga": "^2.7.0",
     "react-joyride": "^2.1.1",
-    "react-kawaii": "^0.14.4",
     "react-scripts": "3.1.2",
     "react-toastify": "^5.4.0",
     "react-youtube": "^7.9.0",
