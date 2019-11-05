@@ -46,7 +46,7 @@ This is very much still in beta stage, but you can run it locally by:
 
 ## 📺 Screenshot
 
-![screenshot 1](https://imgur.com/OsuNEJi.gif)
+![screenshot 1](https://imgur.com/x7HnWld.gif)
 
 ---
 
