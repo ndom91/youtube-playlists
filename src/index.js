@@ -91,7 +91,7 @@ class Mainwrapper extends React.Component {
 
   componentDidMount () {
     const joyrideCount = window.localStorage.getItem('joyrideCount')
-    if (joyrideCount < 4) {
+    if (joyrideCount < 2) {
       this.setState({
         joyrideRun: true
       })
