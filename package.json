@@ -24,7 +24,7 @@
     "logrocket": "^1.0.2",
     "logrocket-react": "^4.0.0",
     "react": "^16.10.2",
-    "react-dnd": "^9.4.0",
+    "react-dnd": "^10.0.0",
     "react-dnd-html5-backend": "^9.4.0",
     "react-dnd-text-dragpreview": "^0.2.3",
     "react-dom": "^16.10.2",
