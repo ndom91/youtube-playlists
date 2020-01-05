@@ -59,6 +59,7 @@ class Mainwrapper extends React.Component {
       toast(`${title} + ${text} + ${urll}`, {
         className: 'info-toast'
       })
+      this.updateVideoDetailsList(urll || text)
     });
 
     this.state = {
