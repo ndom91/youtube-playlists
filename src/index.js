@@ -19,6 +19,8 @@ import ReactGA from 'react-ga'
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
+import * as serviceWorker from './components/serviceWorker'
+
 // Google Analytics
 ReactGA.initialize('UA-111339084-6')
 ReactGA.pageview(window.location.pathname + window.location.search)
@@ -364,3 +366,5 @@ class Mainwrapper extends React.Component {
 }
 
 ReactDOM.render(<Mainwrapper />, document.getElementById('root'))
+
+serviceWorker.register()

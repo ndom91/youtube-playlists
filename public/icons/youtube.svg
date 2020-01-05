@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" id="Layer_1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+<path d="M88.884,30.942c-0.42-3.503-3.721-6.864-7.175-7.313c-21.062-2.616-42.36-2.616-63.415,0.001  c-3.457,0.448-6.758,3.809-7.178,7.312c-1.487,12.835-1.487,25.283,0,38.118c0.42,3.503,3.721,6.865,7.178,7.312  c21.055,2.615,42.354,2.615,63.415,0c3.454-0.446,6.755-3.809,7.175-7.312C90.371,56.225,90.371,43.777,88.884,30.942z   M82.263,68.292c-0.075,0.465-0.932,1.363-1.426,1.471c-10.16,1.26-20.551,1.904-30.837,1.904s-20.677-0.645-30.886-1.91  c-0.449-0.102-1.302-1-1.38-1.494c-1.423-12.279-1.423-24.245,0.007-36.553c0.071-0.467,0.928-1.364,1.426-1.471  c10.156-1.262,20.547-1.904,30.836-1.904c10.283,0,20.674,0.643,30.886,1.911c0.439,0.099,1.299,0.996,1.377,1.494  C83.688,44.018,83.688,55.983,82.263,68.292z"/>
+<path d="M43.333,36.667v26.667l20-13.333L43.333,36.667z"/>
+
+	<metadata>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+			<rdf:Description about="https://iconscout.com/legal#licenses" dc:title="Youtube, logo" dc:description="Youtube, logo" dc:publisher="Iconscout" dc:date="2017-06-19" dc:format="image/svg+xml" dc:language="en">
+				<dc:creator>
+					<rdf:Bag>
+						<rdf:li>Danil Polshin</rdf:li>
+					</rdf:Bag>
+				</dc:creator>
+			</rdf:Description>
+		</rdf:RDF>
+    </metadata></svg>
