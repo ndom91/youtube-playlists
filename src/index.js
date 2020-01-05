@@ -53,6 +53,12 @@ class Mainwrapper extends React.Component {
       console.log('Title shared: ' + parsedUrl.searchParams.get('title'));
       console.log('Text shared: ' + parsedUrl.searchParams.get('text'));
       console.log('URL shared: ' + parsedUrl.searchParams.get('url'));
+      const title = parsedUrl.searchParams.get('title');
+      const text = parsedUrl.searchParams.get('text');
+      const urll = parsedUrl.searchParams.get('url');
+      toast(`${title} + ${text} + ${urll}`, {
+        className: 'info-toast'
+      })
     });
 
     this.state = {

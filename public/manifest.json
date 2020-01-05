@@ -39,7 +39,7 @@
   "theme_color": "#3B2667",
   "background_color": "#BC78EC",
   "share_target": {
-    "action": "/share-video/",
+    "action": "/",
     "method": "GET",
     "params": {
       "title": "title",
