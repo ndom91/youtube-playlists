@@ -126,10 +126,16 @@ class Mainwrapper extends React.Component {
 
   updateVideoDetailsList = videoUrl => {
     if (videoUrl) {
-      const videoId = videoUrl
-        .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
-        .substring(0, 11)
       this.setState({ fetchInProgress: true })
+      let videoId
+      if (videoUrl.includes('youtu.be')) {
+        videoId = videoUrl
+          .substring(videoUrl.indexOf('tu.be/') + 6)
+      } else if (videoUrl.includes('youtube.com')) {
+        videoId = videoUrl
+          .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+          .substring(0, 11)
+      }
       if (!this.state.videoDetailsList.some(e => e.id === videoId)) {
         const videoDetails = this.getVideoDetails(videoId)
         videoDetails.then(details => {
