@@ -18,3 +18,9 @@
   letter-spacing: 3px;
 }
 
+
+@media only screen and (max-width: 768px) {
+  .youtube-logo {
+    height: 145px;
+  }
+}

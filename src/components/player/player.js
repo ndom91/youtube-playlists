@@ -6,8 +6,14 @@ class Player extends React.Component {
   constructor(props) {
     super(props)
 
+    let width = 540
+    if (window.innerWidth < 768) {
+      width = 340
+    }
+
     this.state = {
-      activeVideo: ''
+      activeVideo: '',
+      width: width
     }
   }
 
@@ -30,7 +36,7 @@ class Player extends React.Component {
 
     const opts = {
       height: '303',
-      width: '540',
+      width: this.state.width,
       playerVars: {
         autoplay: 1,
         modestbranding: 1
