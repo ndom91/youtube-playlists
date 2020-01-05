@@ -37,5 +37,14 @@
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#3B2667",
-  "background_color": "#BC78EC"
+  "background_color": "#BC78EC",
+  "share_target": {
+    "action": "/share-video/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }
