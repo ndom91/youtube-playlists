@@ -14,7 +14,7 @@ const Droptarget = props => {
     ev.preventDefault()
     ev.persist()
     const droppedUrl = ev.dataTransfer.getData('text/plain')
-    if (droppedUrl && !droppedUrl.includes('youtube.com/watch')) {
+    if (droppedUrl && !droppedUrl.includes('youtu')) {
       toast.info('Must be a YouTube Link!', {
         className: 'info-toast',
         progressClassName: 'progress-toast'
