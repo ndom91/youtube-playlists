@@ -18,6 +18,14 @@ Simply drag-and-drop a YouTube URL / Tab onto the page and it will be added to t
 
 Once you've got your playlist organized, press "Play" and the application will begin auto-playing your playlist, optionally in staying in fullscreen through the remainder of the dynamic playlist.
 
+## ⚛️ Features
+
+- Create on the fly playlists from YouTube without cluttering your 'saves'
+- Responsive Design 
+- Progressive Web App - Installable on Mobile
+- Web Share Target - You can 'share' from any other Android App to this App.
+- (**Coming Soon**) Google Cast Functionality
+
 ## ⚓ Requirements
 
 The only requirement to host your own instance is a YouTube API Key. You can visit [developers.google.com/youtube/v3/getting-started](https://developers.google.com/youtube/v3/getting-started) to view how to get one.
