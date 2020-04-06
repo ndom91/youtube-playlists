@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.min.css'
+import './index.css'
 import Header from './components/header'
 import Dropzone from './components/dropzone'
 import Sidebar from './components/sidebar'
