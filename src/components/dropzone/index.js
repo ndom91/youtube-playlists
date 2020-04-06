@@ -1,6 +1,6 @@
 import React from 'react'
 import './dropzone.min.css'
-import Droptarget from './droptarget'
+import Droptarget from '../droptarget'
 
 const Dropzone = props => {
   return (

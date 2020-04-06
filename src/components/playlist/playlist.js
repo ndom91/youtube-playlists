@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import Videocard from '../videocard/videocard'
+import Videocard from '../videocard'
 import { DropTarget } from 'react-dnd'
 
 const Playlist = props => {
@@ -84,7 +84,7 @@ const Playlist = props => {
 }
 
 const cardTarget = {
-  drop (props) {
+  drop(props) {
     return {
       listId: props.id
     }
