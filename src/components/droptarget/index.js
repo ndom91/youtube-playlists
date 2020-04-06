@@ -10,6 +10,7 @@ const Droptarget = props => {
   config.autoA11y = true
 
   const deleteIcon = <FontAwesomeIcon icon={['fas', 'times']} />
+
   const dropHandler = ev => {
     ev.preventDefault()
     ev.persist()
@@ -19,29 +20,29 @@ const Droptarget = props => {
         className: 'info-toast',
         progressClassName: 'progress-toast'
       })
-      const el = document.getElementById('droptarget')
-      el.style.visibility = 'hidden'
+      props.closeDropzone()
       return
     }
 
     props.addVideoOnDrop(droppedUrl)
-
-    const el = document.getElementById('droptarget')
-    el.style.visibility = 'hidden'
+    props.closeDropzone()
   }
 
   const hideDropTarget = () => {
-    const el = document.getElementById('droptarget')
-    el.style.visibility = 'hidden'
+    props.closeDropzone()
   }
 
   return (
-    <div id='droptarget' onDrop={dropHandler} className='hoverDropZone'>
-      <button onClick={hideDropTarget} className='dropZoneCloseBtn'>
-        {deleteIcon}
-      </button>
-      <div>Drop Video Here</div>
-    </div>
+    <>
+      {props.visible
+        ? <div onDrop={dropHandler} className='hoverDropZone'>
+          <button onClick={hideDropTarget} className='dropZoneCloseBtn'>
+            {deleteIcon}
+          </button>
+          <div>Drop Video Here</div>
+        </div>
+        : null}
+    </>
   )
 }
 
