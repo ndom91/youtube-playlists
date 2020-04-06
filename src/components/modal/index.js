@@ -1,23 +1,23 @@
 import React from 'react'
-import './modal.min.css'
+import * as S from './styled'
 
 const Modal = props => {
   const { handleClose, handleAdd, show, children } = props
 
-  const showHideClassName = show ? 'modal display-block' : 'modal display-none'
+  const showHideClassName = show ? 'display-block' : 'display-none'
 
   return (
-    <div className={showHideClassName}>
-      <section className='modal-main'>
+    <S.Modal className={showHideClassName}>
+      <section>
         {children}
-        <button className='modal-btn btn-add' onClick={handleAdd}>
+        <S.ModalBtn className='btn-add' onClick={handleAdd}>
           Add
-        </button>
-        <button className='modal-btn btn-close' onClick={handleClose}>
+        </S.ModalBtn>
+        <S.ModalBtn className='btn-close' onClick={handleClose}>
           Close
-        </button>
+        </S.ModalBtn>
       </section>
-    </div>
+    </S.Modal>
   )
 }
 

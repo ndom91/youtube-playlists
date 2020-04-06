@@ -1,4 +1,6 @@
-.hoverDropZone {
+import styled from 'styled-components'
+
+export const HoverDropzone = styled.div`
   position: relative;
   height: 35vh;
   width: 55vw;
@@ -22,9 +24,9 @@
   display: flex;
   justify-content: center;
   align-content: flex-start;
-}
+`
 
-.dropZoneCloseBtn {
+export const DropzoneBtn = styled.button`
   position: absolute;
   right: 0;
   z-index: 1;
@@ -36,14 +38,11 @@
   font-size: 22px;
   background-image: linear-gradient( 145deg, #BC78EC 10%, #3B2667 100%);
   border-radius: 50%;
-  -webkit-transition: background-color .3s;
   transition: all 250ms linear;
   cursor: pointer;
   border: none;
 
   transition: box-shadow 0.15s ease,transform 0.15s ease;
-  -webkit-transition: box-shadow 0.15s ease,-webkit-transform 0.15s ease;
-  -webkit-transition: box-shadow 0.15s ease,transform 0.15s ease;
   will-change: box-shadow,transform;
   text-shadow: 0 1px 0 #4b5ef0;
   background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
@@ -61,8 +60,6 @@
     background-blend-mode: multiply,normal;
     background-image: linear-gradient(#5468ff,#5468ff),linear-gradient(to top,#fff,#e4e4e9) no-repeat;
     box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #5468ff;
-    -webkit-transform: translateY(2px);
-    -ms-transform: translateY(2px);
     transform: translateY(2px);
   }
-}
+`

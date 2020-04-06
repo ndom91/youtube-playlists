@@ -21,6 +21,8 @@ import HTML5Backend from 'react-dnd-html5-backend'
 
 import * as serviceWorker from './components/serviceWorker'
 
+import * as S from './styled'
+
 // Google Analytics
 ReactGA.initialize('UA-111339084-6')
 ReactGA.pageview(window.location.pathname + window.location.search)
@@ -218,19 +220,19 @@ class Mainwrapper extends React.Component {
               videoInfo.then(details => {
                 const children = (
                   <div>
-                    <div className="thumb-fade" />
-                    <img
+                    <S.ThumbFade className="thumb-fade" />
+                    <S.ClipboardThumbnail
                       alt="video thumbnail"
                       className="clipboard-video-thumb"
                       src={details.thumb}
                     />
-                    <div className="modal-text modal-header-text">
+                    <S.ModalText className="modal-header-text">
                       We've detected a YouTube link in your clipboard
-                    </div>
-                    <div className="modal-text video-text">{details.title}</div>
-                    <div className="modal-text footer-text">
+                    </S.ModalText>
+                    <S.ModalText className="video-text">{details.title}</S.ModalText>
+                    <S.ModalText className="footer-text">
                       Would you like to add it?
-                    </div>
+                    </S.ModalText>
                   </div>
                 )
                 this.setState({

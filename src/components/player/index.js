@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import YouTube from 'react-youtube'
-import './player.min.css'
+
+import * as S from './styled'
 
 const Player = props => {
   const [width, setWidth] = useState(540)
@@ -38,14 +39,14 @@ const Player = props => {
   }
 
   return (
-    <div id='playerWrapper' className='item player'>
+    <S.Player id='playerWrapper' className='item player'>
       <YouTube
         videoId={videoId}
         opts={opts}
         onPlay={makeFullscreen}
         onEnd={onEnd}
       />
-    </div>
+    </S.Player>
   )
 }
 

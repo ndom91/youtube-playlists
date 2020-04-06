@@ -1,12 +1,13 @@
 import React from 'react'
 import logo from './header1.png'
-import './header.min.css'
+
+import * as S from './styled'
 
 const Header = () => {
   return (
-    <div className='item header Header'>
-      <img src={logo} className='youtube-logo' alt='logo' />
-    </div>
+    <S.Header className='item header'>
+      <S.YoutubeLogo src={logo} alt='logo' />
+    </S.Header>
   )
 }
 
