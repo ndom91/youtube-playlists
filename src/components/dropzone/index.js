@@ -1,10 +1,10 @@
 import React from 'react'
-import './dropzone.min.css'
 import Droptarget from '../droptarget'
+import * as S from './styled'
 
 const Dropzone = props => {
   return (
-    <div
+    <S.DroptargetWrapper
       style={{
         backgroundColor: props.visible ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)',
         visibility: props.visible ? 'visible' : 'hidden'
@@ -13,7 +13,7 @@ const Dropzone = props => {
       className='fullDroptarget'
     >
       <Droptarget visible={props.visible} closeDropzone={props.closeDropzone} addVideoOnDrop={props.addVideoOnDrop} />
-    </div>
+    </S.DroptargetWrapper>
   )
 }
 

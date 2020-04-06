@@ -1,4 +1,5 @@
-@import 'components/css/variables';
+@import url('https://fonts.googleapis.com/css?family=Francois+One');
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
 
 body {
   margin: 0;

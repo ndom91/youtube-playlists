@@ -6,7 +6,8 @@ import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import flow from 'lodash/flow'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { createDragPreview } from 'react-dnd-text-dragpreview'
-import './videocard.min.css'
+// import './videocard.min.css'
+import * as S from './styled'
 
 const dragPreviewStyle = {
   backgroundColor: 'rgb(68, 67, 67)',
@@ -63,47 +64,38 @@ const Videocard = (props) => {
     }
   })
 
-  const cardThumbnail = {
-    width: 'auto',
-    height: '120px',
-    marginLeft: '-30px',
-    marginTop: '-5px',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    borderRadius: '3px'
-  }
-
   const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
 
   return connectDragSource(
     connectDropTarget(
-      <div
-        id='videocard'
-        className='videocard'
-        style={{
-          opacity: isDragging ? 0.3 : 1,
-          cusor: 'move'
-        }}
-        onClick={handleOnClick}
-        key={id}
-      >
-        <button onClick={onRemove} className='btn-floating'>
-          {deleteIcon}
-        </button>
-        <article className='card'>
-          <a href={url}>
-            <img
-              style={cardThumbnail}
-              className='cardThumbnail'
-              alt='Video Thumbnail'
-              src={thumbnail}
-            />
-            <div className='infos'>
-              <h2 className='title'>{title}</h2>
-              <h3 className='channel'>{channel}</h3>
-            </div>
-          </a>
-        </article>
+      <div style={{ display: 'inline-block' }}>
+        <S.VideoCard
+          id='videocard'
+          className='videocard'
+          style={{
+            opacity: isDragging ? 0.3 : 1,
+            cusor: 'move'
+          }}
+          onClick={handleOnClick}
+          key={id}
+        >
+          <S.CardBtn onClick={onRemove}>
+            {deleteIcon}
+          </S.CardBtn>
+          <S.Article>
+            <a href={url}>
+              <S.CardThumb
+                className='cardThumbnail'
+                alt='Video Thumbnail'
+                src={thumbnail}
+              />
+              <S.CardInfos className='cardInfos'>
+                <S.CardTitle className='title'>{title}</S.CardTitle>
+                <S.CardChannel className='channel'>{channel}</S.CardChannel>
+              </S.CardInfos>
+            </a>
+          </S.Article>
+        </S.VideoCard>
       </div>
     )
   )

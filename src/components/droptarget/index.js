@@ -1,9 +1,10 @@
 import React from 'react'
-import './droptarget.min.css'
 import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTimes } from '@fortawesome/free-solid-svg-icons'
+
+import * as S from './styled'
 
 const Droptarget = props => {
   library.add(fas, faTimes)
@@ -35,12 +36,12 @@ const Droptarget = props => {
   return (
     <>
       {props.visible
-        ? <div onDrop={dropHandler} className='hoverDropZone'>
-          <button onClick={hideDropTarget} className='dropZoneCloseBtn'>
+        ? <S.HoverDropzone onDrop={dropHandler} className='hoverDropZone'>
+          <S.DropzoneBtn onClick={hideDropTarget} className='dropZoneCloseBtn'>
             {deleteIcon}
-          </button>
+          </S.DropzoneBtn>
           <div>Drop Video Here</div>
-        </div>
+        </S.HoverDropzone>
         : null}
     </>
   )
