@@ -59,6 +59,7 @@ class Mainwrapper extends React.Component {
       isClipboardModalVisible: false,
       videoDetailsList: [],
       skippedClipboardVideos: [],
+      dropzoneVisible: false,
       eventId: null,
       fetchInProgress: false,
       videoOpts: {
@@ -97,7 +98,7 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const joyrideCount = window.localStorage.getItem('joyrideCount')
     if (joyrideCount < 2) {
       this.setState({
@@ -114,8 +115,17 @@ class Mainwrapper extends React.Component {
   }
 
   makeVisible = () => {
-    const el = document.getElementById('droptarget')
-    el.style.visibility = 'visible'
+    // const el = document.getElementById('droptarget')
+    // el.style.visibility = 'visible'
+    this.setState({
+      dropzoneVisible: true
+    })
+  }
+
+  closeDropzone = () => {
+    this.setState({
+      dropzoneVisible: false
+    })
   }
 
   onLoad = () => {
@@ -304,7 +314,8 @@ class Mainwrapper extends React.Component {
       isClipboardModalVisible,
       fetchInProgress,
       steps,
-      joyrideRun
+      joyrideRun,
+      dropzoneVisible
     } = this.state
 
     const throttledFocus = _.debounce(this.handleFocus, 1000)
@@ -329,8 +340,12 @@ class Mainwrapper extends React.Component {
             }
           }}
           callback={this.incrementJoyride}
-          />
-        <Dropzone addVideoOnDrop={this.updateVideoDetailsList} />
+        />
+        <Dropzone
+          visible={dropzoneVisible}
+          addVideoOnDrop={this.updateVideoDetailsList}
+          closeDropzone={this.closeDropzone}
+        />
         <Header />
         <Sidebar
           handleFullscreen={this.handleFullscreen}

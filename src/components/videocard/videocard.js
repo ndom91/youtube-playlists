@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
@@ -19,92 +19,94 @@ const dragPreviewStyle = {
   paddingLeft: 7
 }
 
-const handleOnClick = e => {
+const handleOnClick = (e) => {
   e.preventDefault()
 }
 
-class Videocard extends React.Component {
-  constructor (props) {
-    super(props)
+const Videocard = (props) => {
+  const [sDragPreview, setDragPreview] = useState({})
+  const {
+    id,
+    onRemove,
+    url,
+    title,
+    channel,
+    thumbnail,
+    isDragging,
+    connectDragSource,
+    connectDropTarget
+  } = props
+
+  useEffect(() => {
     library.add(fas, faTrash)
     config.autoA11y = true
-  }
-
-  componentDidMount () {
-    this.props.connectDragPreview(getEmptyImage(), {
+    props.connectDragPreview(getEmptyImage(), {
       captureDraggingState: true
     })
 
-    this.dragPreview = createDragPreview('Moving Video', dragPreviewStyle)
-    this.props.connectDragPreview(this.dragPreview)
-  }
+    const dragPreview = createDragPreview('Moving Video', dragPreviewStyle)
+    setDragPreview(dragPreview)
+    props.connectDragPreview(dragPreview)
+  }, [])
 
-  componentDidUpdate (prevProps) {
-    this.dragPreview = createDragPreview(
-      `${prevProps.title.slice(0, 25).concat('...')}`,
-      dragPreviewStyle,
-      this.dragPreview
-    )
-  }
-
-  render () {
-    const {
-      id,
-      onRemove,
-      url,
-      title,
-      channel,
-      thumbnail,
-      isDragging,
-      connectDragSource,
-      connectDropTarget
-    } = this.props
-
-    const cardThumbnail = {
-      width: 'auto',
-      height: '120px',
-      marginLeft: '-30px',
-      marginTop: '-5px',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      borderRadius: '3px'
-    }
-
-    const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
-
-    return connectDragSource(
-      connectDropTarget(
-        <div
-          id='videocard'
-          className='videocard'
-          style={{
-            opacity: isDragging ? 0.3 : 1,
-            cusor: 'move'
-          }}
-          onClick={handleOnClick}
-          key={id}
-        >
-          <button onClick={onRemove} className='btn-floating'>
-            {deleteIcon}
-          </button>
-          <article className='card'>
-            <a href={url}>
-              <img
-                style={cardThumbnail}
-                className='cardThumbnail'
-                alt='Video Thumbnail'
-                src={thumbnail}
-              />
-              <div className='infos'>
-                <h2 className='title'>{title}</h2>
-                <h3 className='channel'>{channel}</h3>
-              </div>
-            </a>
-          </article>
-        </div>
+  const mounted = useRef()
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true
+    } else {
+      const dragPreview = createDragPreview(
+        `${title.slice(0, 25).concat('...')}`,
+        dragPreviewStyle,
+        sDragPreview
       )
-    )
+      setDragPreview(dragPreview)
+    }
+  })
+
+  const cardThumbnail = {
+    width: 'auto',
+    height: '120px',
+    marginLeft: '-30px',
+    marginTop: '-5px',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    borderRadius: '3px'
   }
+
+  const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
+
+  return connectDragSource(
+    connectDropTarget(
+      <div
+        id='videocard'
+        className='videocard'
+        style={{
+          opacity: isDragging ? 0.3 : 1,
+          cusor: 'move'
+        }}
+        onClick={handleOnClick}
+        key={id}
+      >
+        <button onClick={onRemove} className='btn-floating'>
+          {deleteIcon}
+        </button>
+        <article className='card'>
+          <a href={url}>
+            <img
+              style={cardThumbnail}
+              className='cardThumbnail'
+              alt='Video Thumbnail'
+              src={thumbnail}
+            />
+            <div className='infos'>
+              <h2 className='title'>{title}</h2>
+              <h3 className='channel'>{channel}</h3>
+            </div>
+          </a>
+        </article>
+      </div>
+    )
+  )
 }
 
 const cardSource = {
@@ -135,7 +137,7 @@ const cardTarget = {
 }
 
 export default flow(
-  DropTarget('VIDEOCARD', cardTarget, connect => ({
+  DropTarget('VIDEOCARD', cardTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
   })),
   DragSource('VIDEOCARD', cardSource, (connect, monitor) => ({

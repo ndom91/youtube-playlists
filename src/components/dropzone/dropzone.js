@@ -3,24 +3,16 @@ import './dropzone.min.css'
 import Droptarget from './droptarget'
 
 const Dropzone = props => {
-  let isTargetVisible = false
-  const showDropTarget = ev => {
-    ev.preventDefault()
-    const el = document.getElementById('droptarget')
-    el.style.visibility = 'visible'
-    isTargetVisible = true
-  }
-
   return (
     <div
       style={{
-        backgroundColor: !isTargetVisible ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0.3)'
+        backgroundColor: props.visible ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)',
+        visibility: props.visible ? 'visible' : 'hidden'
       }}
       id='dropzone'
       className='fullDroptarget'
-      onDragOver={showDropTarget}
     >
-      <Droptarget addVideoOnDrop={props.addVideoOnDrop} />
+      <Droptarget visible={props.visible} closeDropzone={props.closeDropzone} addVideoOnDrop={props.addVideoOnDrop} />
     </div>
   )
 }

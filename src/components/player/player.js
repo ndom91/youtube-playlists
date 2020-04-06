@@ -1,24 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import YouTube from 'react-youtube'
 import './player.min.css'
 
-class Player extends React.Component {
-  constructor(props) {
-    super(props)
+const Player = props => {
+  const [width, setWidth] = useState(540)
 
-    let width = 540
-    if (window.innerWidth < 768) {
-      width = 340
+  useEffect(() => {
+    if (window && window.innerWidth < 768) {
+      setWidth(340)
     }
+  }, [])
 
-    this.state = {
-      activeVideo: '',
-      width: width
+  const { videoId, onEnd } = props
+
+  const opts = {
+    height: '303',
+    width: width,
+    playerVars: {
+      autoplay: 1,
+      modestbranding: 1
     }
+    // https://developers.google.com/youtube/player_parameters
   }
 
-  _makeFullscreen = () => {
-    if (this.props.videoOpts.fullscreen === 1) {
+  const makeFullscreen = () => {
+    if (props.videoOpts.fullscreen === 1) {
       const playerElement = document.getElementById('widget2')
       const requestFullScreen =
         playerElement.requestFullScreen ||
@@ -31,30 +37,16 @@ class Player extends React.Component {
     }
   }
 
-  render() {
-    const { videoId, onEnd } = this.props
-
-    const opts = {
-      height: '303',
-      width: this.state.width,
-      playerVars: {
-        autoplay: 1,
-        modestbranding: 1
-      }
-      // https://developers.google.com/youtube/player_parameters
-    }
-
-    return (
-      <div id="playerWrapper" className="item player">
-        <YouTube
-          videoId={videoId}
-          opts={opts}
-          onPlay={this._makeFullscreen}
-          onEnd={onEnd}
-        />
-      </div>
-    )
-  }
+  return (
+    <div id='playerWrapper' className='item player'>
+      <YouTube
+        videoId={videoId}
+        opts={opts}
+        onPlay={makeFullscreen}
+        onEnd={onEnd}
+      />
+    </div>
+  )
 }
 
 export default Player
