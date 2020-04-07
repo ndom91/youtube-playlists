@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.min.css'
-import Header from './components/header/header'
-import Dropzone from './components/dropzone/dropzone'
-import Sidebar from './components/sidebar/sidebar'
-import Player from './components/player/player'
-import Modal from './components/modal/modal'
+import './index.css'
+import Header from './components/header'
+import Dropzone from './components/dropzone'
+import Sidebar from './components/sidebar'
+import Player from './components/player'
+import Modal from './components/modal'
 import Playlist from './components/playlist/playlist'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
@@ -18,6 +18,10 @@ import * as Sentry from '@sentry/browser'
 import ReactGA from 'react-ga'
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+
+import * as serviceWorker from './components/serviceWorker'
+
+import * as S from './styled'
 
 // Google Analytics
 ReactGA.initialize('UA-111339084-6')
@@ -45,11 +49,19 @@ class Mainwrapper extends React.Component {
   constructor(props) {
     super(props)
 
+    window.addEventListener('DOMContentLoaded', () => {
+      const parsedUrl = new URL(window.location);
+      // searchParams.get() will properly handle decoding the values.
+      const text = parsedUrl.searchParams.get('text'); // Android puts youtube URL here
+      this.updateVideoDetailsList(text)
+    });
+
     this.state = {
       activeVideo: '',
       isClipboardModalVisible: false,
       videoDetailsList: [],
       skippedClipboardVideos: [],
+      dropzoneVisible: false,
       eventId: null,
       fetchInProgress: false,
       videoOpts: {
@@ -88,7 +100,7 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const joyrideCount = window.localStorage.getItem('joyrideCount')
     if (joyrideCount < 2) {
       this.setState({
@@ -105,8 +117,17 @@ class Mainwrapper extends React.Component {
   }
 
   makeVisible = () => {
-    const el = document.getElementById('droptarget')
-    el.style.visibility = 'visible'
+    // const el = document.getElementById('droptarget')
+    // el.style.visibility = 'visible'
+    this.setState({
+      dropzoneVisible: true
+    })
+  }
+
+  closeDropzone = () => {
+    this.setState({
+      dropzoneVisible: false
+    })
   }
 
   onLoad = () => {
@@ -117,10 +138,16 @@ class Mainwrapper extends React.Component {
 
   updateVideoDetailsList = videoUrl => {
     if (videoUrl) {
-      const videoId = videoUrl
-        .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
-        .substring(0, 11)
       this.setState({ fetchInProgress: true })
+      let videoId
+      if (videoUrl.includes('youtu.be')) {
+        videoId = videoUrl
+          .substring(videoUrl.indexOf('tu.be/') + 6)
+      } else if (videoUrl.includes('youtube.com')) {
+        videoId = videoUrl
+          .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
+          .substring(0, 11)
+      }
       if (!this.state.videoDetailsList.some(e => e.id === videoId)) {
         const videoDetails = this.getVideoDetails(videoId)
         videoDetails.then(details => {
@@ -193,19 +220,19 @@ class Mainwrapper extends React.Component {
               videoInfo.then(details => {
                 const children = (
                   <div>
-                    <div className="thumb-fade" />
-                    <img
+                    <S.ThumbFade className="thumb-fade" />
+                    <S.ClipboardThumbnail
                       alt="video thumbnail"
                       className="clipboard-video-thumb"
                       src={details.thumb}
                     />
-                    <div className="modal-text modal-header-text">
+                    <S.ModalText className="modal-header-text">
                       We've detected a YouTube link in your clipboard
-                    </div>
-                    <div className="modal-text video-text">{details.title}</div>
-                    <div className="modal-text footer-text">
+                    </S.ModalText>
+                    <S.ModalText className="video-text">{details.title}</S.ModalText>
+                    <S.ModalText className="footer-text">
                       Would you like to add it?
-                    </div>
+                    </S.ModalText>
                   </div>
                 )
                 this.setState({
@@ -289,7 +316,8 @@ class Mainwrapper extends React.Component {
       isClipboardModalVisible,
       fetchInProgress,
       steps,
-      joyrideRun
+      joyrideRun,
+      dropzoneVisible
     } = this.state
 
     const throttledFocus = _.debounce(this.handleFocus, 1000)
@@ -314,8 +342,12 @@ class Mainwrapper extends React.Component {
             }
           }}
           callback={this.incrementJoyride}
-          />
-        <Dropzone addVideoOnDrop={this.updateVideoDetailsList} />
+        />
+        <Dropzone
+          visible={dropzoneVisible}
+          addVideoOnDrop={this.updateVideoDetailsList}
+          closeDropzone={this.closeDropzone}
+        />
         <Header />
         <Sidebar
           handleFullscreen={this.handleFullscreen}
@@ -364,3 +396,5 @@ class Mainwrapper extends React.Component {
 }
 
 ReactDOM.render(<Mainwrapper />, document.getElementById('root'))
+
+serviceWorker.register()
