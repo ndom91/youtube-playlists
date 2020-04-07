@@ -1,7 +1,7 @@
 {
   "name": "youtube-playlists",
   "description": "Create on-the-fly YouTube playlists!",
-  "version": "2.3.1",
+  "version": "3.0.1",
   "homepage": "https://youtube.ndo.dev",
   "repository": "https://github.com/ndom91/youtube-playlists",
   "license": "MIT",
@@ -14,29 +14,29 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.25",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.6",
-    "@sentry/browser": "^5.7.1",
-    "axios": "^0.19.0",
-    "immutability-helper": "^3.0.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/react-fontawesome": "^0.1.9",
+    "@sentry/browser": "^5.15.4",
+    "axios": "^0.19.2",
+    "immutability-helper": "^3.0.2",
     "lodash": "^4.17.15",
-    "logrocket": "^1.0.2",
-    "logrocket-react": "^4.0.0",
-    "react": "^16.10.2",
-    "react-dnd": "^9.4.0",
-    "react-dnd-html5-backend": "^9.4.0",
+    "logrocket": "^1.0.7",
+    "logrocket-react": "^4.0.1",
+    "react": "^16.13.1",
+    "react-dnd": "^9.5.1",
+    "react-dnd-html5-backend": "^9.5.1",
     "react-dnd-text-dragpreview": "^0.2.3",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
-    "react-joyride": "^2.1.1",
-    "react-scripts": "3.3.0",
-    "react-toastify": "^5.4.0",
-    "react-youtube": "^7.9.0",
-    "styled-components": "^4.4.0"
+    "react-joyride": "^2.2.1",
+    "react-scripts": "3.1.2",
+    "react-toastify": "^5.5.0",
+    "react-youtube": "^7.11.1",
+    "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "standard": "^14.3.1"
+    "standard": "^14.3.3"
   },
   "browserslist": {
     "production": [
@@ -47,7 +47,10 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version
     ]
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

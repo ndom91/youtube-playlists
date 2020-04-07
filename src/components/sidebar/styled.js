@@ -1,37 +1,29 @@
-@import url('../css/variables.css');
+import styled from 'styled-components'
 
-.btn-wrapper {
+export const BtnWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-content: center;
   position: absolute;
   bottom: 15px;
-}
+`
 
 // PLAY / CLEAR BUTTONS
 
-button {
+export const Button = styled.button`
   outline: none;
-  text-rendering: auto;
-  word-spacing: normal;
-  text-transform: none;
   text-indent: 0px;
-  text-shadow: none;
   display: inline-block;
   text-align: center;
   cursor: default;
   box-sizing: border-box;
-  margin: 0em;
-  font: 400 13.3333px Arial;
   padding: 1px 6px;
   border-width: 0px;
   border-style: outset;
   border-color: rgb(221, 221, 221);
   border-image: initial;
-}
 
-
-.fancy-button {
+  // fancy btn
   font-family: 'Francois One', sans-serif;
   font-weight: 400 !important;
   font-size: 1.2rem;
@@ -45,8 +37,6 @@ button {
   
   height: 55px;
   transition: box-shadow 0.15s ease,transform 0.15s ease;
-  -webkit-transition: box-shadow 0.15s ease,-webkit-transform 0.15s ease;
-  -webkit-transition: box-shadow 0.15s ease,transform 0.15s ease;
   will-change: box-shadow,transform;
   text-shadow: 0 1px 0 #4b5ef0;
   background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
@@ -63,35 +53,34 @@ button {
     background-blend-mode: multiply,normal;
     background-image: linear-gradient(#5468ff,#5468ff),linear-gradient(to top,#fff,#e4e4e9) no-repeat;
     box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #5468ff;
-    -webkit-transform: translateY(2px);
-    -ms-transform: translateY(2px);
     transform: translateY(2px);
   }
-}
 
-.fancy-button span {
-  padding: 15px 15px;
-}
+  & span {
+    padding: 15px 15px;
+  }
+`
 
 // VIDEO OPTIONS CHECKBOXES
 
-.sidebar-fa-icon {
-  color: rgb(118, 81, 199);
-  transition: all 250ms linear;
-  position: absolute;
-  left: 17px;
-  top: 14px;
-  font-size: 22px;
-}
-
-ul.video-options-btn {
+export const VideoOptions = styled.ul`
   height: 42px;
   list-style: none;
   margin: 0 auto;
   padding: 0px;
   margin-top: 15px;
-}
-ul.video-options-btn li {
+
+  .sidebar-fa-icon {
+    color: rgb(118, 81, 199);
+    transition: all 250ms linear;
+    position: absolute;
+    left: 17px;
+    top: 14px;
+    font-size: 22px;
+  }
+`
+
+export const VideoOptionsItem = styled.li`
   outline: none;
   margin: 5px;
   display: flex;
@@ -104,15 +93,17 @@ ul.video-options-btn li {
   background: linear-gradient(#fff,#e4e4e9) no-repeat;
   box-shadow: 0 7px 14px -3px rgba(45,35,66,0.3), 0 2px 4px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #cfd1e3;
   border-radius: 25px;
-}
-ul.video-options-btn li:active {
-  background-image: linear-gradient(to top,#fff,#e4e4e9) no-repeat;
-  box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #e4e4e9;
-  -webkit-transform: translateY(2px);
-  -ms-transform: translateY(2px);
-  transform: translateY(2px);
-}
-ul.video-options-btn li label {
+
+  &:active {
+    background-image: linear-gradient(to top,#fff,#e4e4e9) no-repeat;
+    box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #e4e4e9;
+    -webkit-transform: translateY(2px);
+    -ms-transform: translateY(2px);
+    transform: translateY(2px);
+  }
+`
+
+export const VideoOptionsLabel = styled.label`
   display: flex;
   width: 70%;
   white-space: nowrap;
@@ -129,9 +120,9 @@ ul.video-options-btn li label {
   transition: all 0.3s ease-out;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-}
+`
 
-ul.video-options-btn li input[type='checkbox'] {
+export const VideoOptionsInput = styled.input`
   position: absolute;
   opacity: 0;
-}
+`
