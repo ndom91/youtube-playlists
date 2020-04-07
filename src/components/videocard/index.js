@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
@@ -6,7 +6,8 @@ import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import flow from 'lodash/flow'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { createDragPreview } from 'react-dnd-text-dragpreview'
-import './videocard.min.css'
+// import './videocard.min.css'
+import * as S from './styled'
 
 const dragPreviewStyle = {
   backgroundColor: 'rgb(68, 67, 67)',
@@ -19,62 +20,56 @@ const dragPreviewStyle = {
   paddingLeft: 7
 }
 
-const handleOnClick = e => {
+const handleOnClick = (e) => {
   e.preventDefault()
 }
 
-class Videocard extends React.Component {
-  constructor (props) {
-    super(props)
+const Videocard = (props) => {
+  const [sDragPreview, setDragPreview] = useState({})
+  const {
+    id,
+    onRemove,
+    url,
+    title,
+    channel,
+    thumbnail,
+    isDragging,
+    connectDragSource,
+    connectDropTarget
+  } = props
+
+  useEffect(() => {
     library.add(fas, faTrash)
     config.autoA11y = true
-  }
-
-  componentDidMount () {
-    this.props.connectDragPreview(getEmptyImage(), {
+    props.connectDragPreview(getEmptyImage(), {
       captureDraggingState: true
     })
 
-    this.dragPreview = createDragPreview('Moving Video', dragPreviewStyle)
-    this.props.connectDragPreview(this.dragPreview)
-  }
+    const dragPreview = createDragPreview('Moving Video', dragPreviewStyle)
+    setDragPreview(dragPreview)
+    props.connectDragPreview(dragPreview)
+  }, [])
 
-  componentDidUpdate (prevProps) {
-    this.dragPreview = createDragPreview(
-      `${prevProps.title.slice(0, 25).concat('...')}`,
-      dragPreviewStyle,
-      this.dragPreview
-    )
-  }
-
-  render () {
-    const {
-      id,
-      onRemove,
-      url,
-      title,
-      channel,
-      thumbnail,
-      isDragging,
-      connectDragSource,
-      connectDropTarget
-    } = this.props
-
-    const cardThumbnail = {
-      width: 'auto',
-      height: '120px',
-      marginLeft: '-30px',
-      marginTop: '-5px',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      borderRadius: '3px'
+  const mounted = useRef()
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true
+    } else {
+      const dragPreview = createDragPreview(
+        `${title.slice(0, 25).concat('...')}`,
+        dragPreviewStyle,
+        sDragPreview
+      )
+      setDragPreview(dragPreview)
     }
+  })
 
-    const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
+  const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
 
-    return connectDragSource(
-      connectDropTarget(
-        <div
+  return connectDragSource(
+    connectDropTarget(
+      <div style={{ display: 'inline-block' }}>
+        <S.VideoCard
           id='videocard'
           className='videocard'
           style={{
@@ -84,27 +79,26 @@ class Videocard extends React.Component {
           onClick={handleOnClick}
           key={id}
         >
-          <button onClick={onRemove} className='btn-floating'>
+          <S.CardBtn onClick={onRemove}>
             {deleteIcon}
-          </button>
-          <article className='card'>
+          </S.CardBtn>
+          <S.Article>
             <a href={url}>
-              <img
-                style={cardThumbnail}
+              <S.CardThumb
                 className='cardThumbnail'
                 alt='Video Thumbnail'
                 src={thumbnail}
               />
-              <div className='infos'>
-                <h2 className='title'>{title}</h2>
-                <h3 className='channel'>{channel}</h3>
-              </div>
+              <S.CardInfos className='cardInfos'>
+                <S.CardTitle className='title'>{title}</S.CardTitle>
+                <S.CardChannel className='channel'>{channel}</S.CardChannel>
+              </S.CardInfos>
             </a>
-          </article>
-        </div>
-      )
+          </S.Article>
+        </S.VideoCard>
+      </div>
     )
-  }
+  )
 }
 
 const cardSource = {
@@ -135,7 +129,7 @@ const cardTarget = {
 }
 
 export default flow(
-  DropTarget('VIDEOCARD', cardTarget, connect => ({
+  DropTarget('VIDEOCARD', cardTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
   })),
   DragSource('VIDEOCARD', cardSource, (connect, monitor) => ({
