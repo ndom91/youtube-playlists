@@ -11,7 +11,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint": "standard \"src/**/*\"",
+    "lint:fix": "standard --fix \"src/**/*\"",
+    "fix": "standard --fix \"src/**/*\" && stylelint --fix 'src/**/*.css' ",
+    "lint:css": "stylelint './src/**/styled.js'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -36,7 +40,13 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "standard": "^14.3.3"
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
+    "standard": "^14.3.3",
+    "stylelint": "^13.3.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0"
   },
   "browserslist": {
     "production": [
