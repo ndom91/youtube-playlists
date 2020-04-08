@@ -31,11 +31,11 @@ export const HoverDropzone = styled.div`
   }
 
   &.dragging-over {
-    background: linear-gradient(
+    /* background: linear-gradient(
       135deg, 
     rgba(207, 166, 103, 1) 10%, 
     rgba(166, 63, 66, 1) 100%
-    );
+    ); */
 
     &:before, &:after {
       content: '';

@@ -16,8 +16,6 @@ import LogRocket from 'logrocket'
 import setupLogRocketReact from 'logrocket-react'
 import * as Sentry from '@sentry/browser'
 import ReactGA from 'react-ga'
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
 
 import * as serviceWorker from './components/serviceWorker'
 
@@ -116,10 +114,13 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  makeVisible = () => {
+  makeVisible = (e) => {
+    // console.log(e.nativeEvent)
+    // if (e.nativeEvent.srcElement == null) {
     this.setState({
       dropzoneVisible: true
     })
+    // }
   }
 
   closeDropzone = () => {
@@ -361,14 +362,12 @@ class Mainwrapper extends React.Component {
           videoOpts={videoOpts}
         />
         <div id="playlist" className="item footer playlist">
-          <DndProvider backend={HTML5Backend}>
-            <Playlist
-              videoDetailsList={videoDetailsList}
-              onRemove={this.removeVid}
-              updateVideoListOrder={this.updateVideoListOrder}
-              fetchInProgress={fetchInProgress}
-            />
-          </DndProvider>
+          <Playlist
+            videoDetailsList={videoDetailsList}
+            onRemove={this.removeVid}
+            updateVideoListOrder={this.updateVideoListOrder}
+            fetchInProgress={fetchInProgress}
+          />
         </div>
         <Modal
           show={isClipboardModalVisible}

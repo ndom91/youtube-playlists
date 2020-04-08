@@ -25,7 +25,7 @@ export const Article = styled.article`
   width: 150px;
   height: 150px;
   border-radius: 6px;
-  box-shadow: 5px 5px 8px 1px rgba(30, 16, 39, 0.6);
+  box-shadow: 5px 5px 10px 1px rgba(30, 16, 39, 0.2);
   overflow: hidden;
   position: relative;
 
@@ -64,7 +64,8 @@ export const CardTitle = styled.h2`
   font-size: 0.8rem;
   text-transform: uppercase;
   text-shadow: 0 0 0px #32577f;
-  height: 3.6em;
+  height: 4.2em;
+  overflow: hidden;
 
   margin-bottom: 10px;
   text-transform: uppercase;
@@ -93,8 +94,9 @@ export const CardChannel = styled.h3`
   font-family: 'Francois One', sans-serif;
   text-align: right !important;
   position: absolute;
+  line-height: 1.2em;
   right: 8px;
-  bottom: 70px;
+  bottom: 73px;
 `
 
 export const CardBtn = styled.button`
@@ -132,4 +134,110 @@ export const CardBtn = styled.button`
     box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11), inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
     transform: translateY(2px);
   }
+`
+
+export const FetchLoader = styled.div`
+  background: rgba(0,0,0,0.0);
+  position: relative;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  transition: all 150ms ease-in-out;
+
+  width: 150px;
+  height: 150px;
+  position: relative;
+  display: inline-block;
+  z-index: 1001;
+`
+
+export const CubeContainer = styled.div`
+  position: relative;
+  perspective: 160px;
+  width: 180px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 150ms linear;
+`
+
+export const Cube = styled.div`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  transform-style: preserve-3d;
+  transform: translateZ(-20px); 
+  animation: rubrik 4s infinite cubic-bezier(.68,-.55,.265,1.55);
+
+  & div {
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: absolute;
+  }
+
+  & .front {
+    transform: rotateY(0deg) translateZ( 20px ); 
+    background-color: #7CD4DF; 
+  }
+
+  & .back {
+    transform: rotateX(180deg) translateZ(20px);
+    background-color: #89BA5F; 
+  }
+
+  & .right {
+    transform: rotateY(90deg) translateZ(20px);
+    background-color: #E4B83A; 
+  }
+  & .left {
+    transform: rotateY(-90deg) translateZ(20px);
+    background-color: #C386C6; 
+  }
+  & .top {
+    transform: rotateX(90deg) translateZ(20px);
+    background-color: #cb732b;   
+  }
+  & .bottom {
+    transform: rotateX(-90deg) translateZ(20px);
+    background-color: #C75875;   
+  }
+
+  @keyframes rubrik {
+    0% {
+      transform: rotateY(0) rotateZ(0) rotateX(0);
+    }
+    16% {
+      transform: rotateY(90deg) rotateZ(0) rotateX(0);
+    }
+    33% {
+      transform: rotateY(90deg) rotateZ(90deg) rotateX(0);
+    }
+    50% {
+      transform: rotateY(90deg) rotateZ(180deg) rotateX(0);
+    }
+    66% {
+      transform: rotateY(180deg) rotateZ(180deg) rotateX(0);
+    }  
+    83% {
+      transform: rotateY(180deg) rotateZ(180deg) rotateX(-90deg);
+    }  
+    100% {
+      transform: rotateY(180deg) rotateZ(180deg) rotateX(-180deg);
+    }
+  }
+`
+
+export const Shadow = styled.div`
+  width: 40px;
+  height: 5px;
+  position: absolute;
+  top: 130px;
+  left: 70px;
+  background: black;
+  opacity: 0.25;
+  border-radius: 40%;
+  color: rgba(0,0,0,0);
 `

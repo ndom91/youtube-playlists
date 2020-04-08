@@ -1,139 +1,116 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { DragSource, DropTarget } from 'react-dnd'
+import React, { useEffect, useRef } from 'react'
+import { useDrag, useDrop, DragPreviewImage, useDragLayer } from 'react-dnd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
-import flow from 'lodash/flow'
-import { getEmptyImage } from 'react-dnd-html5-backend'
-import { createDragPreview } from 'react-dnd-text-dragpreview'
 import * as S from './styled'
-
-const dragPreviewStyle = {
-  backgroundColor: 'rgb(68, 67, 67)',
-  borderColor: '#F96816',
-  color: 'white',
-  fontSize: 15,
-  paddingTop: 4,
-  paddingRight: 7,
-  paddingBottom: 6,
-  paddingLeft: 7
-}
 
 const handleOnClick = (e) => {
   e.preventDefault()
 }
 
+const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
+
+const FetchSpinner = () => {
+  return (
+    <S.FetchLoader>
+      <S.CubeContainer>
+        <S.Cube>
+          <div className='front' />
+          <div className='back' />
+          <div className='right' />
+          <div className='left' />
+          <div className='top' />
+          <div className='bottom' />
+        </S.Cube>
+        <S.Shadow>,</S.Shadow>
+      </S.CubeContainer>
+    </S.FetchLoader>
+  )
+}
+
+const type = 'VideoCard'
+
 const Videocard = (props) => {
-  const [sDragPreview, setDragPreview] = useState({})
+  const ref = useRef(null)
   const {
     id,
     onRemove,
     url,
     title,
     channel,
-    thumbnail,
-    isDragging,
-    connectDragSource,
-    connectDropTarget
+    thumbnail
   } = props
 
   useEffect(() => {
     library.add(fas, faTrash)
     config.autoA11y = true
-    props.connectDragPreview(getEmptyImage(), {
-      captureDraggingState: true
-    })
-
-    const dragPreview = createDragPreview('Moving Video', dragPreviewStyle)
-    setDragPreview(dragPreview)
-    props.connectDragPreview(dragPreview)
   }, [])
 
-  const mounted = useRef()
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true
-    } else {
-      const dragPreview = createDragPreview(
-        `${title.slice(0, 25).concat('...')}`,
-        dragPreviewStyle,
-        sDragPreview
-      )
-      setDragPreview(dragPreview)
+  const [, drop] = useDrop({
+    accept: type,
+    hover(item) {
+      if (!ref.current) {
+        return
+      }
+      const dragIndex = item.index
+      const hoverIndex = props.index
+      if (dragIndex === hoverIndex) {
+        return
+      }
+      props.moveCard(dragIndex, hoverIndex)
+      item.index = hoverIndex
     }
-  }, [setDragPreview])
+  })
 
-  const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
+  const [{ isDragging }, drag, preview] = useDrag({
+    item: { type, id: props.id, index: props.index },
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    })
+  })
 
-  return connectDragSource(
-    connectDropTarget(
-      <div style={{ display: 'inline-block' }}>
-        <S.VideoCard
-          id='videocard'
-          className='videocard'
-          style={{
-            opacity: isDragging ? 0.3 : 1,
-            cursor: 'move'
-          }}
-          onClick={handleOnClick}
-          key={id}
-        >
-          <S.CardBtn onClick={onRemove}>
-            {deleteIcon}
-          </S.CardBtn>
-          <S.Article>
-            <a href={url}>
-              <S.CardThumb
-                className='cardThumbnail'
-                alt='Video Thumbnail'
-                src={thumbnail}
-              />
-              <S.CardInfos className='cardInfos'>
-                <S.CardTitle className='title'>{title}</S.CardTitle>
-                <S.CardChannel className='channel'>{channel}</S.CardChannel>
-              </S.CardInfos>
-            </a>
-          </S.Article>
-        </S.VideoCard>
-      </div>
-    )
+  drag(drop(ref))
+
+  const opacity = isDragging ? 0.5 : 1
+
+  return (
+    <div ref={ref} style={{ display: 'inline-block', opacity }}>
+      <DragPreviewImage connect={preview} src={thumbnail.default.url} />
+      {!props.fetchInProgress
+        ? (
+          <S.VideoCard
+            id='videocard'
+            className='videocard'
+            style={{
+              cursor: 'move',
+              opacity
+            }}
+            onClick={handleOnClick}
+            key={id}
+          >
+            <S.CardBtn onClick={onRemove}>
+              {deleteIcon}
+            </S.CardBtn>
+            <S.Article>
+              <a href={url}>
+                <S.CardThumb
+                  className='cardThumbnail'
+                  alt='Video Thumbnail'
+                  src={thumbnail.medium.url}
+                />
+                <S.CardInfos className='cardInfos'>
+                  <S.CardTitle className='title'>{title}</S.CardTitle>
+                  <S.CardChannel className='channel'>{channel}</S.CardChannel>
+                </S.CardInfos>
+              </a>
+            </S.Article>
+          </S.VideoCard>
+        ) : (
+          <FetchSpinner />
+        )}
+    </div>
   )
 }
 
-const cardSource = {
-  beginDrag(props) {
-    return {
-      index: props.index,
-      listId: props.listId,
-      card: props.card
-    }
-  }
-}
-
-const cardTarget = {
-  hover(props, monitor) {
-    const dragIndex = monitor.getItem().index
-    const hoverIndex = props.index
-    const sourceListId = monitor.getItem().listId
-
-    if (dragIndex === hoverIndex) {
-      return
-    }
-
-    if (props.listId === sourceListId) {
-      props.moveCard(dragIndex, hoverIndex)
-      monitor.getItem().index = hoverIndex
-    }
-  }
-}
-
-export default flow(
-  DropTarget('VIDEOCARD', cardTarget, (connect) => ({
-    connectDropTarget: connect.dropTarget()
-  })),
-  DragSource('VIDEOCARD', cardSource, (connect, monitor) => ({
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging()
-  }))
-)(Videocard)
+export default Videocard
