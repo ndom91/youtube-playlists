@@ -16,13 +16,13 @@ async function getVideoDetails (id, hostname) {
       const videoDetails = response.items[0].snippet
       const channel = videoDetails.channelTitle
       const title = videoDetails.localized.title
-      const thumbnail = videoDetails.thumbnails.medium.url
+      const thumbnails = videoDetails.thumbnails
 
       const videoDetailsObj = {
         id: id,
         title: title,
         channel: channel,
-        thumb: thumbnail
+        thumb: thumbnails
       }
       return videoDetailsObj
     })

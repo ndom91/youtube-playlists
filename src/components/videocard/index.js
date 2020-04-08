@@ -76,7 +76,7 @@ const Videocard = (props) => {
 
   return (
     <div ref={ref} style={{ display: 'inline-block', opacity }}>
-      <DragPreviewImage connect={preview} src={thumbnail} />
+      <DragPreviewImage connect={preview} src={thumbnail.default.url} />
       {!props.fetchInProgress
         ? (
           <S.VideoCard
@@ -97,7 +97,7 @@ const Videocard = (props) => {
                 <S.CardThumb
                   className='cardThumbnail'
                   alt='Video Thumbnail'
-                  src={thumbnail}
+                  src={thumbnail.medium.url}
                 />
                 <S.CardInfos className='cardInfos'>
                   <S.CardTitle className='title'>{title}</S.CardTitle>
