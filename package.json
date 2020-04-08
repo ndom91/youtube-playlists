@@ -40,7 +40,6 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
     "cypress": "^4.3.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
