@@ -44,7 +44,7 @@ LogRocket.getSessionURL(sessionURL => {
 })
 
 class Mainwrapper extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -89,7 +89,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch (error, errorInfo) {
     Sentry.withScope(scope => {
       scope.setExtras(errorInfo)
       const eventId = Sentry.captureException(error)
@@ -97,7 +97,7 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     navigator.permissions.query({ name: 'clipboard-read' })
     const joyrideCount = window.localStorage.getItem('joyrideCount')
     if (joyrideCount < 2) {
@@ -114,7 +114,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  makeVisible = (e) => {
+  handleDragover = (e) => {
     this.setState({
       dropzoneVisible: true
     })
@@ -126,7 +126,7 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  onLoad = () => {
+  handleLoad = () => {
     navigator.permissions.query({
       name: 'clipboard-read'
     })
@@ -156,7 +156,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  onVideoEnd = () => {
+  handlePlayerEnd = () => {
     const { videoOpts } = this.state
 
     if (videoOpts.autoplay === 1) {
@@ -164,11 +164,11 @@ class Mainwrapper extends React.Component {
         video => video.id !== this.state.activeVideo
       )
       this.setState({ videoDetailsList: videoDetailsRemaining })
-      this.startNextVideo()
+      this.handlePlay()
     }
   }
 
-  startNextVideo = () => {
+  handlePlay = () => {
     const videos = this.state.videoDetailsList
     if (videos.length !== 0) {
       const videoId = videos[0].id
@@ -183,7 +183,7 @@ class Mainwrapper extends React.Component {
   }
 
   getVideoDetails = async id => {
-    return fetch(`https://yt-details.ndo.workers.dev/?vid=${id}`, {
+    return window.fetch(`https://yt-details.ndo.workers.dev/?vid=${id}`, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -193,7 +193,7 @@ class Mainwrapper extends React.Component {
       .then(json => json)
   }
 
-  removeVid = videoId => {
+  handleVideoRemove = videoId => {
     this.setState({
       videoDetailsList: this.state.videoDetailsList.filter(
         video => video.id !== videoId
@@ -245,11 +245,11 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  clearVideos = () => {
+  handleClear = () => {
     this.setState({ videoIds: [], videoDetailsList: [] })
   }
 
-  handleFullscreen = () => {
+  onFullscreen = () => {
     const { videoOpts } = this.state
     if (videoOpts.fullscreen === 1) {
       this.setState({ videoOpts: { ...videoOpts, fullscreen: 0 } })
@@ -258,7 +258,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  handleAutoplay = () => {
+  onAutoplay = () => {
     const { videoOpts } = this.state
     if (videoOpts.autoplay === 1) {
       this.setState({ videoOpts: { ...videoOpts, autoplay: 0 } })
@@ -267,7 +267,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  handleModalAdd = () => {
+  onVideoAdd = () => {
     const { clipboardLink } = this.state
 
     const videoId = clipboardLink
@@ -282,7 +282,7 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  handleModalClose = e => {
+  onModalClose = e => {
     const { clipboardLink } = this.state
     e.preventDefault()
     const videoId = clipboardLink
@@ -302,7 +302,7 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  render() {
+  render () {
     const {
       videoDetailsList,
       videoList,
@@ -320,8 +320,8 @@ class Mainwrapper extends React.Component {
 
     return (
       <div
-        onLoad={this.onLoad}
-        onDragOver={this.makeVisible}
+        onLoad={this.handleLoad}
+        onDragOver={this.handleDragover}
         onFocus={throttledFocus}
         className='container'
       >
@@ -346,30 +346,30 @@ class Mainwrapper extends React.Component {
         />
         <Header />
         <Sidebar
-          handleFullscreen={this.handleFullscreen}
-          handleAutoplay={this.handleAutoplay}
-          onPlay={this.startNextVideo}
-          onClear={this.clearVideos}
+          handleFullscreen={this.onFullscreen}
+          handleAutoplay={this.onAutoplay}
+          onPlay={this.handlePlay}
+          onClear={this.handleClear}
           videos={videoList}
           videoOpts={videoOpts}
         />
         <Player
           videoId={activeVideo}
-          onEnd={this.onVideoEnd}
+          onEnd={this.handlePlayerEnd}
           videoOpts={videoOpts}
         />
         <div id='playlist' className='item footer playlist'>
           <Playlist
             videoDetailsList={videoDetailsList}
-            onRemove={this.removeVid}
+            onRemove={this.handleVideoRemove}
             updateVideoListOrder={this.updateVideoListOrder}
             fetchInProgress={fetchInProgress}
           />
         </div>
         <Modal
           show={isClipboardModalVisible}
-          handleAdd={this.handleModalAdd}
-          handleClose={this.handleModalClose}
+          handleAdd={this.onVideoAdd}
+          handleClose={this.onModalClose}
         >
           {modalChildren}
         </Modal>

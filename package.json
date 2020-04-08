@@ -12,10 +12,9 @@
     "test": "cypress open",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
-    "lint": "standard \"src/**/*.js\"",
-    "lint:fix": "standard  \"src/**/*.js\"",
-    "fix": "standard --fix \"src/**/*\" && stylelint --fix 'src/**/*.css' ",
-    "lint:css": "stylelint './src/**/styled.js'"
+    "lint:js": "standard \"src/**/*.js\"",
+    "lint:css": "stylelint './src/**/styled.js'",
+    "lint:fix": "standard --fix \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' "
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
