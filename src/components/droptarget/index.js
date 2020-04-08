@@ -30,16 +30,16 @@ const Droptarget = props => {
   }
 
   const handleDragEnter = e => {
+    setDragOver(true)
     e.preventDefault()
     e.stopPropagation()
-    setDragOver(true)
     setDragtarget(e.target)
   }
   const handleDragLeave = e => {
     if (dragTarget === e.target) {
+      setDragOver(false)
       e.preventDefault()
       e.stopPropagation()
-      setDragOver(false)
     }
   }
 

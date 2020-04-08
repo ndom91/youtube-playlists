@@ -1,6 +1,6 @@
 # 📽️ YouTube Playlists
 
-![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/tag-pre/ndom91/youtube-playlists.svg?&style=flat-square)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/ndom91/youtube-playlists?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/ndom91/youtube-playlists.svg?style=flat-square)
 ![David](https://img.shields.io/david/ndom91/youtube-playlists.svg?style=flat-square)
 ![GitHub issues](https://img.shields.io/github/issues-raw/ndom91/youtube-playlists.svg?style=flat-square)
