@@ -52,19 +52,6 @@ const App = () => {
     }
   ]
 
-  useEffect(() => {
-    window.addEventListener('DOMContentLoaded', () => {
-      const parsedUrl = new URL(window.location)
-      const text = parsedUrl.searchParams.get('text')
-      updateVideoDetailsList(text)
-    })
-    navigator.permissions.query({ name: 'clipboard-read' })
-    const joyrideCount = window.localStorage.getItem('joyrideCount')
-    if (joyrideCount < 2) {
-      setJoyrideRun(true)
-    }
-  }, [])
-
   const incrementJoyride = (state) => {
     if (state.type === 'tour:end' || state.type === 'tour:start') {
       const joyrideCount = window.localStorage.getItem('joyrideCount') || 0
@@ -93,6 +80,20 @@ const App = () => {
       }
     }
   }
+
+  useEffect(() => {
+    window.addEventListener('DOMContentLoaded', () => {
+      const parsedUrl = new URL(window.location)
+      const text = parsedUrl.searchParams.get('text')
+      updateVideoDetailsList(text)
+    })
+    navigator.permissions.query({ name: 'clipboard-read' })
+    const joyrideCount = window.localStorage.getItem('joyrideCount')
+    if (joyrideCount < 2) {
+      setJoyrideRun(true)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   const handlePlayerEnd = () => {
     if (videoOpts.autoplay === 1) {
