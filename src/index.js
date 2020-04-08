@@ -6,7 +6,7 @@ import Dropzone from './components/dropzone'
 import Sidebar from './components/sidebar'
 import Player from './components/player'
 import Modal from './components/modal'
-import Playlist from './components/playlist/playlist'
+import Playlist from './components/playlist'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import _ from 'lodash'
@@ -51,8 +51,7 @@ class Mainwrapper extends React.Component {
 
     window.addEventListener('DOMContentLoaded', () => {
       const parsedUrl = new URL(window.location);
-      // searchParams.get() will properly handle decoding the values.
-      const text = parsedUrl.searchParams.get('text'); // Android puts youtube URL here
+      const text = parsedUrl.searchParams.get('text');
       this.updateVideoDetailsList(text)
     });
 
@@ -101,6 +100,7 @@ class Mainwrapper extends React.Component {
   }
 
   componentDidMount() {
+    navigator.permissions.query({ name: 'clipboard-read' })
     const joyrideCount = window.localStorage.getItem('joyrideCount')
     if (joyrideCount < 2) {
       this.setState({
@@ -117,8 +117,6 @@ class Mainwrapper extends React.Component {
   }
 
   makeVisible = () => {
-    // const el = document.getElementById('droptarget')
-    // el.style.visibility = 'visible'
     this.setState({
       dropzoneVisible: true
     })

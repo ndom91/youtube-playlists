@@ -5,7 +5,6 @@ export const HoverDropzone = styled.div`
   height: 35vh;
   width: 55vw;
   max-width: 550px;
-  z-index: 1002;
   background: linear-gradient(
     135deg, 
    rgba(250, 215, 161, 1) 10%, 
@@ -24,6 +23,52 @@ export const HoverDropzone = styled.div`
   display: flex;
   justify-content: center;
   align-content: flex-start;
+  transition: all 500ms ease-in-out;
+
+  &:before, &:after {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+
+  &.dragging-over {
+    background: linear-gradient(
+      135deg, 
+    rgba(207, 166, 103, 1) 10%, 
+    rgba(166, 63, 66, 1) 100%
+    );
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      opacity: 1;
+      background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094, 
+          #0000ff, #00ff00,#ffff00, #ff0000);
+      background-size: 600%;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      z-index: -2;
+      border-radius: 15px;
+      animation: steam 20s linear infinite;
+    }
+    
+    &:after {
+        filter: blur(100px);
+    }
+  }
+  
+  @keyframes steam {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+  }
 `
 
 export const DropzoneBtn = styled.button`
@@ -41,6 +86,7 @@ export const DropzoneBtn = styled.button`
   transition: all 250ms linear;
   cursor: pointer;
   border: none;
+  outline: rgba(250, 215, 161, 0.7);
 
   transition: box-shadow 0.15s ease,transform 0.15s ease;
   will-change: box-shadow,transform;
@@ -50,7 +96,7 @@ export const DropzoneBtn = styled.button`
 
   &:hover {
     box-shadow: 0 11px 16px -3px rgba(45,35,66,0.3), 0 4px 5px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #4b58ba;
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     cursor: pointer;
   }
 

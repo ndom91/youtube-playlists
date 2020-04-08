@@ -6,7 +6,6 @@ import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import flow from 'lodash/flow'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { createDragPreview } from 'react-dnd-text-dragpreview'
-// import './videocard.min.css'
 import * as S from './styled'
 
 const dragPreviewStyle = {
@@ -62,7 +61,7 @@ const Videocard = (props) => {
       )
       setDragPreview(dragPreview)
     }
-  })
+  }, [setDragPreview])
 
   const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
 
@@ -74,7 +73,7 @@ const Videocard = (props) => {
           className='videocard'
           style={{
             opacity: isDragging ? 0.3 : 1,
-            cusor: 'move'
+            cursor: 'move'
           }}
           onClick={handleOnClick}
           key={id}
@@ -102,7 +101,7 @@ const Videocard = (props) => {
 }
 
 const cardSource = {
-  beginDrag (props) {
+  beginDrag(props) {
     return {
       index: props.index,
       listId: props.listId,
@@ -112,7 +111,7 @@ const cardSource = {
 }
 
 const cardTarget = {
-  hover (props, monitor) {
+  hover(props, monitor) {
     const dragIndex = monitor.getItem().index
     const hoverIndex = props.index
     const sourceListId = monitor.getItem().listId

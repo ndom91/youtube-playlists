@@ -9,6 +9,8 @@ export const VideoCard = styled.div`
   z-index: 1001;
 
   &:hover {
+    cursor: pointer;
+
     .cardInfos {
       transform: translateY(-70px);
     }
@@ -108,24 +110,26 @@ export const CardBtn = styled.button`
   vertical-align: middle;
   border: none;
   border-radius: 10px;
+  outline: rgba(250, 215, 161, 0.7);
 
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   will-change: box-shadow, transform;
   text-shadow: 0 1px 0 #4b5ef0;
   background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
-  box-shadow: 0 7px 13px - 3px rgba(45, 35, 66, 0.3), 0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 - 2px 0 0 #4b58ba;
+  box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3), 0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
 
   &:hover {
-    box-shadow: 0 11px 16px 6px rgba(45, 35, 66, 0.3), 0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 - 2px 0 0 #4b58ba;
     cursor: pointer;
+    transform: translateY(-2px);
   }
 
   &:active {
+    outline: rgba(250, 215, 161, 0.7);
     border-style: inset;
     border-width: 0px;
     background-blend-mode: multiply, normal;
     background-image: linear-gradient(#5468ff,#5468ff), linear-gradient(to top,#fff,#e4e4e9) no-repeat;
-    box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11), inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 - 1px 0 1px #5468ff;
+    box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11), inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
     transform: translateY(2px);
   }
 `

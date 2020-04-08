@@ -6,7 +6,7 @@ const Dropzone = props => {
   return (
     <S.DroptargetWrapper
       style={{
-        backgroundColor: props.visible ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)',
+        backgroundColor: props.visible ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0)',
         visibility: props.visible ? 'visible' : 'hidden'
       }}
       id='dropzone'

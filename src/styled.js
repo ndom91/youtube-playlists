@@ -38,11 +38,16 @@ export const ModalText = styled.div`
   }
 
   &.video-text {
-    top: 50px;
+    top: 67px;
+    left: 320px;
+    width: 320px;
+    max-height: 45px;
     color: #5e3e81;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-height: 45px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &.footer-text {

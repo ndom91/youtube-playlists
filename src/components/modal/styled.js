@@ -48,8 +48,7 @@ export const ModalBtn = styled.button`
   font-size: 1.1rem;
   letter-spacing: 1px;
   background-size: 200% 100%;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
+  border: none;
   transition: all .4s ease-in-out;
 
   &:hover {
@@ -59,7 +58,7 @@ export const ModalBtn = styled.button`
     transition: all .4s ease-in-out;
   }
 
-  .btn-add {
+  &.btn-add {
     right: 200px;
     background: linear-gradient(to right, #FF6F91, #FF9671);
     border-radius: 20px;
@@ -92,7 +91,7 @@ export const ModalBtn = styled.button`
     }
   }
 
-  .btn-close {
+  &.btn-close {
     right: 80px;
     background: linear-gradient(to right, rgba(255, 151, 113, 0.774), rgba(249, 249, 113, 0.658));
     border-radius: 20px;

@@ -17,7 +17,7 @@ const Playlist = props => {
     ) {
       setVideos(props.videoDetailsList)
     }
-  })
+  }, [isFirstRender, props.videoDetailsList, props.videoDetailsList.length, videos.length])
 
   const moveCard = (dragIndex, hoverIndex) => {
     const newVideos = videos
@@ -41,14 +41,14 @@ const Playlist = props => {
     if (props.fetchInProgress) {
       return (
         <div className='fetchSpinnerDiv'>
-          <div class='cube-container'>
+          <div className='cube-container'>
             <div id='cube'>
-              <div class='front' />
-              <div class='back' />
-              <div class='right' />
-              <div class='left' />
-              <div class='top' />
-              <div class='bottom' />
+              <div className='front' />
+              <div className='back' />
+              <div className='right' />
+              <div className='left' />
+              <div className='top' />
+              <div className='bottom' />
             </div>
             <div id='shadow'>,</div>
           </div>
@@ -84,7 +84,7 @@ const Playlist = props => {
 }
 
 const cardTarget = {
-  drop(props) {
+  drop (props) {
     return {
       listId: props.id
     }
