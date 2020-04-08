@@ -1,5 +1,4 @@
 {
-  "*.{js,jsx}": ["npm run lint:fix"],
   "{*.{css,json,md}}": ["npm run fix"],
   "src/**/styled.js": ["npm run lint:css"]
 }

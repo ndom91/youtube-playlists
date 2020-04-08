@@ -1,0 +1,32 @@
+{
+  "id": "UqyeVUCwfk4",
+  "title": "Boris Johnson’s Condition Worsens & Wisconsin’s Pandemic Primary | The Daily Social Distancing Show",
+  "channel": "The Daily Show with Trevor Noah",
+  "thumb": {
+    "default": {
+      "url": "https://i.ytimg.com/vi/UqyeVUCwfk4/default.jpg",
+      "width": 120,
+      "height": 90
+    },
+    "medium": {
+      "url": "https://i.ytimg.com/vi/UqyeVUCwfk4/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+    },
+    "high": {
+      "url": "https://i.ytimg.com/vi/UqyeVUCwfk4/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+    },
+    "standard": {
+      "url": "https://i.ytimg.com/vi/UqyeVUCwfk4/sddefault.jpg",
+      "width": 640,
+      "height": 480
+    },
+    "maxres": {
+      "url": "https://i.ytimg.com/vi/UqyeVUCwfk4/maxresdefault.jpg",
+      "width": 1280,
+      "height": 720
+    }
+  }
+}

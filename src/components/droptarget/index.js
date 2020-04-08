@@ -58,6 +58,7 @@ const Droptarget = props => {
           onDragLeave={e => handleDragLeave(e)}
           onDrop={dropHandler}
           className={draggingOver ? 'dragging-over' : ''}
+          id='droptarget'
         >
           <S.DropzoneBtn onClick={hideDropTarget}>
             {deleteIcon}

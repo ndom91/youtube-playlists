@@ -9,11 +9,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
-    "lint": "standard \"src/**/*\"",
-    "lint:fix": "standard --fix \"src/**/*\"",
+    "lint": "standard \"src/**/*.js\"",
+    "lint:fix": "standard  \"src/**/*.js\"",
     "fix": "standard --fix \"src/**/*\" && stylelint --fix 'src/**/*.css' ",
     "lint:css": "stylelint './src/**/styled.js'"
   },
@@ -40,6 +40,8 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "cypress": "^4.3.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
     "standard": "^14.3.3",
@@ -62,5 +64,11 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "cypress/**/*.js"
+    ]
   }
 }

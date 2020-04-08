@@ -1,0 +1,27 @@
+{
+  "id": "xJso9GciU0U",
+  "title": "Paris home-within-home: metal core adds space to modern loft",
+  "channel": "Kirsten Dirksen",
+  "thumb": {
+    "default": {
+      "url": "https://i.ytimg.com/vi/xJso9GciU0U/default.jpg",
+      "width": 120,
+      "height": 90
+    },
+    "medium": {
+      "url": "https://i.ytimg.com/vi/xJso9GciU0U/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+    },
+    "high": {
+      "url": "https://i.ytimg.com/vi/xJso9GciU0U/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+    },
+    "standard": {
+      "url": "https://i.ytimg.com/vi/xJso9GciU0U/sddefault.jpg",
+      "width": 640,
+      "height": 480
+    }
+  }
+}

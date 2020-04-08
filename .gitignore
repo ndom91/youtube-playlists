@@ -25,3 +25,7 @@ yarn-error.log*
 public/vendor/*
 
 .vscode
+
+# Cypress
+cypress/videos
+cypress/screenshots

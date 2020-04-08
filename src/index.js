@@ -48,10 +48,10 @@ class Mainwrapper extends React.Component {
     super(props)
 
     window.addEventListener('DOMContentLoaded', () => {
-      const parsedUrl = new URL(window.location);
-      const text = parsedUrl.searchParams.get('text');
+      const parsedUrl = new URL(window.location)
+      const text = parsedUrl.searchParams.get('text')
       this.updateVideoDetailsList(text)
-    });
+    })
 
     this.state = {
       activeVideo: '',
@@ -77,7 +77,7 @@ class Mainwrapper extends React.Component {
         {
           target: '.footer.playlist',
           title: 'Playlist',
-          content: 'Your videos will appear here. You can drag and drop to change the order.',
+          content: 'Your videos will appear here. You can drag and drop to change the order.'
         },
         {
           target: '.item.sidebar',
@@ -216,17 +216,17 @@ class Mainwrapper extends React.Component {
               videoInfo.then(details => {
                 const children = (
                   <div>
-                    <S.ThumbFade className="thumb-fade" />
+                    <S.ThumbFade className='thumb-fade' />
                     <S.ClipboardThumbnail
-                      alt="video thumbnail"
-                      className="clipboard-video-thumb"
+                      alt='video thumbnail'
+                      className='clipboard-video-thumb'
                       src={details.thumb}
                     />
-                    <S.ModalText className="modal-header-text">
+                    <S.ModalText className='modal-header-text'>
                       We've detected a YouTube link in your clipboard
                     </S.ModalText>
-                    <S.ModalText className="video-text">{details.title}</S.ModalText>
-                    <S.ModalText className="footer-text">
+                    <S.ModalText className='video-text'>{details.title}</S.ModalText>
+                    <S.ModalText className='footer-text'>
                       Would you like to add it?
                     </S.ModalText>
                   </div>
@@ -323,7 +323,7 @@ class Mainwrapper extends React.Component {
         onLoad={this.onLoad}
         onDragOver={this.makeVisible}
         onFocus={throttledFocus}
-        className="container"
+        className='container'
       >
         <Joyride
           steps={steps}
@@ -358,7 +358,7 @@ class Mainwrapper extends React.Component {
           onEnd={this.onVideoEnd}
           videoOpts={videoOpts}
         />
-        <div id="playlist" className="item footer playlist">
+        <div id='playlist' className='item footer playlist'>
           <Playlist
             videoDetailsList={videoDetailsList}
             onRemove={this.removeVid}
@@ -376,12 +376,12 @@ class Mainwrapper extends React.Component {
         <ToastContainer
           transition={Bounce}
           autoclose={1500}
-          className="toast-container"
+          className='toast-container'
           closeOnClick
           pauseOnVisibilityChange={false}
           pauseOnHover={false}
           pauseOnFocusLoss={false}
-          hideProgressBar={true}
+          hideProgressBar
           closeButton={false}
         />
       </div>
