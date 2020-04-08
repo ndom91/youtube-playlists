@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { useDrag, useDrop, DragPreviewImage, useDragLayer } from 'react-dnd'
+import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -49,7 +49,7 @@ const Videocard = (props) => {
 
   const [, drop] = useDrop({
     accept: type,
-    hover(item) {
+    hover (item) {
       if (!ref.current) {
         return
       }

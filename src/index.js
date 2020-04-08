@@ -115,12 +115,9 @@ class Mainwrapper extends React.Component {
   }
 
   makeVisible = (e) => {
-    // console.log(e.nativeEvent)
-    // if (e.nativeEvent.srcElement == null) {
     this.setState({
       dropzoneVisible: true
     })
-    // }
   }
 
   closeDropzone = () => {
@@ -392,6 +389,6 @@ class Mainwrapper extends React.Component {
   }
 }
 
-ReactDOM.render(<Mainwrapper />, document.getElementById('root'))
-
 serviceWorker.register()
+
+ReactDOM.render(<Mainwrapper />, document.getElementById('root'))
