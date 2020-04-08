@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Videocard from '../videocard'
-import { DropTarget } from 'react-dnd'
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 const Playlist = props => {
   const [videos, setVideos] = useState([])
@@ -37,62 +38,28 @@ const Playlist = props => {
     event.stopPropagation()
   }
 
-  const FetchSpinner = () => {
-    if (props.fetchInProgress) {
-      return (
-        <div className='fetchSpinnerDiv'>
-          <div className='cube-container'>
-            <div id='cube'>
-              <div className='front' />
-              <div className='back' />
-              <div className='right' />
-              <div className='left' />
-              <div className='top' />
-              <div className='bottom' />
-            </div>
-            <div id='shadow'>,</div>
-          </div>
-
-        </div>
-      )
-    } else {
-      return null
-    }
-  }
-
-  console.log(videos)
   return (
     <span onDragOver={handleDragOver} className='playlist-container'>
-      {videos &&
-        videos.map((video, index) => (
-          <Videocard
-            key={video.id}
-            id={video.id}
-            index={index}
-            title={video.title}
-            card={video}
-            listId={1}
-            channel={video.channel}
-            thumbnail={video.thumb}
-            onRemove={() => props.onRemove(video.id)}
-            moveCard={moveCard}
-          />
-        ))}
-      <FetchSpinner />
+      <DndProvider backend={HTML5Backend}>
+        {videos &&
+          videos.map((video, index) => (
+            <Videocard
+              key={video.id}
+              id={video.id}
+              index={index}
+              title={video.title}
+              card={video}
+              listId={1}
+              channel={video.channel}
+              thumbnail={video.thumb}
+              onRemove={() => props.onRemove(video.id)}
+              moveCard={moveCard}
+              fetchInProgress={props.fetchInProgress}
+            />
+          ))}
+      </DndProvider>
     </span>
   )
 }
 
-const cardTarget = {
-  drop (props) {
-    return {
-      listId: props.id
-    }
-  }
-}
-
-export default DropTarget('VIDEOCARD', cardTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop()
-}))(Playlist)
+export default Playlist
