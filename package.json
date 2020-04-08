@@ -22,7 +22,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@sentry/browser": "^5.15.4",
-    "axios": "^0.19.2",
     "immutability-helper": "^3.0.2",
     "lodash": "^4.17.15",
     "logrocket": "^1.0.7",

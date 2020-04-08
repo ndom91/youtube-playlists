@@ -1,6 +1,6 @@
 [build]
 command = "npm run build"
-publish = "build"
+publish = "build/"
 
 [build.environment]
 # cache Cypress binary in local "node_modules" folder
