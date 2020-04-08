@@ -38,10 +38,6 @@ body {
   text-align: center !important;
 }
 
-.link-text {
-  color: rgb(60, 133, 60);
-}
-
 .playlist-container {
   display: inline;
   z-index: 1001;
@@ -66,6 +62,7 @@ body {
 .header {
   grid-row: 1 / 2;
   grid-column: 1 / 4;
+  background: rgba(156, 39, 176, 0.5);
 }
 
 .sidebar {
@@ -75,12 +72,15 @@ body {
   display: inline-block;
   position: relative;
   align-content: space-between;
+  background: rgba(118, 81, 199, 0.6);
 } 
 
 .player {
   grid-row: 2 / 4;
   grid-column: 2 / 4;
   z-index: 202;
+  min-height: 272px;
+  background-image: #000;
 }
 
 .footer {
@@ -91,10 +91,11 @@ body {
   padding: 0 10px;
   margin-bottom: auto;
   min-height: 200px;
+  display: inherit;
+  background: rgba(250, 215, 161, 0.7);
 }
 
 .item {
-  background: #ececec;
   box-shadow: 0 0 20px 5px rgba(103, 58, 183, 0.2);
   color: #ffffff;
   border-radius: 15px;
@@ -103,24 +104,6 @@ body {
   justify-content: center;
   font-size: 18px;
   font-weight: bold;
-}
-
-.header {
-  background: rgba(156, 39, 176, 0.5);
-}
-
-.sidebar {
-  background: rgba(118, 81, 199, 0.6);
-}
-
-.player {
-  min-height: 272px;
-  background-image: #000;
-}
-
-.footer {
-  display: inherit;
-  background: rgba(250, 215, 161, 0.7);
 }
 
 .react-joyride__tooltip * {
@@ -167,8 +150,4 @@ body {
   .item {
     max-width: 100%;
   }
-}
-
-:root {
-  --size: 40px;
 }

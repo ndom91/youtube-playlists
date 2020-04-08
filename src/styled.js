@@ -45,9 +45,7 @@ export const ModalText = styled.div`
     color: #5e3e81;
     text-overflow: ellipsis;
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
   }
 
   &.footer-text {

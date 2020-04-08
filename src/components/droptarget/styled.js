@@ -81,9 +81,7 @@ export const DropzoneBtn = styled.button`
   line-height: 37px;
   margin: 10px; 
   font-size: 22px;
-  background-image: linear-gradient( 145deg, #BC78EC 10%, #3B2667 100%);
   border-radius: 50%;
-  transition: all 250ms linear;
   cursor: pointer;
   border: none;
   outline: rgba(250, 215, 161, 0.7);

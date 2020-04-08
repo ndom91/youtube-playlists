@@ -1,18 +1,11 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library, config } from '@fortawesome/fontawesome-svg-core'
-import { fas, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 import * as S from './styled'
 
 const Droptarget = props => {
-  library.add(fas, faTimes)
-  config.autoA11y = true
   const [draggingOver, setDragOver] = useState(false)
   const [dragTarget, setDragtarget] = useState('')
-
-  const deleteIcon = <FontAwesomeIcon icon={['fas', 'times']} />
 
   const dropHandler = ev => {
     ev.preventDefault()
@@ -61,7 +54,9 @@ const Droptarget = props => {
           id='droptarget'
         >
           <S.DropzoneBtn onClick={hideDropTarget}>
-            {deleteIcon}
+            <svg fill='currentColor' viewBox='0 0 20 20' style={{ marginTop: '4px' }}>
+              <path fillRule='evenodd' d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z' clipRule='evenodd' />
+            </svg>
           </S.DropzoneBtn>
           <div>Drop Video Here</div>
         </S.HoverDropzone>

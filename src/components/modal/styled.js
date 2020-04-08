@@ -54,20 +54,16 @@ export const ModalBtn = styled.button`
   &:hover {
     cursor: pointer;
     background-position: 100% 20%;
-    -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
   }
 
   &.btn-add {
     right: 200px;
-    background: linear-gradient(to right, #FF6F91, #FF9671);
     border-radius: 20px;
     margin: 0px -5px;
     padding-bottom: 5px;
 
     transition: box-shadow 0.15s ease,transform 0.15s ease;
-    -webkit-transition: box-shadow 0.15s ease,-webkit-transform 0.15s ease;
-    -webkit-transition: box-shadow 0.15s ease,transform 0.15s ease;
     will-change: box-shadow,transform;
     text-shadow: 0 1px 0 #4b5ef0;
     background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
@@ -85,22 +81,17 @@ export const ModalBtn = styled.button`
       background-blend-mode: multiply,normal;
       background-image: linear-gradient(#5468ff,#5468ff),linear-gradient(to top,#fff,#e4e4e9) no-repeat;
       box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #5468ff;
-      -webkit-transform: translateY(2px);
-      -ms-transform: translateY(2px);
       transform: translateY(2px);
     }
   }
 
   &.btn-close {
     right: 80px;
-    background: linear-gradient(to right, rgba(255, 151, 113, 0.774), rgba(249, 249, 113, 0.658));
     border-radius: 20px;
     margin: 0px -5px;
     padding-bottom: 5px;
 
     transition: box-shadow 0.15s ease,transform 0.15s ease;
-    -webkit-transition: box-shadow 0.15s ease,-webkit-transform 0.15s ease;
-    -webkit-transition: box-shadow 0.15s ease,transform 0.15s ease;
     will-change: box-shadow,transform;
     text-shadow: 0 1px 0 #4b5ef0;
     background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
@@ -118,8 +109,6 @@ export const ModalBtn = styled.button`
       background-blend-mode: multiply,normal;
       background-image: linear-gradient(#5468ff,#5468ff),linear-gradient(to top,#fff,#e4e4e9) no-repeat;
       box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #5468ff;
-      -webkit-transform: translateY(2px);
-      -ms-transform: translateY(2px);
       transform: translateY(2px);
     }
   }

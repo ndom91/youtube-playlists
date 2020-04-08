@@ -21,17 +21,13 @@ const Playlist = props => {
   }, [isFirstRender, props.videoDetailsList, props.videoDetailsList.length, videos.length])
 
   const moveCard = (dragIndex, hoverIndex) => {
-    const newVideos = videos
-    const dragCard = newVideos[dragIndex]
+    const dragCard = videos[dragIndex]
 
-    newVideos.splice(dragIndex, 1)
-    newVideos.splice(hoverIndex, 0, dragCard)
+    videos.splice(dragIndex, 1)
+    videos.splice(hoverIndex, 0, dragCard)
 
-    setVideos(
-      newVideos
-    )
-
-    props.updateVideoListOrder(videos)
+    props.updateVideoListOrder([...videos])
+    setVideos(videos)
   }
 
   const handleDragOver = (event) => {

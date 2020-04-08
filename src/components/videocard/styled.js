@@ -58,11 +58,7 @@ export const CardInfos = styled.div`
 export const CardTitle = styled.h2`
   position: relative;
   margin: 1px 0;
-  color: #152536;
-  font-family: 'Francois One', sans-serif;
   line-height: 15px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
   text-shadow: 0 0 0px #32577f;
   height: 4.2em;
   overflow: hidden;
@@ -74,7 +70,7 @@ export const CardTitle = styled.h2`
   font-family: 'Francois One', sans-serif;
 
   &:after {
-    text - align: left;
+    text-align: left;
     top: 0;
     left: 0;
     content: "";
@@ -107,11 +103,10 @@ export const CardBtn = styled.button`
   color: #fff;
   width: 37px;
   height: 37px;
-  border-radius: 50 %;
   cursor: pointer;
   vertical-align: middle;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   outline: rgba(250, 215, 161, 0.7);
 
   transition: box-shadow 0.15s ease, transform 0.15s ease;
@@ -146,8 +141,6 @@ export const FetchLoader = styled.div`
 
   width: 150px;
   height: 150px;
-  position: relative;
-  display: inline-block;
   z-index: 1001;
 `
 

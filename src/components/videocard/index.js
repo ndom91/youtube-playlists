@@ -1,15 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library, config } from '@fortawesome/fontawesome-svg-core'
-import { fas, faTrash } from '@fortawesome/free-solid-svg-icons'
 import * as S from './styled'
 
 const handleOnClick = (e) => {
   e.preventDefault()
 }
-
-const deleteIcon = <FontAwesomeIcon icon={['fas', 'trash']} />
 
 const FetchSpinner = () => {
   return (
@@ -41,11 +36,6 @@ const Videocard = (props) => {
     channel,
     thumbnail
   } = props
-
-  useEffect(() => {
-    library.add(fas, faTrash)
-    config.autoA11y = true
-  }, [])
 
   const [, drop] = useDrop({
     accept: type,
@@ -83,14 +73,15 @@ const Videocard = (props) => {
             id='videocard'
             className='videocard'
             style={{
-              cursor: 'move',
               opacity
             }}
             onClick={handleOnClick}
             key={id}
           >
             <S.CardBtn onClick={onRemove}>
-              {deleteIcon}
+              <svg fill='currentColor' viewBox='0 0 20 20' style={{ marginTop: '4px' }}>
+                <path fillRule='evenodd' d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z' clipRule='evenodd' />
+              </svg>
             </S.CardBtn>
             <S.Article>
               <a href={url}>

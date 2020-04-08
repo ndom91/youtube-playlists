@@ -23,7 +23,6 @@ export const Button = styled.button`
   border-color: rgb(221, 221, 221);
   border-image: initial;
 
-  // fancy btn
   font-family: 'Francois One', sans-serif;
   font-weight: 400 !important;
   font-size: 1.2rem;
@@ -32,7 +31,6 @@ export const Button = styled.button`
   text-transform: uppercase;
   line-height: 34px;
   color: #fff;
-  height: 50px;
   border-radius: 2em;
   
   height: 55px;
@@ -71,6 +69,7 @@ export const VideoOptions = styled.ul`
   margin-top: 15px;
 
   .sidebar-fa-icon {
+    width: 1.5rem;
     color: rgb(118, 81, 199);
     transition: all 250ms linear;
     position: absolute;
@@ -86,8 +85,6 @@ export const VideoOptionsItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: stretch;
-  -webkit-transition: box-shadow 0.15s ease,-webkit-transform 0.15s ease;
-  -webkit-transition: box-shadow 0.15s ease,transform 0.15s ease;
   transition: box-shadow 0.15s ease,transform 0.15s ease;
   will-change: box-shadow,transform;
   background: linear-gradient(#fff,#e4e4e9) no-repeat;
@@ -97,8 +94,6 @@ export const VideoOptionsItem = styled.li`
   &:active {
     background-image: linear-gradient(to top,#fff,#e4e4e9) no-repeat;
     box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #e4e4e9;
-    -webkit-transform: translateY(2px);
-    -ms-transform: translateY(2px);
     transform: translateY(2px);
   }
 `
@@ -117,7 +112,6 @@ export const VideoOptionsLabel = styled.label`
   outline: none;
   justify-items: center;
   align-items: center;
-  transition: all 0.3s ease-out;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 `

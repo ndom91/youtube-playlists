@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Header from './components/header'
@@ -9,132 +9,72 @@ import Modal from './components/modal'
 import Playlist from './components/playlist'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-import _ from 'lodash'
+import debounce from 'lodash.debounce'
 import Joyride from 'react-joyride'
-
-import LogRocket from 'logrocket'
-import setupLogRocketReact from 'logrocket-react'
-import * as Sentry from '@sentry/browser'
-import ReactGA from 'react-ga'
-
-import * as serviceWorker from './components/serviceWorker'
-
 import * as S from './styled'
+
+import ReactGA from 'react-ga'
+import * as serviceWorker from './components/serviceWorker'
 
 // Google Analytics
 ReactGA.initialize('UA-111339084-6')
 ReactGA.pageview(window.location.pathname + window.location.search)
 
-// Setup Logging + Error Tracking
-Sentry.init({
-  dsn: 'https://1dff941d871e43fca1a0f9e05651fc06@sentry.ndo.dev/2',
-  release: 'youtube-playlist@1.3',
-  autoBreadcrumbs: {
-    console: false
-  }
-})
+const App = () => {
+  const [activeVideo, setActiveVideo] = useState('')
+  const [modalChildren, setModalChildren] = useState(null)
+  const [clipboardLink, setClipboardLink] = useState('')
+  const [isClipboardModalVisible, setClipboardModalVisibility] = useState(false)
+  const [videoDetailsList, setVideoDetailsList] = useState([])
+  const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
+  const [dropzoneVisible, setDropzoneVisibility] = useState(false)
+  const [fetchInProgress, setFetchInProgress] = useState(false)
+  const [videoOpts, setVideoOpts] = useState({ fullscreen: 0, autoplay: 1 })
+  const [joyrideRun, setJoyrideRun] = useState(false)
+  const joyrideSteps = [
+    {
+      target: '.container',
+      title: 'Drop Target',
+      content: 'To begin, drag and drop a YouTube video onto this area.',
+      placementBeacon: 'top',
+      placement: 'auto'
+    },
+    {
+      target: '.footer.playlist',
+      title: 'Playlist',
+      content: 'Your videos will appear here. You can drag and drop to change the order.'
+    },
+    {
+      target: '.item.sidebar',
+      title: 'Controls',
+      content: 'These are your controls, you can change options as well as start / clear the playlist.',
+      placement: 'right'
+    }
+  ]
 
-LogRocket.init('4ayekz/youtube-playlists')
-setupLogRocketReact(LogRocket)
-
-LogRocket.getSessionURL(sessionURL => {
-  Sentry.configureScope(scope => {
-    scope.setExtra('sessionURL', sessionURL)
-  })
-})
-
-class Mainwrapper extends React.Component {
-  constructor (props) {
-    super(props)
-
+  useEffect(() => {
     window.addEventListener('DOMContentLoaded', () => {
       const parsedUrl = new URL(window.location)
       const text = parsedUrl.searchParams.get('text')
-      this.updateVideoDetailsList(text)
+      updateVideoDetailsList(text)
     })
-
-    this.state = {
-      activeVideo: '',
-      isClipboardModalVisible: false,
-      videoDetailsList: [],
-      skippedClipboardVideos: [],
-      dropzoneVisible: false,
-      eventId: null,
-      fetchInProgress: false,
-      videoOpts: {
-        fullscreen: 0,
-        autoplay: 1
-      },
-      joyrideRun: false,
-      steps: [
-        {
-          target: '.container',
-          title: 'Drop Target',
-          content: 'To begin, drag and drop a YouTube video onto this area.',
-          placementBeacon: 'top',
-          placement: 'auto'
-        },
-        {
-          target: '.footer.playlist',
-          title: 'Playlist',
-          content: 'Your videos will appear here. You can drag and drop to change the order.'
-        },
-        {
-          target: '.item.sidebar',
-          title: 'Controls',
-          content: 'These are your controls, you can change options as well as start / clear the playlist.',
-          placement: 'right'
-        }
-      ]
-    }
-  }
-
-  componentDidCatch (error, errorInfo) {
-    Sentry.withScope(scope => {
-      scope.setExtras(errorInfo)
-      const eventId = Sentry.captureException(error)
-      this.setState({ eventId })
-    })
-  }
-
-  componentDidMount () {
     navigator.permissions.query({ name: 'clipboard-read' })
     const joyrideCount = window.localStorage.getItem('joyrideCount')
     if (joyrideCount < 2) {
-      this.setState({
-        joyrideRun: true
-      })
+      setJoyrideRun(true)
     }
-  }
+  }, [])
 
-  incrementJoyride = (state) => {
+  const incrementJoyride = (state) => {
     if (state.type === 'tour:end' || state.type === 'tour:start') {
       const joyrideCount = window.localStorage.getItem('joyrideCount') || 0
       window.localStorage.setItem('joyrideCount', parseInt(joyrideCount) + 1)
     }
   }
 
-  handleDragover = (e) => {
-    this.setState({
-      dropzoneVisible: true
-    })
-  }
-
-  closeDropzone = () => {
-    this.setState({
-      dropzoneVisible: false
-    })
-  }
-
-  handleLoad = () => {
-    navigator.permissions.query({
-      name: 'clipboard-read'
-    })
-  }
-
-  updateVideoDetailsList = videoUrl => {
+  const updateVideoDetailsList = videoUrl => {
     if (videoUrl) {
-      this.setState({ fetchInProgress: true })
+      setFetchInProgress(true)
       let videoId
       if (videoUrl.includes('youtu.be')) {
         videoId = videoUrl
@@ -144,37 +84,32 @@ class Mainwrapper extends React.Component {
           .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
           .substring(0, 11)
       }
-      if (!this.state.videoDetailsList.some(e => e.id === videoId)) {
-        const videoDetails = this.getVideoDetails(videoId)
+      if (!videoDetailsList.some(e => e.id === videoId)) {
+        const videoDetails = getVideoDetails(videoId)
         videoDetails.then(details => {
-          this.setState({
-            videoDetailsList: [...this.state.videoDetailsList, details],
-            fetchInProgress: false
-          })
+          setVideoDetailsList([...videoDetailsList, details])
+          setFetchInProgress(false)
         })
       }
     }
   }
 
-  handlePlayerEnd = () => {
-    const { videoOpts } = this.state
-
+  const handlePlayerEnd = () => {
     if (videoOpts.autoplay === 1) {
-      const videoDetailsRemaining = this.state.videoDetailsList.filter(
-        video => video.id !== this.state.activeVideo
+      const videoDetailsRemaining = videoDetailsList.filter(
+        video => video.id !== activeVideo
       )
-      this.setState({ videoDetailsList: videoDetailsRemaining })
-      this.handlePlay()
+      setVideoDetailsList(videoDetailsRemaining)
+      handlePlay()
     }
   }
 
-  handlePlay = () => {
-    const videos = this.state.videoDetailsList
-    if (videos.length !== 0) {
-      const videoId = videos[0].id
-      this.setState({ activeVideo: videoId })
-      const videoIdsRemaining = videos.filter(video => video.id !== videoId)
-      this.setState({ videoDetailsList: videoIdsRemaining })
+  const handlePlay = () => {
+    if (videoDetailsList.length !== 0) {
+      const videoId = videoDetailsList[0].id
+      setActiveVideo(videoId)
+      const videoIdsRemaining = videoDetailsList.filter(video => video.id !== videoId)
+      setVideoDetailsList(videoIdsRemaining)
     } else {
       toast('No Videos Available', {
         className: 'info-toast'
@@ -182,7 +117,7 @@ class Mainwrapper extends React.Component {
     }
   }
 
-  getVideoDetails = async id => {
+  const getVideoDetails = async id => {
     return window.fetch(`https://yt-details.ndo.workers.dev/?vid=${id}`, {
       headers: {
         'Content-Type': 'application/json'
@@ -193,15 +128,14 @@ class Mainwrapper extends React.Component {
       .then(json => json)
   }
 
-  handleVideoRemove = videoId => {
-    this.setState({
-      videoDetailsList: this.state.videoDetailsList.filter(
-        video => video.id !== videoId
-      )
-    })
+  const handleVideoRemove = videoId => {
+    const videoList = videoDetailsList.filter(
+      video => video.id !== videoId
+    )
+    setVideoDetailsList(videoList)
   }
 
-  handleFocus = () => {
+  const handleFocus = () => {
     navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
       if (result.state === 'granted' || result.state === 'prompt') {
         navigator.clipboard.readText().then(text => {
@@ -210,9 +144,9 @@ class Mainwrapper extends React.Component {
             videoId = text
               .substring(text.indexOf('v=') + 2, text.length)
               .substring(0, 11)
-            if (!this.state.videoDetailsList.some(v => v.id === videoId) && !this.state.skippedClipboardVideos.includes(videoId)) {
-              this.setState({ fetchInProgress: true })
-              const videoInfo = this.getVideoDetails(videoId)
+            if (!videoDetailsList.some(v => v.id === videoId) && !skippedClipboardVideos.includes(videoId)) {
+              setFetchInProgress(true)
+              const videoInfo = getVideoDetails(videoId)
               videoInfo.then(details => {
                 const children = (
                   <div>
@@ -220,7 +154,7 @@ class Mainwrapper extends React.Component {
                     <S.ClipboardThumbnail
                       alt='video thumbnail'
                       className='clipboard-video-thumb'
-                      src={details.thumb}
+                      src={details.thumb.medium.url}
                     />
                     <S.ModalText className='modal-header-text'>
                       We've detected a YouTube link in your clipboard
@@ -231,12 +165,10 @@ class Mainwrapper extends React.Component {
                     </S.ModalText>
                   </div>
                 )
-                this.setState({
-                  isClipboardModalVisible: true,
-                  modalChildren: children,
-                  clipboardLink: text,
-                  fetchInProgress: false
-                })
+                setClipboardModalVisibility(true)
+                setModalChildren(children)
+                setClipboardLink(text)
+                setFetchInProgress(false)
               })
             }
           }
@@ -245,150 +177,123 @@ class Mainwrapper extends React.Component {
     })
   }
 
-  handleClear = () => {
-    this.setState({ videoIds: [], videoDetailsList: [] })
+  const handleClear = () => {
+    setVideoDetailsList([])
   }
 
-  onFullscreen = () => {
-    const { videoOpts } = this.state
+  const onFullscreen = () => {
     if (videoOpts.fullscreen === 1) {
-      this.setState({ videoOpts: { ...videoOpts, fullscreen: 0 } })
+      setVideoOpts({ ...videoOpts, fullscreen: 0 })
     } else {
-      this.setState({ videoOpts: { ...videoOpts, fullscreen: 1 } })
+      setVideoOpts({ ...videoOpts, fullscreen: 1 })
     }
   }
 
-  onAutoplay = () => {
-    const { videoOpts } = this.state
+  const onAutoplay = () => {
     if (videoOpts.autoplay === 1) {
-      this.setState({ videoOpts: { ...videoOpts, autoplay: 0 } })
+      setVideoOpts({ ...videoOpts, autoplay: 0 })
     } else {
-      this.setState({ videoOpts: { ...videoOpts, autoplay: 1 } })
+      setVideoOpts({ ...videoOpts, autoplay: 1 })
     }
   }
 
-  onVideoAdd = () => {
-    const { clipboardLink } = this.state
-
+  const onVideoAdd = () => {
     const videoId = clipboardLink
       .substring(clipboardLink.indexOf('v=') + 2, clipboardLink.length)
       .substring(0, 11)
 
-    this.updateVideoDetailsList(clipboardLink)
-    this.setState({
-      isClipboardModalVisible: false,
-      skippedClipboardVideos: [...this.state.skippedClipboardVideos, videoId],
-      clipboardLink: null
-    })
+    updateVideoDetailsList(clipboardLink)
+    setClipboardModalVisibility(false)
+    setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
+    setClipboardLink('')
   }
 
-  onModalClose = e => {
-    const { clipboardLink } = this.state
+  const onModalClose = e => {
     e.preventDefault()
     const videoId = clipboardLink
       .substring(clipboardLink.indexOf('v=') + 2, clipboardLink.length)
       .substring(0, 11)
-    this.setState({
-      skippedClipboardVideos: [...this.state.skippedClipboardVideos, videoId],
-      isClipboardModalVisible: false,
-      clipboardLink: null
-    })
+
+    setClipboardModalVisibility(false)
+    setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
+    setClipboardLink('')
   }
 
-  updateVideoListOrder = videoList => {
-    console.log(videoList)
-    this.setState({
-      videoDetailsList: videoList
-    })
+  const updateVideoListOrder = (videoList) => {
+    setVideoDetailsList(videoList)
   }
 
-  render () {
-    const {
-      videoDetailsList,
-      videoList,
-      videoOpts,
-      activeVideo,
-      modalChildren,
-      isClipboardModalVisible,
-      fetchInProgress,
-      steps,
-      joyrideRun,
-      dropzoneVisible
-    } = this.state
+  const throttledFocus = debounce(handleFocus, 1000)
 
-    const throttledFocus = _.debounce(this.handleFocus, 1000)
-
-    return (
-      <div
-        onLoad={this.handleLoad}
-        onDragOver={this.handleDragover}
-        onFocus={throttledFocus}
-        className='container'
-      >
-        <Joyride
-          steps={steps}
-          showSkipButton
-          continuous
-          showProgress
-          run={joyrideRun}
-          styles={{
-            options: {
-              zIndex: 1001,
-              primaryColor: '#ff4242'
-            }
-          }}
-          callback={this.incrementJoyride}
-        />
-        <Dropzone
-          visible={dropzoneVisible}
-          addVideoOnDrop={this.updateVideoDetailsList}
-          closeDropzone={this.closeDropzone}
-        />
-        <Header />
-        <Sidebar
-          handleFullscreen={this.onFullscreen}
-          handleAutoplay={this.onAutoplay}
-          onPlay={this.handlePlay}
-          onClear={this.handleClear}
-          videos={videoList}
-          videoOpts={videoOpts}
-        />
-        <Player
-          videoId={activeVideo}
-          onEnd={this.handlePlayerEnd}
-          videoOpts={videoOpts}
-        />
-        <div id='playlist' className='item footer playlist'>
-          <Playlist
-            videoDetailsList={videoDetailsList}
-            onRemove={this.handleVideoRemove}
-            updateVideoListOrder={this.updateVideoListOrder}
-            fetchInProgress={fetchInProgress}
-          />
-        </div>
-        <Modal
-          show={isClipboardModalVisible}
-          handleAdd={this.onVideoAdd}
-          handleClose={this.onModalClose}
-        >
-          {modalChildren}
-        </Modal>
-        <ToastContainer
-          transition={Bounce}
-          autoclose={1500}
-          className='toast-container'
-          closeOnClick
-          pauseOnVisibilityChange={false}
-          pauseOnHover={false}
-          pauseOnFocusLoss={false}
-          hideProgressBar
-          closeButton={false}
+  return (
+    <div
+      onDragOver={() => setDropzoneVisibility(true)}
+      onFocus={throttledFocus}
+      className='container'
+    >
+      <Joyride
+        steps={joyrideSteps}
+        showSkipButton
+        continuous
+        showProgress
+        run={joyrideRun}
+        styles={{
+          options: {
+            zIndex: 1001,
+            primaryColor: '#ff4242'
+          }
+        }}
+        callback={incrementJoyride}
+      />
+      <Dropzone
+        visible={dropzoneVisible}
+        addVideoOnDrop={updateVideoDetailsList}
+        closeDropzone={() => setDropzoneVisibility(false)}
+      />
+      <Header />
+      <Sidebar
+        handleFullscreen={onFullscreen}
+        handleAutoplay={onAutoplay}
+        onPlay={handlePlay}
+        onClear={handleClear}
+        videoOpts={videoOpts}
+      />
+      <Player
+        videoId={activeVideo}
+        onEnd={handlePlayerEnd}
+        videoOpts={videoOpts}
+      />
+      <div id='playlist' className='item footer playlist'>
+        <Playlist
+          videoDetailsList={videoDetailsList}
+          onRemove={handleVideoRemove}
+          updateVideoListOrder={updateVideoListOrder}
+          fetchInProgress={fetchInProgress}
         />
       </div>
-    )
-  }
+      <Modal
+        show={isClipboardModalVisible}
+        handleAdd={onVideoAdd}
+        handleClose={onModalClose}
+      >
+        {modalChildren}
+      </Modal>
+      <ToastContainer
+        transition={Bounce}
+        autoclose={1500}
+        className='toast-container'
+        closeOnClick
+        pauseOnVisibilityChange={false}
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        hideProgressBar
+        closeButton={false}
+      />
+    </div>
+  )
 }
+// }
 
 serviceWorker.register()
 
-ReactDOM.render(<Mainwrapper />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
