@@ -90,7 +90,8 @@ const App = () => {
     if (joyrideCount < 2) {
       setJoyrideRun(true)
     }
-  }, [updateVideosState])
+    // eslint-disable-next-line
+  }, [])
 
   const handlePlayerEnd = () => {
     if (store.get('videoOpts').autoplay === 1) {
