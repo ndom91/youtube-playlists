@@ -1,10 +1,11 @@
 {
   "name": "youtube-playlists",
-  "description": "Create on-the-fly YouTube playlists!",
-  "version": "3.1.0",
+  "description": "Create on-the-fly YouTube playlists",
+  "version": "3.2.0",
   "homepage": "https://youtube.ndo.dev",
   "repository": "https://github.com/ndom91/youtube-playlists",
   "license": "MIT",
+  "main": "App.js",
   "start_url": ".",
   "scripts": {
     "start": "react-scripts start",
@@ -17,12 +18,6 @@
     "lint:fix": "standard --fix \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' "
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.28",
-    "@fortawesome/free-solid-svg-icons": "^5.13.0",
-    "@fortawesome/react-fontawesome": "^0.1.9",
-    "@sentry/browser": "^5.15.4",
-    "immutability-helper": "^3.0.2",
-    "lodash": "^4.17.15",
     "lodash.debounce": "^4.0.8",
     "react": "^16.13.1",
     "react-dnd": "^10.0.2",
@@ -34,7 +29,8 @@
     "react-scripts": "3.1.2",
     "react-toastify": "^5.5.0",
     "react-youtube": "^7.11.1",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "undux": "^5.2.0"
   },
   "devDependencies": {
     "cypress": "^4.3.0",
