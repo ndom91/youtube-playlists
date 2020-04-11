@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 
-describe('Server Running', () => {
-  it('successfully loads', () => {
+describe('Server', () => {
+  it('Page Load', () => {
     cy.visit('http://localhost:3000') // change URL to match your dev URL
   })
 })
 
-context('Network Requests', () => {
-  it('cy.request() - make an XHR request', () => {
+context('Network', () => {
+  it('Cloudflare Worker - Response Test', () => {
     cy.server()
     cy.request({
       url: 'https://yt-details.ndo.workers.dev/?vid=UqyeVUCwfk4',
@@ -21,13 +21,27 @@ context('Network Requests', () => {
 })
 
 context('Window', () => {
-  it('cy.title() - get the title', () => {
+  it('Page Title', () => {
     cy.server()
     cy.title().should('include', 'Dynamic Playlists')
   })
 })
 
-context('Files', () => {
+context('Joyride', () => {
+  it('First Action', () => {
+    cy.get('.react-joyride__beacon')
+      .click()
+
+    cy.get('.react-joyride__tooltip')
+      .should('contain.text', 'To begin, drag and drop a YouTube video onto this area.')
+
+    cy.get('.react-joyride__tooltip > button[data-action="close"]')
+      .click()
+  })
+
+})
+
+context('Actions', () => {
   beforeEach(() => {
     cy.fixture('video.json').as('video1')
   })
@@ -53,5 +67,13 @@ context('Files', () => {
     cy.get('#videocard').first()
       .should('contain.text', 'Techquickie')
 
+  })
+
+  it('Remove Video', () => {
+    cy.get('#videocard > button')
+      .click()
+
+    cy.get('#videocard')
+      .should('not.exist')
   })
 })
