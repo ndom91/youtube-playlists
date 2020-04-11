@@ -22,7 +22,6 @@
     "react": "^16.13.1",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
-    "react-dnd-text-dragpreview": "^0.2.3",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-joyride": "^2.2.1",
