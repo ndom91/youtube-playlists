@@ -193,7 +193,7 @@ const App = () => {
   return (
     <div
       onDragOver={() => setDropzoneVisibility(true)}
-      // onFocus={throttledFocus}
+      onFocus={throttledFocus}
       className='container'
     >
       {joyrideRun && (
