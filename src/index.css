@@ -129,7 +129,7 @@ body {
     grid-column: 1 / 1;
   }
   .item.sidebar {
-    align-items: space-around;
+    justify-content: space-around;
   }
   .btn-wrapper {
     position: relative !important;
@@ -141,13 +141,20 @@ body {
     margin: 15px !important;
   }
   .playlist {
-    height: 100%;
+    height: fit-content;
+    justify-content: center !important;
+  }
+  .playlist-container {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
   .footer {
     grid-row: 5 / 6;
     grid-column: 1 / 1;
   }
   .item {
-    max-width: 100%;
+    width: 90%;
+    margin: 0 auto;
   }
 }

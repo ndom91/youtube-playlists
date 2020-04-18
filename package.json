@@ -29,6 +29,7 @@
     "react-toastify": "^5.5.0",
     "react-youtube": "^7.11.1",
     "styled-components": "^4.4.1",
+    "styled-media-query": "^2.1.2",
     "undux": "^5.2.0"
   },
   "devDependencies": {

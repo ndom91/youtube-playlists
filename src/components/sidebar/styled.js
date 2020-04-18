@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import media from 'styled-media-query'
 
 export const BtnWrapper = styled.div`
   display: flex;
@@ -6,6 +7,12 @@ export const BtnWrapper = styled.div`
   align-content: center;
   position: absolute;
   bottom: 15px;
+
+   ${media.lessThan('medium')`
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-end;
+  `}
 `
 
 // PLAY / CLEAR BUTTONS
@@ -90,6 +97,11 @@ export const VideoOptionsItem = styled.li`
   background: linear-gradient(#fff,#e4e4e9) no-repeat;
   box-shadow: 0 7px 14px -3px rgba(45,35,66,0.3), 0 2px 4px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #cfd1e3;
   border-radius: 25px;
+
+  ${media.lessThan('medium')`
+    margin: 15px;
+  `}
+
 
   &:active {
     background-image: linear-gradient(to top,#fff,#e4e4e9) no-repeat;
