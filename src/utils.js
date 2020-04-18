@@ -41,8 +41,13 @@ export const addVideoToHash = videoId => {
 export const removeVideoFromHash = videoId => {
   const videoIdsFromUrl = JSON.parse(window.atob(decodeURIComponent(window.location.hash.slice(1))))
   if (videoIdsFromUrl.includes(videoId)) {
-    const remainingVideos = JSON.stringify(videoIdsFromUrl.filter(id => id !== videoId))
-    window.history.replaceState(null, null, `#${encodeURIComponent(window.btoa(remainingVideos))}`)
+    if (Array.isArray(videoIdsFromUrl)) {
+      const remainingVideos = JSON.stringify(videoIdsFromUrl.filter(id => id !== videoId))
+      window.history.replaceState(null, null, `#${encodeURIComponent(window.btoa(remainingVideos))}`)
+    } else {
+      // const remainingVideos = JSON.stringify(videoIdsFromUrl.filter(id => id !== videoId))
+      window.history.replaceState(null, null, '#')
+    }
   }
 }
 

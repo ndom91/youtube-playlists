@@ -133,12 +133,12 @@ const App = () => {
     }
   }
 
-  const handleFocus = () => {
+  const handleFocus = (e) => {
     navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
       if (result.state === 'granted' || result.state === 'prompt') {
         navigator.clipboard.readText().then(text => {
           const videoId = parseYoutubeUrl(text)
-          if (!store.get('videos').find(v => v.id === videoId) && !skippedClipboardVideos.includes(videoId) && clipboardLink !== text) {
+          if (videoId !== undefined && !store.get('videos').find(v => v.id === videoId) && !skippedClipboardVideos.includes(videoId) && clipboardLink !== text) {
             setFetchInProgress(true)
             const videoInfo = fetchVideoDetails(videoId)
             videoInfo.then(details => {
