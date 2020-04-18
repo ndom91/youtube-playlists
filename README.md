@@ -22,6 +22,7 @@ Once you've got your playlist organized, press "Play" and the application will b
 - Responsive Design 
 - Progressive Web App - Installable on Mobile
 - Web Share Target - You can 'share' from any other Android App to this App.
+- Shareable Playlist URLs - Data is embeded into the URL Hash (**New** 🎉)
 - (**Coming Soon**) Google Cast Functionality
 
 ## ⚓ Requirements

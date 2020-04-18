@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import './index.css'
 import Header from './components/header'
 import Dropzone from './components/dropzone'
 import Sidebar from './components/sidebar'
 import Player from './components/player'
 import Modal from './components/modal'
 import Playlist from './components/playlist'
+import Store from './components/store'
+import { fetchVideoDetails, parseYoutubeUrl, updateUrlHash } from './utils'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import debounce from 'lodash.debounce'
 import Joyride from 'react-joyride'
-import Store from './components/store'
 import * as S from './styled'
-
-import ReactGA from 'react-ga'
+import './index.css'
 
 // Google Analytics
+import ReactGA from 'react-ga'
 ReactGA.initialize('UA-111339084-6')
 ReactGA.pageview(window.location.pathname + window.location.search)
 
@@ -57,22 +57,17 @@ const App = () => {
     }
   }
 
-  const updateVideosState = videoUrl => {
+  const addVideo = videoUrl => {
     if (videoUrl) {
       setFetchInProgress(true)
-      let videoId
-      if (videoUrl.includes('youtu.be')) {
-        videoId = videoUrl
-          .substring(videoUrl.indexOf('tu.be/') + 6)
-      } else if (videoUrl.includes('youtube.com')) {
-        videoId = videoUrl
-          .substring(videoUrl.indexOf('v=') + 2, videoUrl.length)
-          .substring(0, 11)
-      }
+      const videoId = parseYoutubeUrl(videoUrl)
       if (!store.get('videos').some(e => e.id === videoId)) {
         const videoDetails = fetchVideoDetails(videoId)
         videoDetails.then(details => {
-          store.set('videos')([...store.get('videos'), details])
+          const existingVideos = store.get('videos')
+          existingVideos.push(details)
+          store.set('videos')(existingVideos)
+          window.history.replaceState(null, null, `#${encodeURIComponent(window.btoa(updateUrlHash(videoId)))}`)
           setFetchInProgress(false)
         })
       }
@@ -80,11 +75,24 @@ const App = () => {
   }
 
   useEffect(() => {
+    // get web share target content and add to playlist
     window.addEventListener('DOMContentLoaded', () => {
       const parsedUrl = new URL(window.location)
       const text = parsedUrl.searchParams.get('text')
-      updateVideosState(text)
+      addVideo(text)
     })
+
+    // parse URL hashes
+    if (window.location.hash.length > 1) {
+      const videoIdsFromUrl = JSON.parse(window.atob(decodeURIComponent(window.location.hash.slice(1))))
+      console.log(videoIdsFromUrl)
+      videoIdsFromUrl.forEach(videoId => {
+        addVideo(videoId)
+      })
+      setFetchInProgress(false)
+    }
+
+    // get clipboard permissions
     navigator.permissions.query({ name: 'clipboard-read' })
     const joyrideCount = window.localStorage.getItem('joyrideCount')
     if (joyrideCount < 2) {
@@ -93,7 +101,7 @@ const App = () => {
     // eslint-disable-next-line
   }, [])
 
-  const handlePlayerEnd = () => {
+  const handleVideoEnd = () => {
     if (store.get('videoOpts').autoplay === 1) {
       const remainingVideos = store.get('videos').filter(
         video => video.id !== activeVideo
@@ -118,53 +126,37 @@ const App = () => {
     }
   }
 
-  const fetchVideoDetails = async id => {
-    return window.fetch(`https://yt-details.ndo.workers.dev/?vid=${id}`, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      crossdomain: true
-    })
-      .then(resp => resp.json())
-      .then(json => json)
-  }
-
   const handleFocus = () => {
     navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
       if (result.state === 'granted' || result.state === 'prompt') {
         navigator.clipboard.readText().then(text => {
-          let videoId
-          if (text.includes('youtube.com/watch')) {
-            videoId = text
-              .substring(text.indexOf('v=') + 2, text.length)
-              .substring(0, 11)
-            if (!store.get('videos').some(v => v.id === videoId) && !skippedClipboardVideos.includes(videoId)) {
-              setFetchInProgress(true)
-              const videoInfo = fetchVideoDetails(videoId)
-              videoInfo.then(details => {
-                const children = (
-                  <div>
-                    <S.ThumbFade className='thumb-fade' />
-                    <S.ClipboardThumbnail
-                      alt='video thumbnail'
-                      className='clipboard-video-thumb'
-                      src={details.thumb.medium.url}
-                    />
-                    <S.ModalText className='modal-header-text'>
-                      We've detected a YouTube link in your clipboard
-                    </S.ModalText>
-                    <S.ModalText className='video-text'>{details.title}</S.ModalText>
-                    <S.ModalText className='footer-text'>
-                      Would you like to add it?
-                    </S.ModalText>
-                  </div>
-                )
-                setClipboardModalVisibility(true)
-                setModalChildren(children)
-                setClipboardLink(text)
-                setFetchInProgress(false)
-              })
-            }
+          const videoId = parseYoutubeUrl(text)
+          if (!store.get('videos').find(v => v.id === videoId) && !skippedClipboardVideos.includes(videoId) && clipboardLink !== text) {
+            setFetchInProgress(true)
+            const videoInfo = fetchVideoDetails(videoId)
+            videoInfo.then(details => {
+              const children = (
+                <div>
+                  <S.ThumbFade className='thumb-fade' />
+                  <S.ClipboardThumbnail
+                    alt='video thumbnail'
+                    className='clipboard-video-thumb'
+                    src={details.thumb.medium.url}
+                  />
+                  <S.ModalText className='modal-header-text'>
+                    We've detected a YouTube link in your clipboard
+                  </S.ModalText>
+                  <S.ModalText className='video-text'>{details.title}</S.ModalText>
+                  <S.ModalText className='footer-text'>
+                    Would you like to add it?
+                  </S.ModalText>
+                </div>
+              )
+              setClipboardModalVisibility(true)
+              setModalChildren(children)
+              setClipboardLink(text)
+              setFetchInProgress(false)
+            })
           }
         })
       }
@@ -172,11 +164,9 @@ const App = () => {
   }
 
   const onClipboardVideoAdd = () => {
-    const videoId = clipboardLink
-      .substring(clipboardLink.indexOf('v=') + 2, clipboardLink.length)
-      .substring(0, 11)
+    const videoId = parseYoutubeUrl(clipboardLink)
 
-    updateVideosState(clipboardLink)
+    addVideo(clipboardLink)
     setClipboardModalVisibility(false)
     setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
     setClipboardLink('')
@@ -184,9 +174,7 @@ const App = () => {
 
   const onModalClose = e => {
     e.preventDefault()
-    const videoId = clipboardLink
-      .substring(clipboardLink.indexOf('v=') + 2, clipboardLink.length)
-      .substring(0, 11)
+    const videoId = parseYoutubeUrl(clipboardLink)
 
     setClipboardModalVisibility(false)
     setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
@@ -219,7 +207,7 @@ const App = () => {
       )}
       <Dropzone
         visible={dropzoneVisible}
-        addVideoOnDrop={updateVideosState}
+        addVideoOnDrop={addVideo}
         closeDropzone={() => setDropzoneVisibility(false)}
       />
       <Header />
@@ -229,7 +217,7 @@ const App = () => {
       />
       <Player
         videoId={activeVideo}
-        onEnd={handlePlayerEnd}
+        onEnd={handleVideoEnd}
         videoOpts={store.get('videoOpts')}
       />
       <Playlist

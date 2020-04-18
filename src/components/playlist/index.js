@@ -26,20 +26,21 @@ const Playlist = props => {
       <span onDragOver={handleDragOver} className='playlist-container'>
         <DndProvider backend={HTML5Backend}>
           {store.get('videos') &&
-            store.get('videos').map((video, index) => (
-              <Videocard
-                key={video.id}
-                id={video.id}
-                index={index}
-                title={video.title}
-                card={video}
-                listId={1}
-                channel={video.channel}
-                thumbnail={video.thumb}
-                moveCard={moveCard}
-                fetchInProgress={props.fetchInProgress}
-              />
-            ))}
+            store.get('videos').map((video, index) => {
+              return (
+                <Videocard
+                  key={video.id}
+                  id={video.id}
+                  index={index}
+                  title={video.title}
+                  card={video}
+                  listId={1}
+                  channel={video.channel}
+                  thumbnail={video.thumb}
+                  moveCard={moveCard}
+                  fetchInProgress={props.fetchInProgress}
+                />)
+            })}
         </DndProvider>
       </span>
     </div>

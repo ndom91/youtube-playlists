@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
 import Store from '../store'
 import * as S from './styled'
@@ -36,7 +36,6 @@ const Videocard = (props) => {
     channel,
     thumbnail
   } = props
-  const [fetchInProgress, setFetchInProgress] = useState(true)
 
   const store = Store.useStore()
 
@@ -72,18 +71,12 @@ const Videocard = (props) => {
     store.set('videos')(remainingVideos)
   }
 
-  useEffect(() => {
-    if (props.fetchInProgress) {
-      setFetchInProgress(false)
-    }
-  }, [props.fetchInProgress])
-
   const opacity = isDragging ? 0.5 : 1
 
   return (
     <div ref={ref} style={{ display: 'inline-block', opacity }}>
       <DragPreviewImage connect={preview} src={thumbnail.default.url} />
-      {!fetchInProgress
+      {!props.fetchInProgress
         ? (
           <S.VideoCard
             id='videocard'
