@@ -1,5 +1,5 @@
 export const parseYoutubeUrl = Url => {
-  if (Url.length === 11) {
+  if (Url.length === 11 || Url.length === 13) {
     // Passed in argument was Id already
     return Url
   }
@@ -19,20 +19,31 @@ export const parseYoutubeUrl = Url => {
   return videoId
 }
 
-export const updateUrlHash = videoId => {
+export const addVideoToHash = videoId => {
   let x
   if (window.location.hash.length > 1) {
     const videoIdsFromUrl = JSON.parse(window.atob(decodeURIComponent(window.location.hash.slice(1))))
-    console.log(typeof videoIdsFromUrl, videoIdsFromUrl)
     if (!videoIdsFromUrl.includes(videoId)) {
-      x = JSON.stringify([...videoIdsFromUrl, videoId])
+      if (Array.isArray(videoIdsFromUrl)) {
+        x = JSON.stringify([...videoIdsFromUrl, videoId])
+      } else {
+        x = JSON.stringify([videoIdsFromUrl, videoId])
+      }
     } else {
       x = JSON.stringify(videoIdsFromUrl)
     }
   } else {
-    x = JSON.stringify([videoId])
+    x = JSON.stringify(videoId)
   }
-  return x
+  window.history.replaceState(null, null, `#${encodeURIComponent(window.btoa(x))}`)
+}
+
+export const removeVideoFromHash = videoId => {
+  const videoIdsFromUrl = JSON.parse(window.atob(decodeURIComponent(window.location.hash.slice(1))))
+  if (videoIdsFromUrl.includes(videoId)) {
+    const remainingVideos = JSON.stringify(videoIdsFromUrl.filter(id => id !== videoId))
+    window.history.replaceState(null, null, `#${encodeURIComponent(window.btoa(remainingVideos))}`)
+  }
 }
 
 export const fetchVideoDetails = async id => {

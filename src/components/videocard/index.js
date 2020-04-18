@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
 import Store from '../store'
 import * as S from './styled'
+import { removeVideoFromHash } from '../../utils'
 
 const handleOnClick = (e) => {
   e.preventDefault()
@@ -34,14 +35,15 @@ const Videocard = (props) => {
     url,
     title,
     channel,
-    thumbnail
+    thumbnail,
+    index
   } = props
 
   const store = Store.useStore()
 
   const [, drop] = useDrop({
     accept: type,
-    hover (item) {
+    hover(item) {
       if (!ref.current) {
         return
       }
@@ -65,6 +67,7 @@ const Videocard = (props) => {
   drag(drop(ref))
 
   const handleVideoRemove = videoId => {
+    removeVideoFromHash(videoId)
     const remainingVideos = store.get('videos').filter(
       video => video.id !== videoId
     )
@@ -76,8 +79,10 @@ const Videocard = (props) => {
   return (
     <div ref={ref} style={{ display: 'inline-block', opacity }}>
       <DragPreviewImage connect={preview} src={thumbnail.default.url} />
-      {!props.fetchInProgress
+      {(props.fetchInProgress && index === store.get('videos').length)
         ? (
+          <FetchSpinner />
+        ) : (
           <S.VideoCard
             id='videocard'
             className='videocard'
@@ -106,8 +111,6 @@ const Videocard = (props) => {
               </a>
             </S.Article>
           </S.VideoCard>
-        ) : (
-          <FetchSpinner />
         )}
     </div>
   )

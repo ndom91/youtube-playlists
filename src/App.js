@@ -6,7 +6,7 @@ import Player from './components/player'
 import Modal from './components/modal'
 import Playlist from './components/playlist'
 import Store from './components/store'
-import { fetchVideoDetails, parseYoutubeUrl, updateUrlHash } from './utils'
+import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from './utils'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import debounce from 'lodash.debounce'
@@ -65,9 +65,10 @@ const App = () => {
         const videoDetails = fetchVideoDetails(videoId)
         videoDetails.then(details => {
           const existingVideos = store.get('videos')
+          // console.log(existingVideos)
           existingVideos.push(details)
           store.set('videos')(existingVideos)
-          window.history.replaceState(null, null, `#${encodeURIComponent(window.btoa(updateUrlHash(videoId)))}`)
+          addVideoToHash(videoId)
           setFetchInProgress(false)
         })
       }
@@ -85,11 +86,17 @@ const App = () => {
     // parse URL hashes
     if (window.location.hash.length > 1) {
       const videoIdsFromUrl = JSON.parse(window.atob(decodeURIComponent(window.location.hash.slice(1))))
-      console.log(videoIdsFromUrl)
-      videoIdsFromUrl.forEach(videoId => {
-        addVideo(videoId)
-      })
-      setFetchInProgress(false)
+      if (Array.isArray(videoIdsFromUrl)) {
+        videoIdsFromUrl.forEach(videoId => {
+          setFetchInProgress(true)
+          addVideo(videoId)
+          setFetchInProgress(false)
+        })
+      } else {
+        setFetchInProgress(true)
+        addVideo(videoIdsFromUrl)
+        setFetchInProgress(false)
+      }
     }
 
     // get clipboard permissions
@@ -186,7 +193,7 @@ const App = () => {
   return (
     <div
       onDragOver={() => setDropzoneVisibility(true)}
-      onFocus={throttledFocus}
+      // onFocus={throttledFocus}
       className='container'
     >
       {joyrideRun && (
