@@ -8,7 +8,7 @@
 
 ⚛️ React app for creating on-the-fly YouTube playlists. 
 
-> **Demo available at**: [`youtube.ni.co.de`](https://youtube.ni.co.de)  
+> **Demo available at**: [`youtube.ndo.dev`](https://youtube.ndo.dev)  
 
 ## 🏁 Getting Started
 
