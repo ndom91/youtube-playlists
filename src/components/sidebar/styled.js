@@ -38,7 +38,7 @@ export const Button = styled.button`
   text-transform: uppercase;
   line-height: 34px;
   color: #fff;
-  border-radius: 2em;
+  border-radius: 1em;
 
   height: 55px;
   transition: box-shadow 0.15s ease, transform 0.15s ease;
@@ -67,6 +67,10 @@ export const Button = styled.button`
 
   & span {
     padding: 15px 15px;
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 2px 4px rgba(189, 160, 253, 0.3);
   }
 `
 
@@ -101,7 +105,7 @@ export const VideoOptionsItem = styled.li`
   background: linear-gradient(#fff, #e4e4e9) no-repeat;
   box-shadow: 0 7px 14px -3px rgba(45, 35, 66, 0.3),
     0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
-  border-radius: 25px;
+  border-radius: 1em;
 
   ${media.lessThan('medium')`
     margin: 15px;
@@ -112,6 +116,9 @@ export const VideoOptionsItem = styled.li`
     box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
       inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #e4e4e9;
     transform: translateY(2px);
+  }
+  &:focus-within {
+    box-shadow: 0px 0px 2px 4px rgba(25, 19, 38, 0.3);
   }
 `
 

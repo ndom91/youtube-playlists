@@ -10,7 +10,7 @@ const Sidebar = props => {
     store.set('videos')([])
   }
 
-  const handleFullscreen = () => {
+  const handleFullscreenChange = () => {
     if (store.get('videoOpts').fullscreen === 1) {
       store.set('videoOpts')({ ...store.get('videoOpts'), fullscreen: 0 })
     } else {
@@ -18,7 +18,7 @@ const Sidebar = props => {
     }
   }
 
-  const handleAutoplay = () => {
+  const handleAutoplayChange = () => {
     if (store.get('videoOpts').autoplay === 1) {
       store.set('videoOpts')({ ...store.get('videoOpts'), autoplay: 0 })
     } else {
@@ -29,11 +29,14 @@ const Sidebar = props => {
     <div className='item sidebar'>
       <div className='checkBoxWrapper'>
         <S.VideoOptions>
-          <S.VideoOptionsItem>
+          <S.VideoOptionsItem
+            role='button'
+            aria-pressed={props.videoOpts.fullscreen === 1}
+          >
             <S.VideoOptionsInput
               type='checkbox'
               id='checkboxOne'
-              onChange={handleFullscreen}
+              onChange={handleFullscreenChange}
               value='Fullscreen'
             />
             <svg
@@ -72,12 +75,15 @@ const Sidebar = props => {
               Fullscreen
             </S.VideoOptionsLabel>
           </S.VideoOptionsItem>
-          <S.VideoOptionsItem>
+          <S.VideoOptionsItem
+            role='button'
+            aria-pressed={props.videoOpts.autoplay === 1}
+          >
             <S.VideoOptionsInput
               defaultChecked
               type='checkbox'
               id='checkboxTwo'
-              onChange={handleAutoplay}
+              onChange={handleAutoplayChange}
               value='checked'
             />
             <svg

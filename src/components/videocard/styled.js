@@ -136,6 +136,10 @@ export const CardBtn = styled.button`
       inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
     transform: translateY(2px);
   }
+
+  &:focus {
+    box-shadow: 0px 0px 3px 3px rgba(25, 19, 38, 0.3);
+  }
 `
 
 export const FetchLoader = styled.div`
