@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const DroptargetWrapper = styled.div`
-  position:absolute;
+  position: absolute;
   top: 0;
   left: 0;
   height: 100%;

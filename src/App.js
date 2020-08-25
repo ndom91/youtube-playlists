@@ -34,23 +34,25 @@ const App = () => {
       title: 'Drop Target',
       content: 'To begin, drag and drop a YouTube video onto this area.',
       placementBeacon: 'top',
-      placement: 'auto'
+      placement: 'auto',
     },
     {
       target: '.footer.playlist',
       title: 'Playlist',
-      content: 'Your videos will appear here. You can drag and drop to change the order.'
+      content:
+        'Your videos will appear here. You can drag and drop to change the order.',
     },
     {
       target: '.item.sidebar',
       title: 'Controls',
-      content: 'These are your controls, you can change options as well as start / clear the playlist.',
-      placement: 'right'
-    }
+      content:
+        'These are your controls, you can change options as well as start / clear the playlist.',
+      placement: 'right',
+    },
   ]
   const store = Store.useStore()
 
-  const incrementJoyride = (state) => {
+  const incrementJoyride = state => {
     if (state.type === 'tour:end' || state.type === 'tour:start') {
       const joyrideCount = window.localStorage.getItem('joyrideCount') || 0
       window.localStorage.setItem('joyrideCount', parseInt(joyrideCount) + 1)
@@ -85,7 +87,9 @@ const App = () => {
 
     // parse URL hashes
     if (window.location.hash.length > 1) {
-      const videoIdsFromUrl = JSON.parse(window.atob(decodeURIComponent(window.location.hash.slice(1))))
+      const videoIdsFromUrl = JSON.parse(
+        window.atob(decodeURIComponent(window.location.hash.slice(1)))
+      )
       if (Array.isArray(videoIdsFromUrl)) {
         videoIdsFromUrl.forEach(videoId => {
           setFetchInProgress(true)
@@ -110,9 +114,9 @@ const App = () => {
 
   const handleVideoEnd = () => {
     if (store.get('videoOpts').autoplay === 1) {
-      const remainingVideos = store.get('videos').filter(
-        video => video.id !== activeVideo
-      )
+      const remainingVideos = store
+        .get('videos')
+        .filter(video => video.id !== activeVideo)
       store.set('videos')(remainingVideos)
       handlePlay()
     }
@@ -122,23 +126,28 @@ const App = () => {
     if (store.get('videos').length !== 0) {
       const videoId = store.get('videos')[0].id
       setActiveVideo(videoId)
-      const remainingVideos = store.get('videos').filter(
-        video => video.id !== videoId
-      )
+      const remainingVideos = store
+        .get('videos')
+        .filter(video => video.id !== videoId)
       store.set('videos')(remainingVideos)
     } else {
       toast('No Videos Available', {
-        className: 'info-toast'
+        className: 'info-toast',
       })
     }
   }
 
-  const handleFocus = (e) => {
+  const handleFocus = e => {
     navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
       if (result.state === 'granted' || result.state === 'prompt') {
         navigator.clipboard.readText().then(text => {
           const videoId = parseYoutubeUrl(text)
-          if (videoId !== undefined && !store.get('videos').find(v => v.id === videoId) && !skippedClipboardVideos.includes(videoId) && clipboardLink !== text) {
+          if (
+            videoId !== undefined &&
+            !store.get('videos').find(v => v.id === videoId) &&
+            !skippedClipboardVideos.includes(videoId) &&
+            clipboardLink !== text
+          ) {
             setFetchInProgress(true)
             const videoInfo = fetchVideoDetails(videoId)
             videoInfo.then(details => {
@@ -153,7 +162,9 @@ const App = () => {
                   <S.ModalText className='modal-header-text'>
                     We've detected a YouTube link in your clipboard
                   </S.ModalText>
-                  <S.ModalText className='video-text'>{details.title}</S.ModalText>
+                  <S.ModalText className='video-text'>
+                    {details.title}
+                  </S.ModalText>
                   <S.ModalText className='footer-text'>
                     Would you like to add it?
                   </S.ModalText>
@@ -206,8 +217,8 @@ const App = () => {
           styles={{
             options: {
               zIndex: 1001,
-              primaryColor: '#ff4242'
-            }
+              primaryColor: '#ff4242',
+            },
           }}
           callback={incrementJoyride}
         />
@@ -218,18 +229,13 @@ const App = () => {
         closeDropzone={() => setDropzoneVisibility(false)}
       />
       <Header />
-      <Sidebar
-        onPlay={handlePlay}
-        videoOpts={store.get('videoOpts')}
-      />
+      <Sidebar onPlay={handlePlay} videoOpts={store.get('videoOpts')} />
       <Player
         videoId={activeVideo}
         onEnd={handleVideoEnd}
         videoOpts={store.get('videoOpts')}
       />
-      <Playlist
-        fetchInProgress={fetchInProgress}
-      />
+      <Playlist fetchInProgress={fetchInProgress} />
       {isClipboardModalVisible && (
         <Modal
           show={isClipboardModalVisible}

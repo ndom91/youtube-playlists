@@ -6,8 +6,8 @@ export const ClipboardThumbnail = styled.img`
   height: 100%;
   width: auto;
   box-sizing: border-box;
-  box-shadow: inset -250px 0 50px 10px #FFF;
-  z-index:100;
+  box-shadow: inset -250px 0 50px 10px #fff;
+  z-index: 100;
   border-radius: 5px 0 0 5px;
 `
 
@@ -19,7 +19,7 @@ export const ThumbFade = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 0 5px 5px 0;
-  background: linear-gradient(to right, #ffffff00 0%,#B39CD0 45%);
+  background: linear-gradient(to right, #ffffff00 0%, #b39cd0 45%);
 `
 
 export const ModalText = styled.div`

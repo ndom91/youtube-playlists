@@ -1,7 +1,7 @@
 import React from 'react'
 import Videocard from '../videocard'
 import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import Store from '../store'
 
 const Playlist = props => {
@@ -17,7 +17,7 @@ const Playlist = props => {
     store.set('videos')(videos)
   }
 
-  const handleDragOver = (event) => {
+  const handleDragOver = event => {
     event.stopPropagation()
   }
 
@@ -39,7 +39,8 @@ const Playlist = props => {
                   thumbnail={video.thumb}
                   moveCard={moveCard}
                   fetchInProgress={props.fetchInProgress}
-                />)
+                />
+              )
             })}
         </DndProvider>
       </span>

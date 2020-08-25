@@ -35,14 +35,14 @@ export const Article = styled.article`
 `
 
 export const CardThumb = styled.img`
-    width: auto;
-    height: 120px;
-    margin-left: -30px;
-    margin-top: -5px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 3px;
-    transition: 0.4s 0.15s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+  width: auto;
+  height: 120px;
+  margin-left: -30px;
+  margin-top: -5px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 3px;
+  transition: 0.4s 0.15s cubic-bezier(0.17, 0.67, 0.5, 1.03);
 `
 
 export const CardInfos = styled.div`
@@ -73,12 +73,16 @@ export const CardTitle = styled.h2`
     text-align: left;
     top: 0;
     left: 0;
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     right: 0;
     height: 17.2em;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 60 %);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1) 60 %
+    );
   }
 `
 
@@ -112,8 +116,9 @@ export const CardBtn = styled.button`
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   will-change: box-shadow, transform;
   text-shadow: 0 1px 0 #4b5ef0;
-  background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
-  box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3), 0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
+  background: linear-gradient(#aeb7ff, #5468ff) no-repeat;
+  box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3),
+    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
 
   &:hover {
     cursor: pointer;
@@ -125,14 +130,16 @@ export const CardBtn = styled.button`
     border-style: inset;
     border-width: 0px;
     background-blend-mode: multiply, normal;
-    background-image: linear-gradient(#5468ff,#5468ff), linear-gradient(to top,#fff,#e4e4e9) no-repeat;
-    box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11), inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
+    background-image: linear-gradient(#5468ff, #5468ff),
+      linear-gradient(to top, #fff, #e4e4e9) no-repeat;
+    box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
+      inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
     transform: translateY(2px);
   }
 `
 
 export const FetchLoader = styled.div`
-  background: rgba(0,0,0,0.0);
+  background: rgba(0, 0, 0, 0);
   position: relative;
   display: inline-block;
   justify-content: center;
@@ -160,8 +167,8 @@ export const Cube = styled.div`
   height: 40px;
   position: absolute;
   transform-style: preserve-3d;
-  transform: translateZ(-20px); 
-  animation: rubrik 4s infinite cubic-bezier(.68,-.55,.265,1.55);
+  transform: translateZ(-20px);
+  animation: rubrik 4s infinite cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   & div {
     margin: 0;
@@ -172,30 +179,30 @@ export const Cube = styled.div`
   }
 
   & .front {
-    transform: rotateY(0deg) translateZ( 20px ); 
-    background-color: #7CD4DF; 
+    transform: rotateY(0deg) translateZ(20px);
+    background-color: #7cd4df;
   }
 
   & .back {
     transform: rotateX(180deg) translateZ(20px);
-    background-color: #89BA5F; 
+    background-color: #89ba5f;
   }
 
   & .right {
     transform: rotateY(90deg) translateZ(20px);
-    background-color: #E4B83A; 
+    background-color: #e4b83a;
   }
   & .left {
     transform: rotateY(-90deg) translateZ(20px);
-    background-color: #C386C6; 
+    background-color: #c386c6;
   }
   & .top {
     transform: rotateX(90deg) translateZ(20px);
-    background-color: #cb732b;   
+    background-color: #cb732b;
   }
   & .bottom {
     transform: rotateX(-90deg) translateZ(20px);
-    background-color: #C75875;   
+    background-color: #c75875;
   }
 
   @keyframes rubrik {
@@ -213,10 +220,10 @@ export const Cube = styled.div`
     }
     66% {
       transform: rotateY(180deg) rotateZ(180deg) rotateX(0);
-    }  
+    }
     83% {
       transform: rotateY(180deg) rotateZ(180deg) rotateX(-90deg);
-    }  
+    }
     100% {
       transform: rotateY(180deg) rotateZ(180deg) rotateX(-180deg);
     }
@@ -232,5 +239,5 @@ export const Shadow = styled.div`
   background: black;
   opacity: 0.25;
   border-radius: 40%;
-  color: rgba(0,0,0,0);
+  color: rgba(0, 0, 0, 0);
 `

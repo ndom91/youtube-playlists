@@ -12,11 +12,11 @@ export const Modal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, 50%);
-  box-shadow: 0 0 0 1000px rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.4);
   transition: all 200ms linear;
 
   &:after {
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 499;
     position: absolute;
     height: 100vh;
@@ -49,12 +49,12 @@ export const ModalBtn = styled.button`
   letter-spacing: 1px;
   background-size: 200% 100%;
   border: none;
-  transition: all .4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 
   &:hover {
     cursor: pointer;
     background-position: 100% 20%;
-    transition: all .4s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
 
   &.btn-add {
@@ -63,14 +63,16 @@ export const ModalBtn = styled.button`
     margin: 0px -5px;
     padding-bottom: 5px;
 
-    transition: box-shadow 0.15s ease,transform 0.15s ease;
-    will-change: box-shadow,transform;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    will-change: box-shadow, transform;
     text-shadow: 0 1px 0 #4b5ef0;
-    background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
-    box-shadow: 0 7px 13px -3px rgba(45,35,66,0.3), 0 2px 4px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #4b58ba;
+    background: linear-gradient(#aeb7ff, #5468ff) no-repeat;
+    box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3),
+      0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
 
     &:hover {
-      box-shadow: 0 11px 16px -3px rgba(45,35,66,0.3), 0 4px 5px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #4b58ba;
+      box-shadow: 0 11px 16px -3px rgba(45, 35, 66, 0.3),
+        0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
       transform: translateY(-2px);
       cursor: pointer;
     }
@@ -78,9 +80,11 @@ export const ModalBtn = styled.button`
     &:active {
       border-style: inset;
       border-width: 0px;
-      background-blend-mode: multiply,normal;
-      background-image: linear-gradient(#5468ff,#5468ff),linear-gradient(to top,#fff,#e4e4e9) no-repeat;
-      box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #5468ff;
+      background-blend-mode: multiply, normal;
+      background-image: linear-gradient(#5468ff, #5468ff),
+        linear-gradient(to top, #fff, #e4e4e9) no-repeat;
+      box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
+        inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
       transform: translateY(2px);
     }
   }
@@ -91,14 +95,16 @@ export const ModalBtn = styled.button`
     margin: 0px -5px;
     padding-bottom: 5px;
 
-    transition: box-shadow 0.15s ease,transform 0.15s ease;
-    will-change: box-shadow,transform;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    will-change: box-shadow, transform;
     text-shadow: 0 1px 0 #4b5ef0;
-    background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
-    box-shadow: 0 7px 13px -3px rgba(45,35,66,0.3), 0 2px 4px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #4b58ba;
+    background: linear-gradient(#aeb7ff, #5468ff) no-repeat;
+    box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3),
+      0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
 
     &:hover {
-      box-shadow: 0 11px 16px -3px rgba(45,35,66,0.3), 0 4px 5px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #4b58ba;
+      box-shadow: 0 11px 16px -3px rgba(45, 35, 66, 0.3),
+        0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
       transform: translateY(-2px);
       cursor: pointer;
     }
@@ -106,9 +112,11 @@ export const ModalBtn = styled.button`
     &:active {
       border-style: inset;
       border-width: 0px;
-      background-blend-mode: multiply,normal;
-      background-image: linear-gradient(#5468ff,#5468ff),linear-gradient(to top,#fff,#e4e4e9) no-repeat;
-      box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #5468ff;
+      background-blend-mode: multiply, normal;
+      background-image: linear-gradient(#5468ff, #5468ff),
+        linear-gradient(to top, #fff, #e4e4e9) no-repeat;
+      box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
+        inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
       transform: translateY(2px);
     }
   }
