@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
-describe('Server', () => {
+describe('Check Server', () => {
   it('Page Load', () => {
     cy.visit('http://localhost:3000') // change URL to match your dev URL
   })
 })
 
-context('Network', () => {
+context('Check CF Worker', () => {
   it('Cloudflare Worker - Response Test', () => {
     cy.server()
     cy.request({
@@ -20,15 +20,15 @@ context('Network', () => {
   })
 })
 
-context('Window', () => {
+context('Check Window', () => {
   it('Page Title', () => {
     cy.server()
     cy.title().should('include', 'Dynamic Playlists')
   })
 })
 
-context('Joyride', () => {
-  it('First Action', () => {
+context('Check Joyride', () => {
+  it('Joyride Beacons', () => {
     cy.get('.react-joyride__beacon')
       .click()
 
@@ -41,39 +41,3 @@ context('Joyride', () => {
 
 })
 
-context('Actions', () => {
-  beforeEach(() => {
-    cy.fixture('video.json').as('video1')
-  })
-
-  it('Add Video', () => {
-    cy.server()
-    cy.route('GET', 'https://yt-details.ndo.workers.dev/*', '@video1').as('getVideo')
-
-
-    const URL = 'https://www.youtube.com/watch?v=0oPAJfDgUUM'
-    const dataTransfer = {
-      files: [{ path: URL }],
-      getData: () => { return URL }
-    }
-
-    cy.get('.container')
-      .trigger('dragover', { dataTransfer })
-
-    cy.get('#droptarget')
-      .should('contain.text', 'Drop Video Here')
-      .trigger('drop', { dataTransfer })
-
-    cy.get('#videocard').first()
-      .should('contain.text', 'Techquickie')
-
-  })
-
-  it('Remove Video', () => {
-    cy.get('#videocard > button')
-      .click()
-
-    cy.get('#videocard')
-      .should('not.exist')
-  })
-})

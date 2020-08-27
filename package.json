@@ -8,11 +8,13 @@
   "main": "App.js",
   "start_url": ".",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "cypress open",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "lint:js": "standard \"src/**/*.js\"",
     "lint:css": "stylelint './src/**/styled.js'",
     "lint:fix": "standard --fix \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' "
@@ -33,7 +35,7 @@
     "undux": "^5.2.0"
   },
   "devDependencies": {
-    "cypress": "^4.3.0",
+    "cypress": "^5.0.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
     "standard": "^14.3.3",
