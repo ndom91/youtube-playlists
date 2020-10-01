@@ -10,13 +10,16 @@
     "url": "https://github.com/ndom91/youtube-playlists/issues"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:ci": "cypress run --record",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "lint:js": "standard \"src/**/*.js\"",
     "lint:css": "stylelint './src/**/styled.js'",
     "prettier": "prettier --check \"src/**/*.js\"",
     "prettier:fix": "prettier --write \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' "
