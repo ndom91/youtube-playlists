@@ -12,7 +12,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cypress open",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:ci": "cypress run --record",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
     "lint:css": "stylelint './src/**/styled.js'",
