@@ -70,6 +70,19 @@ context('Actions', () => {
   })
 
   it('Remove Video', () => {
+    const URL = 'https://www.youtube.com/watch?v=0oPAJfDgUUM'
+    const dataTransfer = {
+      files: [{ path: URL }],
+      getData: () => { return URL }
+    }
+
+    cy.get('.container')
+      .trigger('dragover', { dataTransfer })
+
+    cy.get('#droptarget')
+      .should('contain.text', 'Drop Video Here')
+      .trigger('drop', { dataTransfer })
+
     cy.get('#videocard > button')
       .click()
 
