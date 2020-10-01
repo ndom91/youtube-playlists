@@ -8,7 +8,7 @@ export const BtnWrapper = styled.div`
   position: absolute;
   bottom: 15px;
 
-   ${media.lessThan('medium')`
+  ${media.lessThan('medium')`
     position: relative;
     flex-direction: column;
     justify-content: flex-end;
@@ -38,31 +38,39 @@ export const Button = styled.button`
   text-transform: uppercase;
   line-height: 34px;
   color: #fff;
-  border-radius: 2em;
-  
+  border-radius: 1em;
+
   height: 55px;
-  transition: box-shadow 0.15s ease,transform 0.15s ease;
-  will-change: box-shadow,transform;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  will-change: box-shadow, transform;
   text-shadow: 0 1px 0 #4b5ef0;
-  background: linear-gradient(#aeb7ff,#5468ff) no-repeat;
-  box-shadow: 0 7px 13px -3px rgba(45,35,66,0.3), 0 2px 4px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #4b58ba;
+  background: linear-gradient(#aeb7ff, #5468ff) no-repeat;
+  box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3),
+    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
 
   &:hover {
-    box-shadow: 0 11px 16px -3px rgba(45,35,66,0.3), 0 4px 5px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #4b58ba;
+    box-shadow: 0 11px 16px -3px rgba(45, 35, 66, 0.3),
+      0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
     transform: translateY(-2px);
     cursor: pointer;
   }
 
   &:active {
     border-style: inset;
-    background-blend-mode: multiply,normal;
-    background-image: linear-gradient(#5468ff,#5468ff),linear-gradient(to top,#fff,#e4e4e9) no-repeat;
-    box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #5468ff;
+    background-blend-mode: multiply, normal;
+    background-image: linear-gradient(#5468ff, #5468ff),
+      linear-gradient(to top, #fff, #e4e4e9) no-repeat;
+    box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
+      inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
     transform: translateY(2px);
   }
 
   & span {
     padding: 15px 15px;
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 2px 4px rgba(189, 160, 253, 0.3);
   }
 `
 
@@ -92,21 +100,25 @@ export const VideoOptionsItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: stretch;
-  transition: box-shadow 0.15s ease,transform 0.15s ease;
-  will-change: box-shadow,transform;
-  background: linear-gradient(#fff,#e4e4e9) no-repeat;
-  box-shadow: 0 7px 14px -3px rgba(45,35,66,0.3), 0 2px 4px 0 rgba(45,35,66,0.4), inset 0 -2px 0 0 #cfd1e3;
-  border-radius: 25px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  will-change: box-shadow, transform;
+  background: linear-gradient(#fff, #e4e4e9) no-repeat;
+  box-shadow: 0 7px 14px -3px rgba(45, 35, 66, 0.3),
+    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
+  border-radius: 1em;
 
   ${media.lessThan('medium')`
     margin: 15px;
   `}
 
-
   &:active {
-    background-image: linear-gradient(to top,#fff,#e4e4e9) no-repeat;
-    box-shadow: inset 0 2px 0 1px rgba(132,138,184,0.11), inset 0 2px 9px 0 rgba(93,100,148,0.5), inset 0 -1px 0 1px #e4e4e9;
+    background-image: linear-gradient(to top, #fff, #e4e4e9) no-repeat;
+    box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
+      inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #e4e4e9;
     transform: translateY(2px);
+  }
+  &:focus-within {
+    box-shadow: 0px 0px 2px 4px rgba(25, 19, 38, 0.3);
   }
 `
 

@@ -19,8 +19,8 @@ const Player = props => {
     width: width,
     playerVars: {
       autoplay: 1,
-      modestbranding: 1
-    }
+      modestbranding: 1,
+    },
     // https://developers.google.com/youtube/player_parameters
   }
 

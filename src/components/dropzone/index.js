@@ -6,13 +6,19 @@ const Dropzone = props => {
   return (
     <S.DroptargetWrapper
       style={{
-        backgroundColor: props.visible ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0)',
-        visibility: props.visible ? 'visible' : 'hidden'
+        backgroundColor: props.visible
+          ? 'rgba(255,255,255,0.6)'
+          : 'rgba(0,0,0,0)',
+        visibility: props.visible ? 'visible' : 'hidden',
       }}
       id='dropzone'
       className='fullDroptarget'
     >
-      <Droptarget visible={props.visible} closeDropzone={props.closeDropzone} addVideoOnDrop={props.addVideoOnDrop} />
+      <Droptarget
+        visible={props.visible}
+        closeDropzone={props.closeDropzone}
+        addVideoOnDrop={props.addVideoOnDrop}
+      />
     </S.DroptargetWrapper>
   )
 }

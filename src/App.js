@@ -91,7 +91,7 @@ const App = () => {
     if (window.location.hash.length > 1) {
       const videoIdsFromUrl = JSON.parse(
         window.atob(decodeURIComponent(window.location.hash.slice(1)))
-      );
+      )
       if (Array.isArray(videoIdsFromUrl)) {
         videoIdsFromUrl.forEach((videoId) => {
           setFetchInProgress(true);
@@ -122,44 +122,44 @@ const App = () => {
   }, []);
 
   const handleVideoEnd = () => {
-    if (store.get("videoOpts").autoplay === 1) {
+    if (store.get('videoOpts').autoplay === 1) {
       const remainingVideos = store
-        .get("videos")
-        .filter((video) => video.id !== activeVideo);
-      store.set("videos")(remainingVideos);
-      handlePlay();
+        .get('videos')
+        .filter(video => video.id !== activeVideo)
+      store.set('videos')(remainingVideos)
+      handlePlay()
     }
   };
 
   const handlePlay = () => {
-    if (store.get("videos").length !== 0) {
-      const videoId = store.get("videos")[0].id;
-      setActiveVideo(videoId);
+    if (store.get('videos').length !== 0) {
+      const videoId = store.get('videos')[0].id
+      setActiveVideo(videoId)
       const remainingVideos = store
-        .get("videos")
-        .filter((video) => video.id !== videoId);
-      store.set("videos")(remainingVideos);
+        .get('videos')
+        .filter(video => video.id !== videoId)
+      store.set('videos')(remainingVideos)
     } else {
-      toast("No Videos Available", {
-        className: "info-toast",
-      });
+      toast('No Videos Available', {
+        className: 'info-toast',
+      })
     }
   };
 
-  const handleFocus = (e) => {
-    navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
-      if (result.state === "granted" || result.state === "prompt") {
-        navigator.clipboard.readText().then((text) => {
-          const videoId = parseYoutubeUrl(text);
+  const handleFocus = e => {
+    navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
+      if (result.state === 'granted' || result.state === 'prompt') {
+        navigator.clipboard.readText().then(text => {
+          const videoId = parseYoutubeUrl(text)
           if (
             videoId !== undefined &&
-            !store.get("videos").find((v) => v.id === videoId) &&
+            !store.get('videos').find(v => v.id === videoId) &&
             !skippedClipboardVideos.includes(videoId) &&
             clipboardLink !== text
           ) {
-            setFetchInProgress(true);
-            const videoInfo = fetchVideoDetails(videoId);
-            videoInfo.then((details) => {
+            setFetchInProgress(true)
+            const videoInfo = fetchVideoDetails(videoId)
+            videoInfo.then(details => {
               const children = (
                 <div>
                   <S.ThumbFade className="thumb-fade" />
@@ -171,10 +171,10 @@ const App = () => {
                   <S.ModalText className="modal-header-text">
                     We've detected a YouTube link in your clipboard
                   </S.ModalText>
-                  <S.ModalText className="video-text">
+                  <S.ModalText className='video-text'>
                     {details.title}
                   </S.ModalText>
-                  <S.ModalText className="footer-text">
+                  <S.ModalText className='footer-text'>
                     Would you like to add it?
                   </S.ModalText>
                 </div>
@@ -226,7 +226,7 @@ const App = () => {
           styles={{
             options: {
               zIndex: 1001,
-              primaryColor: "#ff4242",
+              primaryColor: '#ff4242',
             },
           }}
           callback={incrementJoyride}
@@ -238,11 +238,11 @@ const App = () => {
         closeDropzone={() => setDropzoneVisibility(false)}
       />
       <Header />
-      <Sidebar onPlay={handlePlay} videoOpts={store.get("videoOpts")} />
+      <Sidebar onPlay={handlePlay} videoOpts={store.get('videoOpts')} />
       <Player
         videoId={activeVideo}
         onEnd={handleVideoEnd}
-        videoOpts={store.get("videoOpts")}
+        videoOpts={store.get('videoOpts')}
       />
       <Playlist fetchInProgress={fetchInProgress} />
       {isClipboardModalVisible && (
