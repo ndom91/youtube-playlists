@@ -63,9 +63,9 @@ context("YT Actions", () => {
     });
   });
 
-  it("Remove Video", () => {
-    cy.get("#videocard > button").click();
+  // it("Remove Video", () => {
+  //   cy.get("#videocard > button").click();
 
-    cy.get("#videocard").should("not.exist");
-  });
+  //   cy.get("#videocard").should("not.exist");
+  // });
 });
