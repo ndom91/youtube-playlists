@@ -1,4 +1,4 @@
-name: Cypress (Chrome) Tests
+name: Cypress Tests
 on: [push, pull_request]
 jobs:
   cypress-run:
@@ -7,7 +7,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Cypress run
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v2
         timeout-minutes: 10
         with:
           browser: chrome
