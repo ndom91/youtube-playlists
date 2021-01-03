@@ -17,8 +17,6 @@
     "cy:ci": "cypress run --record",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
     "lint:js": "standard \"src/**/*.js\"",
     "lint:css": "stylelint './src/**/styled.js'",
     "prettier": "prettier --check \"src/**/*.js\"",
@@ -26,25 +24,25 @@
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
-    "react": "^16.13.1",
+    "react": "^17.0.1",
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
-    "react-dom": "^16.13.1",
-    "react-ga": "^3.1.2",
-    "react-joyride": "^2.2.1",
-    "react-scripts": "3.4.3",
-    "react-toastify": "^6.0.8",
-    "react-youtube": "^7.12.0",
-    "styled-components": "^5.1.1",
+    "react-dom": "^17.0.1",
+    "react-ga": "^3.3.0",
+    "react-joyride": "^2.3.0",
+    "react-scripts": "4.0.1",
+    "react-toastify": "^6.2.0",
+    "react-youtube": "^7.13.0",
+    "styled-components": "^5.2.1",
     "styled-media-query": "^2.1.2",
     "undux": "^5.2.0"
   },
   "devDependencies": {
-    "cypress": "^5.0.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.12",
-    "prettier": "^2.1.0",
-    "stylelint": "^13.6.1",
+    "cypress": "^6.2.0",
+    "husky": "^5.0.6",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
+    "stylelint": "^13.8.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0"
@@ -68,6 +66,27 @@
     "parser": "babel-eslint",
     "ignore": [
       "cypress/**/*.js"
+    ]
+  },
+  "hooks": {
+    "pre-commit": ["lint-staged"]
+  },
+  "lint-staged": {
+    "{*.{js, jsx}}": ["npm run lint:js"],
+    "src/**/styled.js": ["npm run lint:css"]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "parser": "babel",
+    "semi": false,
+    "arrowParens": "avoid"
+  },
+  "stylelint": {
+    "processors": ["stylelint-processor-styled-components"],
+    "extends": [
+      "stylelint-config-recommended",
+      "stylelint-config-styled-components"
     ]
   }
 }
