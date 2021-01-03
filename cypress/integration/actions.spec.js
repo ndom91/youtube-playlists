@@ -66,6 +66,6 @@ context("YT Actions", () => {
   it("Remove Video", () => {
     cy.get("#videocard > button").click();
 
-    cy.get("#videocard").should("not.exist").end();
+    cy.get("#videocard").should("not.exist");
   });
 });
