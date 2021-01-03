@@ -1,4 +1,10 @@
 {
   "projectId": "ja2281",
-  "baseUrl": "http://localhost:3000"
+  "baseUrl": "http://localhost:3000",
+  "fixturesFolder": "test/fixtures",
+  "integrationFolder": "test/integration",
+  "pluginsFile": "test/plugins/index.js",
+  "screenshotsFolder": "test/screenshots",
+  "videosFolder": "test/videos",
+  "supportFile": "test/support/index.js"
 }
