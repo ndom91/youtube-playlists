@@ -69,11 +69,17 @@
     ]
   },
   "hooks": {
-    "pre-commit": ["lint-staged"]
+    "pre-commit": [
+      "lint-staged"
+    ]
   },
   "lint-staged": {
-    "{*.{js, jsx}}": ["npm run lint:js"],
-    "src/**/styled.js": ["npm run lint:css"]
+    "{*.{js, jsx}}": [
+      "npm run lint:js"
+    ],
+    "src/**/styled.js": [
+      "npm run lint:css"
+    ]
   },
   "prettier": {
     "singleQuote": true,
@@ -83,7 +89,9 @@
     "arrowParens": "avoid"
   },
   "stylelint": {
-    "processors": ["stylelint-processor-styled-components"],
+    "processors": [
+      "stylelint-processor-styled-components"
+    ],
     "extends": [
       "stylelint-config-recommended",
       "stylelint-config-styled-components"
