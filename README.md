@@ -54,6 +54,7 @@ This is very much still in beta stage, but you can run it locally by:
 ## 📺 Screenshot
 
 ![screenshot 1](screenshot.gif)
+![screenshot 2](screenshot1.gif)
 
 ---
 

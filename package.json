@@ -20,7 +20,8 @@
     "lint:js": "standard \"src/**/*.js\"",
     "lint:css": "stylelint './src/**/styled.js'",
     "prettier": "prettier --check \"src/**/*.js\"",
-    "prettier:fix": "prettier --write \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' "
+    "prettier:fix": "prettier --write \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' ",
+    "prepare": "husky install"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
@@ -39,7 +40,7 @@
   },
   "devDependencies": {
     "cypress": "^6.2.0",
-    "husky": "^5.0.6",
+    "husky": "^6.0.0",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
     "stylelint": "^13.8.0",
@@ -79,7 +80,8 @@
     ],
     "src/**/styled.js": [
       "npm run lint:css"
-    ]
+    ],
+    "*.js": "stylelint --fix"
   },
   "prettier": {
     "singleQuote": true,
