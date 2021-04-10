@@ -25,13 +25,17 @@ Once you've got your playlist organized, press "Play" and the application will b
 - Shareable Playlist URLs - Data is embeded into the URL Hash (**New** 🎉)
 - (**Coming Soon**) Google Cast Functionality
 
-## ⚓ Requirements
+## 🧍 Selfhost
+
+You can selfhost this application if you wish, details can be found below.
+
+### ⚓ Requirements
 
 The only requirement to host your own instance is a YouTube API Key. You can visit [developers.google.com/youtube/v3/getting-started](https://developers.google.com/youtube/v3/getting-started) to view how to get one.
 
 The functionality to get the YouTube video details, in my implementation, is provided through a serverless function running on a Cloudflare Worker. You can find the code for it in the `serverless_youtube.js` file. These few functions can simply be copied back into `index.js` if you prefer to not use a worker / serverless function.
 
-## 👷 Getting Started
+### 👷 Getting Started
 
 In order to setup your own instance, you need to do the following:
 
@@ -53,9 +57,8 @@ This is very much still in beta stage, but you can run it locally by:
 
 ## 📺 Screenshot
 
-![screenshot 1](screenshot.gif)
-![screenshot 2](screenshot1.gif)
+![screenshot 1](screenshot1.gif)
 
----
+### 📝 License
 
-#### 📝 License: [`MIT`](https://github.com/ndom91/youtube-playlists/blob/master/LICENSE)
+[`MIT`](https://github.com/ndom91/youtube-playlists/blob/master/LICENSE)
