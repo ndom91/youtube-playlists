@@ -25,6 +25,7 @@ yarn-error.log*
 public/vendor/*
 
 .vscode
+.eslintcache
 
 # Cypress
 cypress/videos
