@@ -15,9 +15,6 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:ci": "cypress run --record",
-    "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build",
-    "lint:js": "standard \"src/**/*.js\"",
     "lint:css": "stylelint './src/**/styled.js'",
     "prettier": "prettier --check \"src/**/*.js\"",
     "prettier:fix": "prettier --write \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' ",
@@ -48,39 +45,14 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "test/**/*.js"
-    ]
-  },
   "hooks": {
     "pre-commit": [
       "lint-staged"
     ]
   },
   "lint-staged": {
-    "{*.{js, jsx}}": [
-      "npm run lint:js"
-    ],
-    "src/**/styled.js": [
-      "npm run lint:css"
-    ],
+    "{*.{js, jsx}}": "npm run lint:js",
+    "src/**/styled.js": "npm run lint:css",
     "*.js": "stylelint --fix"
   },
   "prettier": {
