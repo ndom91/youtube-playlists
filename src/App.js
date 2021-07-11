@@ -10,7 +10,6 @@ import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from './utils'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import debounce from 'lodash.debounce'
-import Joyride from 'react-joyride'
 import * as S from './styled'
 import './index.css'
 
@@ -22,37 +21,7 @@ const App = () => {
   const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
   const [dropzoneVisible, setDropzoneVisibility] = useState(false)
   const [fetchInProgress, setFetchInProgress] = useState(false)
-  const [joyrideRun, setJoyrideRun] = useState(false)
-  const joyrideSteps = [
-    {
-      target: '.container',
-      title: 'Drop Target',
-      content: 'To begin, drag and drop a YouTube video onto this area.',
-      placementBeacon: 'top',
-      placement: 'auto',
-    },
-    {
-      target: '.footer.playlist',
-      title: 'Playlist',
-      content:
-        'Your videos will appear here. You can drag and drop to change the order.',
-    },
-    {
-      target: '.item.sidebar',
-      title: 'Controls',
-      content:
-        'These are your controls, you can change options as well as start / clear the playlist.',
-      placement: 'right',
-    },
-  ]
   const store = Store.useStore()
-
-  const incrementJoyride = state => {
-    if (state.type === 'tour:end' || state.type === 'tour:start') {
-      const joyrideCount = window.localStorage.getItem('joyrideCount') || 0
-      window.localStorage.setItem('joyrideCount', parseInt(joyrideCount) + 1)
-    }
-  }
 
   const addVideo = videoUrl => {
     if (videoUrl) {
@@ -100,18 +69,6 @@ const App = () => {
 
     // get clipboard permissions
     navigator.permissions.query({ name: 'clipboard-read' })
-
-    // check if tutorial has already been done
-    const joyrideCount = window.localStorage.getItem('joyrideCount')
-    if (joyrideCount < 2) {
-      setJoyrideRun(true)
-    } else {
-      toast('Start by dragging a video onto the page!', {
-        className: 'info-toast',
-      })
-    }
-
-    // eslint-disable-next-line
   }, [])
 
   const handleVideoEnd = () => {
@@ -209,22 +166,6 @@ const App = () => {
       onFocus={throttledFocus}
       className='container'
     >
-      {joyrideRun && (
-        <Joyride
-          steps={joyrideSteps}
-          showSkipButton
-          continuous
-          showProgress
-          run={joyrideRun}
-          styles={{
-            options: {
-              zIndex: 1001,
-              primaryColor: '#ff4242',
-            },
-          }}
-          callback={incrementJoyride}
-        />
-      )}
       <Dropzone
         visible={dropzoneVisible}
         addVideoOnDrop={addVideo}

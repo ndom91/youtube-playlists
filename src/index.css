@@ -106,10 +106,6 @@ body {
   font-weight: bold;
 }
 
-.react-joyride__tooltip * {
-  font-family: "Francois One", Helvetica;
-}
-
 @media (max-width: 768px) {
   .container {
     grid-template-columns: fit-content(100%);

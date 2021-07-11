@@ -27,18 +27,3 @@ context('Check Window', () => {
     cy.title().should('include', 'Dynamic Playlists')
   })
 })
-
-context('Check Joyride', () => {
-  it('Joyride Beacons', () => {
-    cy.get('.react-joyride__beacon')
-      .click()
-
-    cy.get('.react-joyride__tooltip').should(
-      'contain.text',
-      'To begin, drag and drop a YouTube video onto this area.'
-    )
-
-    cy.get('.react-joyride__tooltip > button[data-action="close"]').click()
-  })
-})
-
