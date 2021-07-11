@@ -17,8 +17,7 @@
     "cy:ci": "cypress run --record",
     "lint:css": "stylelint './src/**/styled.js'",
     "prettier": "prettier --check \"src/**/*.js\"",
-    "prettier:fix": "prettier --write \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' ",
-    "prepare": "husky install"
+    "prettier:fix": "prettier --write \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' "
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
@@ -42,10 +41,8 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0"
   },
-  "hooks": {
-    "pre-commit": [
-      "lint-staged"
-    ]
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
     "/src/**/*.js": "npm run lint:css",
