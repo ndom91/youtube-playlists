@@ -6,7 +6,11 @@ const useStore = create(set => ({
     fullscreen: false,
   },
   videos: [],
-  clearVideos: () => set(state => (state.videos = [])),
+  clearVideos: () =>
+    set(state => {
+      window?.history.replaceState(null, null, `#`)
+      return (state.videos = [])
+    }),
   addVideo: video => {
     set(state => state.videos.push(video))
   },
