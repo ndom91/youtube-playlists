@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import useStore from '../store'
 import YouTube from 'react-youtube'
 
 import * as S from './styled'
 
-const Player = props => {
+const Player = ({ videoId, onEnd }) => {
+  const { fullscreen } = useStore(state => state.videoOpts)
   const [width, setWidth] = useState(540)
 
   useEffect(() => {
@@ -12,8 +14,7 @@ const Player = props => {
     }
   }, [])
 
-  const { videoId, onEnd } = props
-
+  // YouTube Settings: https://developers.google.com/youtube/player_parameters
   const opts = {
     height: '303',
     width: width,
@@ -21,11 +22,10 @@ const Player = props => {
       autoplay: 1,
       modestbranding: 1,
     },
-    // https://developers.google.com/youtube/player_parameters
   }
 
   const makeFullscreen = () => {
-    if (props.videoOpts.fullscreen === 1) {
+    if (fullscreen === 1) {
       const playerElement = document.getElementById('widget2')
       const requestFullScreen =
         playerElement.requestFullScreen ||

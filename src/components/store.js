@@ -1,9 +1,12 @@
-import { createConnectedStore, withReduxDevtools } from 'undux'
+import create from 'zustand'
 
-export default createConnectedStore(
-  {
-    videos: [],
-    videoOpts: { fullscreen: 0, autoplay: 1 },
+const useStore = create(set => ({
+  videoOpts: {
+    autoplay: true,
+    fullscreen: false,
   },
-  withReduxDevtools
-)
+  videos: [],
+  clearVideos: () => set(state => (state.videos = [])),
+}))
+
+export default useStore

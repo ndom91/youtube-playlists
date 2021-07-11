@@ -5,7 +5,7 @@ import Sidebar from './components/sidebar'
 import Player from './components/player'
 import Modal from './components/modal'
 import Playlist from './components/playlist'
-import Store from './components/store'
+import useStore from './components/store'
 import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from './utils'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
@@ -21,19 +21,18 @@ const App = () => {
   const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
   const [dropzoneVisible, setDropzoneVisibility] = useState(false)
   const [fetchInProgress, setFetchInProgress] = useState(false)
-  const store = Store.useStore()
+  const videos = useStore(state => state.videos)
+  const { autoplay } = useStore(state => state.videoOpts)
 
   const addVideo = videoUrl => {
     if (videoUrl) {
       setFetchInProgress(true)
       const videoId = parseYoutubeUrl(videoUrl)
-      if (!store.get('videos').some(e => e.id === videoId)) {
+      if (!videos.some(e => e.id === videoId)) {
         const videoDetails = fetchVideoDetails(videoId)
         videoDetails.then(details => {
-          const existingVideos = store.get('videos')
           // console.log(existingVideos)
-          existingVideos.push(details)
-          store.set('videos')(existingVideos)
+          videos.push(details)
           addVideoToHash(videoId)
           setFetchInProgress(false)
         })
@@ -72,23 +71,17 @@ const App = () => {
   }, [])
 
   const handleVideoEnd = () => {
-    if (store.get('videoOpts').autoplay === 1) {
-      const remainingVideos = store
-        .get('videos')
-        .filter(video => video.id !== activeVideo)
-      store.set('videos')(remainingVideos)
+    if (autoplay) {
+      videos = videos.filter(video => video.id !== activeVideo)
       handlePlay()
     }
   }
 
   const handlePlay = () => {
-    if (store.get('videos').length !== 0) {
-      const videoId = store.get('videos')[0].id
+    if (videos.length !== 0) {
+      const videoId = videos[0].id
       setActiveVideo(videoId)
-      const remainingVideos = store
-        .get('videos')
-        .filter(video => video.id !== videoId)
-      store.set('videos')(remainingVideos)
+      videos = videos.filter(video => video.id !== videoId)
     } else {
       toast('No Videos Available', {
         className: 'info-toast',
@@ -103,7 +96,7 @@ const App = () => {
           const videoId = parseYoutubeUrl(text)
           if (
             videoId !== undefined &&
-            !store.get('videos').find(v => v.id === videoId) &&
+            !videos.find(v => v.id === videoId) &&
             !skippedClipboardVideos.includes(videoId) &&
             clipboardLink !== text
           ) {
@@ -172,12 +165,8 @@ const App = () => {
         closeDropzone={() => setDropzoneVisibility(false)}
       />
       <Header />
-      <Sidebar onPlay={handlePlay} videoOpts={store.get('videoOpts')} />
-      <Player
-        videoId={activeVideo}
-        onEnd={handleVideoEnd}
-        videoOpts={store.get('videoOpts')}
-      />
+      <Sidebar onPlay={handlePlay} />
+      <Player videoId={activeVideo} onEnd={handleVideoEnd} />
       <Playlist fetchInProgress={fetchInProgress} />
       {isClipboardModalVisible && (
         <Modal

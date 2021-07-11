@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
-import Store from '../store'
+import useStore from '../store'
 import * as S from './styled'
 import { removeVideoFromHash } from '../../utils'
 
@@ -28,11 +28,18 @@ const FetchSpinner = () => {
 
 const type = 'VideoCard'
 
-const Videocard = props => {
+const Videocard = ({
+  id,
+  url,
+  title,
+  channel,
+  thumbnail,
+  index,
+  fetchInProgress,
+  moveCard,
+}) => {
   const ref = useRef(null)
-  const { id, url, title, channel, thumbnail, index } = props
-
-  const store = Store.useStore()
+  const videos = useStore(state => state.videos)
 
   const [, drop] = useDrop({
     accept: type,
@@ -41,17 +48,17 @@ const Videocard = props => {
         return
       }
       const dragIndex = item.index
-      const hoverIndex = props.index
+      const hoverIndex = index
       if (dragIndex === hoverIndex) {
         return
       }
-      props.moveCard(dragIndex, hoverIndex)
+      moveCard(dragIndex, hoverIndex)
       item.index = hoverIndex
     },
   })
 
   const [{ isDragging }, drag, preview] = useDrag({
-    item: { type, id: props.id, index: props.index },
+    item: { type, id, index },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
@@ -61,10 +68,7 @@ const Videocard = props => {
 
   const handleVideoRemove = (event, videoId) => {
     removeVideoFromHash(videoId)
-    const remainingVideos = store
-      .get('videos')
-      .filter(video => video.id !== videoId)
-    store.set('videos')(remainingVideos)
+    videos = videos.filter(video => video.id !== videoId)
     event.stopPropagation()
   }
 
@@ -73,7 +77,7 @@ const Videocard = props => {
   return (
     <div ref={ref} style={{ display: 'inline-block', opacity }}>
       <DragPreviewImage connect={preview} src={thumbnail.default.url} />
-      {props.fetchInProgress && index === store.get('videos').length ? (
+      {fetchInProgress && index === videos.length ? (
         <FetchSpinner />
       ) : (
         <S.VideoCard

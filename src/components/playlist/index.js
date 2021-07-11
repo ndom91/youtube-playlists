@@ -2,19 +2,19 @@ import React from 'react'
 import Videocard from '../videocard'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import Store from '../store'
+import useStore from '../store'
 
-const Playlist = props => {
-  const store = Store.useStore()
+const Playlist = ({ fetchInProgress }) => {
+  const videos = useStore(state => state.videos)
 
   const moveCard = (dragIndex, hoverIndex) => {
-    const videos = store.get('videos')
+    const _videos = [...videos]
     const dragCard = videos[dragIndex]
 
-    videos.splice(dragIndex, 1)
-    videos.splice(hoverIndex, 0, dragCard)
+    _videos.splice(dragIndex, 1)
+    _videos.splice(hoverIndex, 0, dragCard)
 
-    store.set('videos')(videos)
+    videos = _videos
   }
 
   const handleDragOver = event => {
@@ -25,8 +25,8 @@ const Playlist = props => {
     <div id='playlist' className='item footer playlist'>
       <span onDragOver={handleDragOver} className='playlist-container'>
         <DndProvider backend={HTML5Backend}>
-          {store.get('videos') &&
-            store.get('videos').map((video, index) => {
+          {videos &&
+            videos.map((video, index) => {
               return (
                 <Videocard
                   key={video.id}
@@ -38,7 +38,7 @@ const Playlist = props => {
                   channel={video.channel}
                   thumbnail={video.thumb}
                   moveCard={moveCard}
-                  fetchInProgress={props.fetchInProgress}
+                  fetchInProgress={fetchInProgress}
                 />
               )
             })}
