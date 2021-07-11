@@ -1,91 +1,84 @@
-import React, { useEffect, useState } from "react";
-import Header from "./components/header";
-import Dropzone from "./components/dropzone";
-import Sidebar from "./components/sidebar";
-import Player from "./components/player";
-import Modal from "./components/modal";
-import Playlist from "./components/playlist";
-import Store from "./components/store";
-import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from "./utils";
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
-import debounce from "lodash.debounce";
-import Joyride from "react-joyride";
-import * as S from "./styled";
-import "./index.css";
-
-// Google Analytics
-import ReactGA from "react-ga";
-ReactGA.initialize("UA-111339084-6");
-ReactGA.pageview(window.location.pathname + window.location.search);
+import React, { useEffect, useState } from 'react'
+import Header from './components/header'
+import Dropzone from './components/dropzone'
+import Sidebar from './components/sidebar'
+import Player from './components/player'
+import Modal from './components/modal'
+import Playlist from './components/playlist'
+import Store from './components/store'
+import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from './utils'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
+import debounce from 'lodash.debounce'
+import Joyride from 'react-joyride'
+import * as S from './styled'
+import './index.css'
 
 const App = () => {
-  const [activeVideo, setActiveVideo] = useState("");
-  const [modalChildren, setModalChildren] = useState(null);
-  const [clipboardLink, setClipboardLink] = useState("");
-  const [isClipboardModalVisible, setClipboardModalVisibility] = useState(
-    false
-  );
-  const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([]);
-  const [dropzoneVisible, setDropzoneVisibility] = useState(false);
-  const [fetchInProgress, setFetchInProgress] = useState(false);
-  const [joyrideRun, setJoyrideRun] = useState(false);
+  const [activeVideo, setActiveVideo] = useState('')
+  const [modalChildren, setModalChildren] = useState(null)
+  const [clipboardLink, setClipboardLink] = useState('')
+  const [isClipboardModalVisible, setClipboardModalVisibility] = useState(false)
+  const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
+  const [dropzoneVisible, setDropzoneVisibility] = useState(false)
+  const [fetchInProgress, setFetchInProgress] = useState(false)
+  const [joyrideRun, setJoyrideRun] = useState(false)
   const joyrideSteps = [
     {
-      target: ".container",
-      title: "Drop Target",
-      content: "To begin, drag and drop a YouTube video onto this area.",
-      placementBeacon: "top",
-      placement: "auto",
+      target: '.container',
+      title: 'Drop Target',
+      content: 'To begin, drag and drop a YouTube video onto this area.',
+      placementBeacon: 'top',
+      placement: 'auto',
     },
     {
-      target: ".footer.playlist",
-      title: "Playlist",
+      target: '.footer.playlist',
+      title: 'Playlist',
       content:
-        "Your videos will appear here. You can drag and drop to change the order.",
+        'Your videos will appear here. You can drag and drop to change the order.',
     },
     {
-      target: ".item.sidebar",
-      title: "Controls",
+      target: '.item.sidebar',
+      title: 'Controls',
       content:
-        "These are your controls, you can change options as well as start / clear the playlist.",
-      placement: "right",
+        'These are your controls, you can change options as well as start / clear the playlist.',
+      placement: 'right',
     },
-  ];
-  const store = Store.useStore();
+  ]
+  const store = Store.useStore()
 
-  const incrementJoyride = (state) => {
-    if (state.type === "tour:end" || state.type === "tour:start") {
-      const joyrideCount = window.localStorage.getItem("joyrideCount") || 0;
-      window.localStorage.setItem("joyrideCount", parseInt(joyrideCount) + 1);
+  const incrementJoyride = state => {
+    if (state.type === 'tour:end' || state.type === 'tour:start') {
+      const joyrideCount = window.localStorage.getItem('joyrideCount') || 0
+      window.localStorage.setItem('joyrideCount', parseInt(joyrideCount) + 1)
     }
-  };
+  }
 
-  const addVideo = (videoUrl) => {
+  const addVideo = videoUrl => {
     if (videoUrl) {
-      setFetchInProgress(true);
-      const videoId = parseYoutubeUrl(videoUrl);
-      if (!store.get("videos").some((e) => e.id === videoId)) {
-        const videoDetails = fetchVideoDetails(videoId);
-        videoDetails.then((details) => {
-          const existingVideos = store.get("videos");
+      setFetchInProgress(true)
+      const videoId = parseYoutubeUrl(videoUrl)
+      if (!store.get('videos').some(e => e.id === videoId)) {
+        const videoDetails = fetchVideoDetails(videoId)
+        videoDetails.then(details => {
+          const existingVideos = store.get('videos')
           // console.log(existingVideos)
-          existingVideos.push(details);
-          store.set("videos")(existingVideos);
-          addVideoToHash(videoId);
-          setFetchInProgress(false);
-        });
+          existingVideos.push(details)
+          store.set('videos')(existingVideos)
+          addVideoToHash(videoId)
+          setFetchInProgress(false)
+        })
       }
     }
-  };
+  }
 
   useEffect(() => {
     // get web share target content and add to playlist
-    window.addEventListener("DOMContentLoaded", () => {
-      const parsedUrl = new URL(window.location);
-      const text = parsedUrl.searchParams.get("text");
-      addVideo(text);
-    });
+    window.addEventListener('DOMContentLoaded', () => {
+      const parsedUrl = new URL(window.location)
+      const text = parsedUrl.searchParams.get('text')
+      addVideo(text)
+    })
 
     // parse URL hashes
     if (window.location.hash.length > 1) {
@@ -93,33 +86,33 @@ const App = () => {
         window.atob(decodeURIComponent(window.location.hash.slice(1)))
       )
       if (Array.isArray(videoIdsFromUrl)) {
-        videoIdsFromUrl.forEach((videoId) => {
-          setFetchInProgress(true);
-          addVideo(videoId);
-          setFetchInProgress(false);
-        });
+        videoIdsFromUrl.forEach(videoId => {
+          setFetchInProgress(true)
+          addVideo(videoId)
+          setFetchInProgress(false)
+        })
       } else {
-        setFetchInProgress(true);
-        addVideo(videoIdsFromUrl);
-        setFetchInProgress(false);
+        setFetchInProgress(true)
+        addVideo(videoIdsFromUrl)
+        setFetchInProgress(false)
       }
     }
 
     // get clipboard permissions
-    navigator.permissions.query({ name: "clipboard-read" });
+    navigator.permissions.query({ name: 'clipboard-read' })
 
     // check if tutorial has already been done
-    const joyrideCount = window.localStorage.getItem("joyrideCount");
+    const joyrideCount = window.localStorage.getItem('joyrideCount')
     if (joyrideCount < 2) {
-      setJoyrideRun(true);
+      setJoyrideRun(true)
     } else {
-      toast("Start by dragging a video onto the page!", {
-        className: "info-toast",
-      });
+      toast('Start by dragging a video onto the page!', {
+        className: 'info-toast',
+      })
     }
 
     // eslint-disable-next-line
-  }, []);
+  }, [])
 
   const handleVideoEnd = () => {
     if (store.get('videoOpts').autoplay === 1) {
@@ -129,7 +122,7 @@ const App = () => {
       store.set('videos')(remainingVideos)
       handlePlay()
     }
-  };
+  }
 
   const handlePlay = () => {
     if (store.get('videos').length !== 0) {
@@ -144,7 +137,7 @@ const App = () => {
         className: 'info-toast',
       })
     }
-  };
+  }
 
   const handleFocus = e => {
     navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
@@ -162,13 +155,13 @@ const App = () => {
             videoInfo.then(details => {
               const children = (
                 <div>
-                  <S.ThumbFade className="thumb-fade" />
+                  <S.ThumbFade className='thumb-fade' />
                   <S.ClipboardThumbnail
-                    alt="video thumbnail"
-                    className="clipboard-video-thumb"
+                    alt='video thumbnail'
+                    className='clipboard-video-thumb'
                     src={details.thumb.medium.url}
                   />
-                  <S.ModalText className="modal-header-text">
+                  <S.ModalText className='modal-header-text'>
                     We've detected a YouTube link in your clipboard
                   </S.ModalText>
                   <S.ModalText className='video-text'>
@@ -178,43 +171,43 @@ const App = () => {
                     Would you like to add it?
                   </S.ModalText>
                 </div>
-              );
-              setClipboardModalVisibility(true);
-              setModalChildren(children);
-              setClipboardLink(text);
-              setFetchInProgress(false);
-            });
+              )
+              setClipboardModalVisibility(true)
+              setModalChildren(children)
+              setClipboardLink(text)
+              setFetchInProgress(false)
+            })
           }
-        });
+        })
       }
-    });
-  };
+    })
+  }
 
   const onClipboardVideoAdd = () => {
-    const videoId = parseYoutubeUrl(clipboardLink);
+    const videoId = parseYoutubeUrl(clipboardLink)
 
-    addVideo(clipboardLink);
-    setClipboardModalVisibility(false);
-    setSkippedClipboardVideos([...skippedClipboardVideos, videoId]);
-    setClipboardLink("");
-  };
+    addVideo(clipboardLink)
+    setClipboardModalVisibility(false)
+    setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
+    setClipboardLink('')
+  }
 
-  const onModalClose = (e) => {
-    e.preventDefault();
-    const videoId = parseYoutubeUrl(clipboardLink);
+  const onModalClose = e => {
+    e.preventDefault()
+    const videoId = parseYoutubeUrl(clipboardLink)
 
-    setClipboardModalVisibility(false);
-    setSkippedClipboardVideos([...skippedClipboardVideos, videoId]);
-    setClipboardLink("");
-  };
+    setClipboardModalVisibility(false)
+    setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
+    setClipboardLink('')
+  }
 
-  const throttledFocus = debounce(handleFocus, 1000);
+  const throttledFocus = debounce(handleFocus, 1000)
 
   return (
     <div
       onDragOver={() => setDropzoneVisibility(true)}
       onFocus={throttledFocus}
-      className="container"
+      className='container'
     >
       {joyrideRun && (
         <Joyride
@@ -257,7 +250,7 @@ const App = () => {
       <ToastContainer
         transition={Bounce}
         autoclose={1500}
-        className="toast-container"
+        className='toast-container'
         closeOnClick
         pauseOnVisibilityChange={false}
         pauseOnHover={false}
@@ -266,7 +259,7 @@ const App = () => {
         closeButton={false}
       />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
