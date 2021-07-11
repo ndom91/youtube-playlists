@@ -48,9 +48,8 @@
     ]
   },
   "lint-staged": {
-    "{*.{js, jsx}}": "npm run lint:js",
-    "src/**/styled.js": "npm run lint:css",
-    "*.css": "stylelint --fix"
+    "/src/**/*.js": "npm run lint:css",
+    "/src/**/*.{js,jsx}": "stylelint --fix"
   },
   "prettier": {
     "singleQuote": true,
