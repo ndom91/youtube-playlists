@@ -55,7 +55,7 @@ This is very much still in early stages, but you can run it locally by:
 3. Start dev server `npm start`
 4. Visit `http://localhost:3000`
 
-Please stick to the prettier / style-lint settings when creating a PR.
+Please stick to the prettier settings when creating a PR.
 
 ## 📺 Screenshot
 

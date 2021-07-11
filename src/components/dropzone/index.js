@@ -2,22 +2,20 @@ import React from 'react'
 import Droptarget from '../droptarget'
 import * as S from './styled'
 
-const Dropzone = props => {
+const Dropzone = ({ visible, addVideoOnDrop, closeDropzone }) => {
   return (
     <S.DroptargetWrapper
       style={{
-        backgroundColor: props.visible
-          ? 'rgba(255,255,255,0.6)'
-          : 'rgba(0,0,0,0)',
-        visibility: props.visible ? 'visible' : 'hidden',
+        backgroundColor: visible ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0)',
+        visibility: visible ? 'visible' : 'hidden',
       }}
       id='dropzone'
       className='fullDroptarget'
     >
       <Droptarget
-        visible={props.visible}
-        closeDropzone={props.closeDropzone}
-        addVideoOnDrop={props.addVideoOnDrop}
+        visible={visible}
+        closeDropzone={closeDropzone}
+        addVideoOnDrop={addVideoOnDrop}
       />
     </S.DroptargetWrapper>
   )

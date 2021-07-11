@@ -14,7 +14,7 @@ const Playlist = ({ fetchInProgress }) => {
     _videos.splice(dragIndex, 1)
     _videos.splice(hoverIndex, 0, dragCard)
 
-    videos = _videos
+    useStore.setState(state => (state.videos = _videos))
   }
 
   const handleDragOver = event => {

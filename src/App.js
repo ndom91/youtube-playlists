@@ -22,17 +22,17 @@ const App = () => {
   const [dropzoneVisible, setDropzoneVisibility] = useState(false)
   const [fetchInProgress, setFetchInProgress] = useState(false)
   const videos = useStore(state => state.videos)
+  const addVideo = useStore(state => state.addVideo)
   const { autoplay } = useStore(state => state.videoOpts)
 
-  const addVideo = videoUrl => {
+  const parseVideo = videoUrl => {
     if (videoUrl) {
       setFetchInProgress(true)
       const videoId = parseYoutubeUrl(videoUrl)
       if (!videos.some(e => e.id === videoId)) {
         const videoDetails = fetchVideoDetails(videoId)
         videoDetails.then(details => {
-          // console.log(existingVideos)
-          videos.push(details)
+          addVideo(details)
           addVideoToHash(videoId)
           setFetchInProgress(false)
         })
@@ -45,7 +45,7 @@ const App = () => {
     window.addEventListener('DOMContentLoaded', () => {
       const parsedUrl = new URL(window.location)
       const text = parsedUrl.searchParams.get('text')
-      addVideo(text)
+      parseVideo(text)
     })
 
     // parse URL hashes
@@ -55,14 +55,10 @@ const App = () => {
       )
       if (Array.isArray(videoIdsFromUrl)) {
         videoIdsFromUrl.forEach(videoId => {
-          setFetchInProgress(true)
-          addVideo(videoId)
-          setFetchInProgress(false)
+          parseVideo(videoId)
         })
       } else {
-        setFetchInProgress(true)
-        addVideo(videoIdsFromUrl)
-        setFetchInProgress(false)
+        parseVideo(videoIdsFromUrl)
       }
     }
 
@@ -72,7 +68,10 @@ const App = () => {
 
   const handleVideoEnd = () => {
     if (autoplay) {
-      videos = videos.filter(video => video.id !== activeVideo)
+      useStore.setState(
+        state =>
+          (state.videos = videos.filter(video => video.id !== activeVideo))
+      )
       handlePlay()
     }
   }
@@ -81,7 +80,9 @@ const App = () => {
     if (videos.length !== 0) {
       const videoId = videos[0].id
       setActiveVideo(videoId)
-      videos = videos.filter(video => video.id !== videoId)
+      useStore.setState(
+        state => (state.videos = videos.filter(video => video.id !== videoId))
+      )
     } else {
       toast('No Videos Available', {
         className: 'info-toast',
@@ -109,13 +110,13 @@ const App = () => {
                   <S.ClipboardThumbnail
                     alt='video thumbnail'
                     className='clipboard-video-thumb'
-                    src={details.thumb.medium.url}
+                    src={details?.thumb.medium.url}
                   />
                   <S.ModalText className='modal-header-text'>
                     We've detected a YouTube link in your clipboard
                   </S.ModalText>
                   <S.ModalText className='video-text'>
-                    {details.title}
+                    {details?.title}
                   </S.ModalText>
                   <S.ModalText className='footer-text'>
                     Would you like to add it?
@@ -136,7 +137,7 @@ const App = () => {
   const onClipboardVideoAdd = () => {
     const videoId = parseYoutubeUrl(clipboardLink)
 
-    addVideo(clipboardLink)
+    parseVideo(clipboardLink)
     setClipboardModalVisibility(false)
     setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
     setClipboardLink('')
@@ -161,7 +162,7 @@ const App = () => {
     >
       <Dropzone
         visible={dropzoneVisible}
-        addVideoOnDrop={addVideo}
+        addVideoOnDrop={parseVideo}
         closeDropzone={() => setDropzoneVisibility(false)}
       />
       <Header />

@@ -25,7 +25,7 @@ const Player = ({ videoId, onEnd }) => {
   }
 
   const makeFullscreen = () => {
-    if (fullscreen === 1) {
+    if (fullscreen) {
       const playerElement = document.getElementById('widget2')
       const requestFullScreen =
         playerElement.requestFullScreen ||

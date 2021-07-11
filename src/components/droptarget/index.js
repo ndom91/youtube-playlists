@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 import * as S from './styled'
 
-const Droptarget = props => {
+const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
   const [draggingOver, setDragOver] = useState(false)
   const [dragTarget, setDragtarget] = useState('')
 
@@ -16,17 +16,17 @@ const Droptarget = props => {
         className: 'info-toast',
         progressClassName: 'progress-toast',
       })
-      props.closeDropzone()
+      closeDropzone()
       return
     }
 
-    props.addVideoOnDrop(droppedUrl)
+    addVideoOnDrop(droppedUrl)
     setDragOver(false)
-    props.closeDropzone()
+    closeDropzone()
   }
 
   const hideDropTarget = () => {
-    props.closeDropzone()
+    closeDropzone()
   }
 
   const handleDragEnter = e => {
@@ -45,7 +45,7 @@ const Droptarget = props => {
 
   return (
     <>
-      {props.visible && (
+      {visible && (
         <S.HoverDropzone
           onDragEnter={e => handleDragEnter(e)}
           onDragLeave={e => handleDragLeave(e)}

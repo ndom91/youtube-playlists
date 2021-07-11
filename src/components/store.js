@@ -7,6 +7,9 @@ const useStore = create(set => ({
   },
   videos: [],
   clearVideos: () => set(state => (state.videos = [])),
+  addVideo: video => {
+    set(state => state.videos.push(video))
+  },
 }))
 
 export default useStore

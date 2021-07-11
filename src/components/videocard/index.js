@@ -42,6 +42,7 @@ const Videocard = ({
   const videos = useStore(state => state.videos)
 
   const [, drop] = useDrop({
+    type: type,
     accept: type,
     hover(item) {
       if (!ref.current) {
@@ -59,6 +60,8 @@ const Videocard = ({
 
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type, id, index },
+    type: type,
+    accept: type,
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
@@ -68,7 +71,9 @@ const Videocard = ({
 
   const handleVideoRemove = (event, videoId) => {
     removeVideoFromHash(videoId)
-    videos = videos.filter(video => video.id !== videoId)
+    useStore.setState(
+      state => (state.videos = videos.filter(video => video.id !== videoId))
+    )
     event.stopPropagation()
   }
 
