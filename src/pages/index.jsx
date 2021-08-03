@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import Header from '@/components/header'
-import Dropzone from '@/components/dropzone'
-import Sidebar from '@/components/sidebar'
-import Player from '@/components/player'
+import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Modal from '@/components/modal'
 import Playlist from '@/components/playlist'
 import useStore from '@/lib/store'
@@ -12,6 +9,19 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import debounce from 'lodash.debounce'
 import * as S from '@/lib/styled'
 
+const Header = dynamic(() => import('@/components/header'), {
+  ssr: false,
+})
+const Dropzone = dynamic(() => import('@/components/dropzone'), {
+  ssr: false,
+})
+const Sidebar = dynamic(() => import('@/components/sidebar'), {
+  ssr: false,
+})
+const Player = dynamic(() => import('@/components/player'), {
+  ssr: false,
+})
+
 const App = () => {
   const [activeVideo, setActiveVideo] = useState('')
   const [modalChildren, setModalChildren] = useState(null)
@@ -20,6 +30,7 @@ const App = () => {
   const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
   const [dropzoneVisible, setDropzoneVisibility] = useState(false)
   const [fetchInProgress, setFetchInProgress] = useState(false)
+
   const videos = useStore((state) => state.videos)
   const addVideo = useStore((state) => state.addVideo)
   const { autoplay } = useStore((state) => state.videoOpts)
