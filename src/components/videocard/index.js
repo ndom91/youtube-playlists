@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
 import useStore from '@/lib/store'
 import * as S from './styled'
-import { removeVideoFromHash } from '../../utils'
+import { removeVideoFromHash } from '@/lib/utils'
 
 const handleOnClick = (e) => {
   e.preventDefault()

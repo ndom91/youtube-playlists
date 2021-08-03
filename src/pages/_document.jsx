@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import Octocat from '@/components/Octocat'
+import Script from 'next/script'
+import Octocat from '@/components/octocat'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -11,24 +12,23 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta charset='utf-8' />
-          <link rel='shortcut icon' href='%PUBLIC_URL%/favicon.ico' />
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <meta name='theme-color' content='#3B2667' />
+          <meta charset="utf-8" />
+          <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+          <meta name="theme-color" content="#3B2667" />
           <link
-            href='https://fonts.googleapis.com/css2?family=Francois+One'
-            rel='stylesheet'
+            href="https://fonts.googleapis.com/css2?family=Francois+One"
+            rel="stylesheet"
           />
 
-          <link rel='manifest' href='%PUBLIC_URL%/manifest.json' />
+          <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
           <script
             async
             defer
-            data-domain='youtube.ndo.dev'
-            src='https://stats.ndo.dev/js/plausible.js'
+            data-domain="youtube.ndo.dev"
+            src="https://stats.ndo.dev/js/plausible.js"
           ></script>
 
-          <title>YouTube | Dynamic Playlists</title>
+          {/* <title>YouTube | Dynamic Playlists</title> */}
         </Head>
         <body>
           <Octocat />
