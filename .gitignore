@@ -24,6 +24,7 @@ yarn-error.log*
 
 public/vendor/*
 
+.next
 .vscode
 .eslintcache
 

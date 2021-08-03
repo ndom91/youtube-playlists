@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import useStore from '../store'
+import useStore from '@/lib/store'
 import YouTube from 'react-youtube'
 
 import * as S from './styled'
 
 const Player = ({ videoId, onEnd }) => {
-  const { fullscreen } = useStore(state => state.videoOpts)
+  const { fullscreen } = useStore((state) => state.videoOpts)
   const [width, setWidth] = useState(540)
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Player = ({ videoId, onEnd }) => {
   }
 
   return (
-    <S.Player id='playerWrapper' className='item player'>
+    <S.Player id="playerWrapper" className="item player">
       <YouTube
         videoId={videoId}
         opts={opts}

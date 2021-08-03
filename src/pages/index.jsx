@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import Header from './components/header'
-import Dropzone from './components/dropzone'
-import Sidebar from './components/sidebar'
-import Player from './components/player'
-import Modal from './components/modal'
-import Playlist from './components/playlist'
-import useStore from './components/store'
-import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from './utils'
+import Header from '@/components/header'
+import Dropzone from '@/components/dropzone'
+import Sidebar from '@/components/sidebar'
+import Player from '@/components/player'
+import Modal from '@/components/modal'
+import Playlist from '@/components/playlist'
+import useStore from '@/components/store'
+import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from '@/lib/utils'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import debounce from 'lodash.debounce'
-import * as S from './styled'
-import './index.css'
+import * as S from '@/lib/styled'
 
 const App = () => {
   const [activeVideo, setActiveVideo] = useState('')
@@ -21,17 +20,17 @@ const App = () => {
   const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
   const [dropzoneVisible, setDropzoneVisibility] = useState(false)
   const [fetchInProgress, setFetchInProgress] = useState(false)
-  const videos = useStore(state => state.videos)
-  const addVideo = useStore(state => state.addVideo)
-  const { autoplay } = useStore(state => state.videoOpts)
+  const videos = useStore((state) => state.videos)
+  const addVideo = useStore((state) => state.addVideo)
+  const { autoplay } = useStore((state) => state.videoOpts)
 
-  const parseVideo = videoUrl => {
+  const parseVideo = (videoUrl) => {
     if (videoUrl) {
       setFetchInProgress(true)
       const videoId = parseYoutubeUrl(videoUrl)
-      if (!videos.some(e => e.id === videoId)) {
+      if (!videos.some((e) => e.id === videoId)) {
         const videoDetails = fetchVideoDetails(videoId)
-        videoDetails.then(details => {
+        videoDetails.then((details) => {
           addVideo(details)
           addVideoToHash(videoId)
           setFetchInProgress(false)
@@ -54,7 +53,7 @@ const App = () => {
         window.atob(decodeURIComponent(window.location.hash.slice(1)))
       )
       if (Array.isArray(videoIdsFromUrl)) {
-        videoIdsFromUrl.forEach(videoId => {
+        videoIdsFromUrl.forEach((videoId) => {
           parseVideo(videoId)
         })
       } else {
@@ -69,8 +68,8 @@ const App = () => {
   const handleVideoEnd = () => {
     if (autoplay) {
       useStore.setState(
-        state =>
-          (state.videos = videos.filter(video => video.id !== activeVideo))
+        (state) =>
+          (state.videos = videos.filter((video) => video.id !== activeVideo))
       )
       handlePlay()
     }
@@ -81,7 +80,8 @@ const App = () => {
       const videoId = videos[0].id
       setActiveVideo(videoId)
       useStore.setState(
-        state => (state.videos = videos.filter(video => video.id !== videoId))
+        (state) =>
+          (state.videos = videos.filter((video) => video.id !== videoId))
       )
     } else {
       toast('No Videos Available', {
@@ -90,35 +90,35 @@ const App = () => {
     }
   }
 
-  const handleFocus = e => {
-    navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
+  const handleFocus = (e) => {
+    navigator.permissions.query({ name: 'clipboard-read' }).then((result) => {
       if (result.state === 'granted' || result.state === 'prompt') {
-        navigator.clipboard.readText().then(text => {
+        navigator.clipboard.readText().then((text) => {
           const videoId = parseYoutubeUrl(text)
           if (
             videoId !== undefined &&
-            !videos.find(v => v.id === videoId) &&
+            !videos.find((v) => v.id === videoId) &&
             !skippedClipboardVideos.includes(videoId) &&
             clipboardLink !== text
           ) {
             setFetchInProgress(true)
             const videoInfo = fetchVideoDetails(videoId)
-            videoInfo.then(details => {
+            videoInfo.then((details) => {
               const children = (
                 <div>
-                  <S.ThumbFade className='thumb-fade' />
+                  <S.ThumbFade className="thumb-fade" />
                   <S.ClipboardThumbnail
-                    alt='video thumbnail'
-                    className='clipboard-video-thumb'
+                    alt="video thumbnail"
+                    className="clipboard-video-thumb"
                     src={details?.thumb.medium.url}
                   />
-                  <S.ModalText className='modal-header-text'>
+                  <S.ModalText className="modal-header-text">
                     We've detected a YouTube link in your clipboard
                   </S.ModalText>
-                  <S.ModalText className='video-text'>
+                  <S.ModalText className="video-text">
                     {details?.title}
                   </S.ModalText>
-                  <S.ModalText className='footer-text'>
+                  <S.ModalText className="footer-text">
                     Would you like to add it?
                   </S.ModalText>
                 </div>
@@ -143,7 +143,7 @@ const App = () => {
     setClipboardLink('')
   }
 
-  const onModalClose = e => {
+  const onModalClose = (e) => {
     e.preventDefault()
     const videoId = parseYoutubeUrl(clipboardLink)
 
@@ -158,7 +158,7 @@ const App = () => {
     <div
       onDragOver={() => setDropzoneVisibility(true)}
       onFocus={throttledFocus}
-      className='container'
+      className="container"
     >
       <Dropzone
         visible={dropzoneVisible}
@@ -181,7 +181,7 @@ const App = () => {
       <ToastContainer
         transition={Bounce}
         autoclose={1500}
-        className='toast-container'
+        className="toast-container"
         closeOnClick
         pauseOnVisibilityChange={false}
         pauseOnHover={false}

@@ -1,7 +1,7 @@
 {
   "name": "youtube-playlists",
   "description": "Create on-the-fly YouTube playlists",
-  "version": "3.5.3",
+  "version": "3.9.3",
   "author": "ndom91 <yo@ndo.dev>",
   "homepage": "https://youtube.ndo.dev",
   "repository": "https://github.com/ndom91/youtube-playlists",
@@ -10,8 +10,9 @@
     "url": "https://github.com/ndom91/youtube-playlists/issues"
   },
   "scripts": {
-    "start": "BROWSER=none react-scripts start",
-    "build": "react-scripts build",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:ci": "cypress run --record",
@@ -21,11 +22,11 @@
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
+    "next": "^11.0.2-canary.25",
     "react": "^17.0.2",
     "react-dnd": "^14.0.2",
     "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
     "react-toastify": "^7.0.4",
     "react-youtube": "^7.13.1",
     "styled-components": "^5.3.0",
@@ -50,10 +51,7 @@
   },
   "prettier": {
     "singleQuote": true,
-    "jsxSingleQuote": true,
-    "parser": "babel",
-    "semi": false,
-    "arrowParens": "avoid"
+    "semi": false
   },
   "stylelint": {
     "processors": [
@@ -62,18 +60,6 @@
     "extends": [
       "stylelint-config-recommended",
       "stylelint-config-styled-components"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   }
 }

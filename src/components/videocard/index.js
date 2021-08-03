@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
-import useStore from '../store'
+import useStore from '@/lib/store'
 import * as S from './styled'
 import { removeVideoFromHash } from '../../utils'
 
-const handleOnClick = e => {
+const handleOnClick = (e) => {
   e.preventDefault()
 }
 
@@ -13,12 +13,12 @@ const FetchSpinner = () => {
     <S.FetchLoader>
       <S.CubeContainer>
         <S.Cube>
-          <div className='front' />
-          <div className='back' />
-          <div className='right' />
-          <div className='left' />
-          <div className='top' />
-          <div className='bottom' />
+          <div className="front" />
+          <div className="back" />
+          <div className="right" />
+          <div className="left" />
+          <div className="top" />
+          <div className="bottom" />
         </S.Cube>
         <S.Shadow>,</S.Shadow>
       </S.CubeContainer>
@@ -39,7 +39,7 @@ const Videocard = ({
   moveCard,
 }) => {
   const ref = useRef(null)
-  const videos = useStore(state => state.videos)
+  const videos = useStore((state) => state.videos)
 
   const [, drop] = useDrop({
     type: type,
@@ -62,7 +62,7 @@ const Videocard = ({
     item: { type, id, index },
     type: type,
     accept: type,
-    collect: monitor => ({
+    collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   })
@@ -72,7 +72,7 @@ const Videocard = ({
   const handleVideoRemove = (event, videoId) => {
     removeVideoFromHash(videoId)
     useStore.setState(
-      state => (state.videos = videos.filter(video => video.id !== videoId))
+      (state) => (state.videos = videos.filter((video) => video.id !== videoId))
     )
     event.stopPropagation()
   }
@@ -86,37 +86,37 @@ const Videocard = ({
         <FetchSpinner />
       ) : (
         <S.VideoCard
-          id='videocard'
-          className='videocard'
+          id="videocard"
+          className="videocard"
           style={{
             opacity,
           }}
           onClick={handleOnClick}
           key={id}
         >
-          <S.CardBtn onClick={e => handleVideoRemove(e, id)}>
+          <S.CardBtn onClick={(e) => handleVideoRemove(e, id)}>
             <svg
-              fill='currentColor'
-              viewBox='0 0 20 20'
+              fill="currentColor"
+              viewBox="0 0 20 20"
               style={{ marginTop: '4px' }}
             >
               <path
-                fillRule='evenodd'
-                d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-                clipRule='evenodd'
+                fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
               />
             </svg>
           </S.CardBtn>
           <S.Article>
             <a href={url}>
               <S.CardThumb
-                className='cardThumbnail'
-                alt='Video Thumbnail'
+                className="cardThumbnail"
+                alt="Video Thumbnail"
                 src={thumbnail.medium.url}
               />
-              <S.CardInfos className='cardInfos'>
-                <S.CardTitle className='title'>{title}</S.CardTitle>
-                <S.CardChannel className='channel'>{channel}</S.CardChannel>
+              <S.CardInfos className="cardInfos">
+                <S.CardTitle className="title">{title}</S.CardTitle>
+                <S.CardChannel className="channel">{channel}</S.CardChannel>
               </S.CardInfos>
             </a>
           </S.Article>
