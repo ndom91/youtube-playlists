@@ -5,15 +5,9 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/ndom91/youtube-playlists.svg?style=flat-square)
 [![Demo](https://img.shields.io/badge/click-demo-orange?style=flat-square)](https://youtube.ndo.dev)
 
-⚛️ `create-react-app` powered tool for creating on-the-fly YouTube playlists. 
+`create-react-app` powered tool for creating on-the-fly YouTube playlists. 
 
 **Demo available at**: [`youtube.ndo.dev`](https://youtube.ndo.dev)  
-
-## 🏁 Getting Started
-
-Simply drag-and-drop a YouTube URL / Tab onto the page and it will be added to the ephemeral playlist. Alternatively, if given permission, it will also recognize YouTube URLs in your clipboard once you focus onto the page and ask if you would like to add the video to your playlist.
-
-Once you've got your playlist organized, press "Play" and the application will begin auto-playing your videos, optionally staying in fullscreen mode throughout the remainder of the playlist.
 
 ## ⚛️ Features
 
@@ -23,11 +17,17 @@ Once you've got your playlist organized, press "Play" and the application will b
 - Shareable Playlist URLs - Send your friends the URL, share playlists without any accounts
 - Google Cast Functionality [**Coming Soon**]
 
+## 🏁 Getting Started
+
+Simply drag-and-drop a YouTube URL / Tab onto the page and it will be added to the ephemeral playlist. Alternatively, if given permission, it will also recognize YouTube URLs in your clipboard once you focus onto the page and ask if you would like to add the video to your playlist.
+
+Once you've got your playlist organized, press "Play" and the application will begin auto-playing your videos, optionally staying in fullscreen mode throughout the remainder of the playlist.
+
 ## 📺 Screenshot
 
 ![screenshot 1](screenshot1.gif)
 
-## 🧍 Selfhost
+## 🤓 Self-hosting
 
 You can selfhost this application if you wish, details can be found below. The site itself is a simple React application which you can host on any provider like Netlify, Vercel, etc. There is also a serverless function / Cloudflare Worker component to the application for fetching video details from the YouTube API without exposing your YouTube API key in the frontend code.
 
