@@ -5,7 +5,6 @@ import Octocat from '@/components/octocat'
 export default class MyDocument extends Document {
   render() {
     const preventDefaultOnDroptarget = (e) => {
-      console.log(e)
       if (e.target.id !== 'droptarget') {
         e.preventDefault()
       }
@@ -35,37 +34,6 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-        <Script
-          dangerouslySetInnerHTML={{
-            __html: `
-          window.addEventListener(
-            "dragover",
-            function(e) {
-              e = e || event;
-              if (e.target.id != "droptarget") {
-                console.log('DRAGOVERRR')
-                // check which element is our target
-                e.preventDefault();
-              }
-            },
-            false
-          );
-
-          window.addEventListener(
-            "drop",
-            function(e) {
-              e = e || event;
-              if (e.target.id != "droptarget") {
-                console.log('DROPPP')
-                // check which element is our target
-                e.preventDefault();
-              }
-            },
-            false
-          );
-    `,
-          }}
-        />
       </Html>
     )
   }

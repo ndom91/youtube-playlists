@@ -26,9 +26,9 @@ const App = () => {
   const [activeVideo, setActiveVideo] = useState('')
   const [modalChildren, setModalChildren] = useState(null)
   const [clipboardLink, setClipboardLink] = useState('')
-  const [isClipboardModalVisible, setClipboardModalVisibility] = useState(false)
+  const [clipboardModalVisible, setClipboardModalVisible] = useState(false)
   const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
-  const [dropzoneVisible, setDropzoneVisibility] = useState(false)
+  const [dropzoneVisible, setDropzoneVisible] = useState(false)
   const [fetchInProgress, setFetchInProgress] = useState(false)
 
   const videos = useStore((state) => state.videos)
@@ -134,7 +134,7 @@ const App = () => {
                   </S.ModalText>
                 </div>
               )
-              setClipboardModalVisibility(true)
+              setClipboardModalVisible(true)
               setModalChildren(children)
               setClipboardLink(text)
               setFetchInProgress(false)
@@ -149,7 +149,7 @@ const App = () => {
     const videoId = parseYoutubeUrl(clipboardLink)
 
     parseVideo(clipboardLink)
-    setClipboardModalVisibility(false)
+    setClipboardModalVisible(false)
     setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
     setClipboardLink('')
   }
@@ -158,7 +158,7 @@ const App = () => {
     e.preventDefault()
     const videoId = parseYoutubeUrl(clipboardLink)
 
-    setClipboardModalVisibility(false)
+    setClipboardModalVisible(false)
     setSkippedClipboardVideos([...skippedClipboardVideos, videoId])
     setClipboardLink('')
   }
@@ -167,22 +167,22 @@ const App = () => {
 
   return (
     <div
-      onDragOver={() => setDropzoneVisibility(true)}
+      onDragOver={() => setDropzoneVisible(true)}
       onFocus={throttledFocus}
       className="container"
     >
       <Dropzone
         visible={dropzoneVisible}
         addVideoOnDrop={parseVideo}
-        closeDropzone={() => setDropzoneVisibility(false)}
+        closeDropzone={() => setDropzoneVisible(false)}
       />
       <Header />
       <Sidebar onPlay={handlePlay} />
       <Player videoId={activeVideo} onEnd={handleVideoEnd} />
       <Playlist fetchInProgress={fetchInProgress} />
-      {isClipboardModalVisible && (
+      {clipboardModalVisible && (
         <Modal
-          show={isClipboardModalVisible}
+          show={clipboardModalVisible}
           handleAdd={onClipboardVideoAdd}
           handleClose={onModalClose}
         >

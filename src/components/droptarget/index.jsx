@@ -7,11 +7,10 @@ const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
   const [draggingOver, setDragOver] = useState(false)
   const [dragTarget, setDragtarget] = useState('')
 
-  const dropHandler = (ev) => {
-    console.log('dropHanlderrrr')
-    ev.preventDefault()
-    ev.persist()
-    const droppedUrl = ev.dataTransfer.getData('text/plain')
+  const dropHandler = (e) => {
+    e.preventDefault()
+    e.persist()
+    const droppedUrl = e.dataTransfer.getData('text/plain')
     if (droppedUrl && !droppedUrl.includes('youtu')) {
       toast.info('Must be a YouTube Link!', {
         className: 'info-toast',
@@ -24,6 +23,11 @@ const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
     addVideoOnDrop(droppedUrl)
     setDragOver(false)
     closeDropzone()
+  }
+
+  const handleDragOver = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
   }
 
   const hideDropTarget = () => {
@@ -50,6 +54,7 @@ const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
         <S.HoverDropzone
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
+          onDragOver={handleDragOver}
           onDrop={dropHandler}
           className={draggingOver ? 'dragging-over' : ''}
           id="droptarget"
