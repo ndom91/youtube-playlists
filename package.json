@@ -1,7 +1,7 @@
 {
   "name": "youtube-playlists",
   "description": "Create on-the-fly YouTube playlists",
-  "version": "3.9.3",
+  "version": "4.0.0",
   "author": "ndom91 <yo@ndo.dev>",
   "homepage": "https://youtube.ndo.dev",
   "repository": "https://github.com/ndom91/youtube-playlists",
