@@ -5,7 +5,7 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/ndom91/youtube-playlists.svg?style=flat-square)
 [![Demo](https://img.shields.io/badge/click-demo-orange?style=flat-square)](https://youtube.ndo.dev)
 
-`create-react-app` powered tool for creating on-the-fly YouTube playlists. 
+[Next.js](https://nextjs.org) powered tool for creating on-the-fly YouTube playlists. 
 
 **Demo available at**: [`youtube.ndo.dev`](https://youtube.ndo.dev)  
 
