@@ -29,7 +29,10 @@ const App = () => {
   const [clipboardModalVisible, setClipboardModalVisible] = useState(false)
   const [skippedClipboardVideos, setSkippedClipboardVideos] = useState([])
   const [dropzoneVisible, setDropzoneVisible] = useState(false)
-  const [fetchInProgress, setFetchInProgress] = useState(false)
+  const [fetchInProgress, setFetchInProgress] = useState({
+    state: false,
+    id: '',
+  })
 
   const videos = useStore((state) => state.videos)
   const addVideo = useStore((state) => state.addVideo)
@@ -37,14 +40,14 @@ const App = () => {
 
   const parseVideo = (videoUrl) => {
     if (videoUrl) {
-      setFetchInProgress(true)
       const videoId = parseYoutubeUrl(videoUrl)
+      setFetchInProgress({ state: true, id: videoId })
       if (!videos.some((e) => e.id === videoId)) {
         const videoDetails = fetchVideoDetails(videoId)
         videoDetails.then((details) => {
           addVideo(details)
           addVideoToHash(videoId)
-          setFetchInProgress(false)
+          setFetchInProgress({ state: false, id: '' })
         })
       }
     }
@@ -101,7 +104,7 @@ const App = () => {
     }
   }
 
-  const handleFocus = (e) => {
+  const handleFocus = () => {
     navigator.permissions.query({ name: 'clipboard-read' }).then((result) => {
       if (result.state === 'granted' || result.state === 'prompt') {
         navigator.clipboard.readText().then((text) => {
@@ -112,7 +115,7 @@ const App = () => {
             !skippedClipboardVideos.includes(videoId) &&
             clipboardLink !== text
           ) {
-            setFetchInProgress(true)
+            setFetchInProgress({ state: true, id: videoId })
             const videoInfo = fetchVideoDetails(videoId)
             videoInfo.then((details) => {
               const children = (
@@ -137,7 +140,7 @@ const App = () => {
               setClipboardModalVisible(true)
               setModalChildren(children)
               setClipboardLink(text)
-              setFetchInProgress(false)
+              setFetchInProgress({ state: false, id: '' })
             })
           }
         })

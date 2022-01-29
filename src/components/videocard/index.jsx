@@ -77,12 +77,12 @@ const Videocard = ({
     event.stopPropagation()
   }
 
-  const opacity = isDragging ? 0.5 : 1
+  const opacity = isDragging ? 0.75 : 1
 
   return (
     <div ref={ref} style={{ display: 'inline-block', opacity }}>
       <DragPreviewImage connect={preview} src={thumbnail.default.url} />
-      {fetchInProgress && index === videos.length ? (
+      {fetchInProgress.state && fetchInProgress.id === id ? (
         <FetchSpinner />
       ) : (
         <S.VideoCard

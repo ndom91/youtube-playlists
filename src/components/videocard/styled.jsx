@@ -58,7 +58,7 @@ export const CardInfos = styled.div`
 export const CardTitle = styled.h2`
   position: relative;
   margin: 1px 0;
-  line-height: 15px;
+  line-height: 16px;
   text-shadow: 0 0 0px #32577f;
   height: 4.2em;
   overflow: hidden;
