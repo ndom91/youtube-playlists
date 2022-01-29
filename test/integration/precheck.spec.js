@@ -8,10 +8,7 @@ describe('Check Server', () => {
 
 context('Check CF Worker', () => {
   it('Cloudflare Worker - Response Test', () => {
-    cy.server()
-    cy.request({
-      url: 'https://yt-details.ndo.workers.dev/?vid=UqyeVUCwfk4',
-    }).should(req => {
+    cy.intercept('GET', 'https://yt-details.ndo.workers.dev/?vid=UqyeVUCwfk4', (req) => {
       expect(JSON.parse(req.body)).to.be.an('object')
       expect(JSON.parse(req.body)).to.have.a.property('channel')
       expect(JSON.parse(req.body)).to.include({
@@ -23,7 +20,6 @@ context('Check CF Worker', () => {
 
 context('Check Window', () => {
   it('Page Title', () => {
-    cy.server()
     cy.title().should('include', 'Dynamic Playlists')
   })
 })

@@ -29,5 +29,6 @@ public/vendor/*
 .eslintcache
 
 # Cypress
-cypress/videos
-cypress/screenshots
+test/videos
+test/screenshots
+

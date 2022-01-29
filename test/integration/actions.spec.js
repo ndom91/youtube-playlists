@@ -1,16 +1,10 @@
 /// <reference types="cypress" />
 
 context("YT Actions", () => {
-  beforeEach(() => {
-    cy.fixture("video.json").as("video1");
-  });
-
   it("Add Video - Drag", () => {
-    cy.server();
+    cy.fixture("video.json").as("video1");
     cy.visit("http://localhost:3000");
-    cy.route("GET", "https://yt-details.ndo.workers.dev/*", "@video1").as(
-      "getVideo"
-    );
+    cy.intercept("GET", "https://yt-details.ndo.workers.dev/*", { fixture: "video.json" })
 
     const URL = "https://www.youtube.com/watch?v=0oPAJfDgUUM";
     const dataTransfer = {
@@ -26,7 +20,7 @@ context("YT Actions", () => {
       .should("contain.text", "Drop Video Here")
       .trigger("drop", { dataTransfer });
 
-    cy.get("#videocard").first().should("contain.text", "Techquickie");
+    cy.get("#videocard").first().should("contain.text", "Boris Johnson");
   });
 
   it("Remove Video", () => {
