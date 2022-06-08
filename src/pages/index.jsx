@@ -181,7 +181,7 @@ const App = () => {
       />
       <Header />
       <div className="flex space-x-2">
-        <Sidebar onPlay={handlePlay} />
+        <Sidebar handlePlay={handlePlay} />
         <Player videoId={activeVideo} onEnd={handleVideoEnd} />
       </div>
       <Playlist fetchInProgress={fetchInProgress} />

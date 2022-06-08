@@ -1,6 +1,6 @@
 import useStore from '@/lib/store'
 
-const Sidebar = ({ onPlay }) => {
+const Sidebar = ({ handlePlay }) => {
   const { autoplay, fullscreen } = useStore((state) => state.videoOpts)
   const clearVideos = useStore((state) => state.clearVideos)
 
@@ -31,13 +31,13 @@ const Sidebar = ({ onPlay }) => {
         />
         <label
           htmlFor="fullscreenCheckbox"
-          className="flex items-center justify-center rounded-md bg-orange-100 p-2 text-orange-700 shadow-lg ring-8 ring-orange-200 transition hover:cursor-pointer"
+          className="flex items-center justify-center rounded-md bg-orange-100 p-2 shadow-lg ring-4 ring-amber-200 transition hover:cursor-pointer"
         >
           <svg
             fill="currentColor"
             className={`${
               fullscreen ? 'block' : 'hidden'
-            } h-16 w-16 transition`}
+            } h-8 w-8 text-emerald-400 transition`}
             viewBox="0 0 20 20"
           >
             <path
@@ -50,7 +50,7 @@ const Sidebar = ({ onPlay }) => {
             fill="currentColor"
             className={`${
               fullscreen ? 'hidden' : 'block'
-            } h-16 w-16 transition`}
+            } h-8 w-8 text-rose-400 transition`}
             viewBox="0 0 20 20"
           >
             <path
@@ -59,7 +59,9 @@ const Sidebar = ({ onPlay }) => {
               clipRule="evenodd"
             />
           </svg>
-          <span className="ml-4 text-xl uppercase">Fullscreen</span>
+          <span className="ml-4 font-sans text-xl text-purple-500">
+            Fullscreen
+          </span>
         </label>
         <input
           className="invisible"
@@ -71,11 +73,13 @@ const Sidebar = ({ onPlay }) => {
         />
         <label
           htmlFor="autoplayCheckbox"
-          className="flex items-center justify-center rounded-md bg-orange-100 p-2 text-orange-700 shadow-lg ring-8 ring-orange-200 transition hover:cursor-pointer"
+          className="flex items-center justify-center rounded-md bg-orange-100 p-2 shadow-lg ring-4 ring-amber-200 transition hover:cursor-pointer"
         >
           <svg
             fill="currentColor"
-            className={`${autoplay ? 'block' : 'hidden'} h-16 w-16 transition`}
+            className={`${
+              autoplay ? 'block' : 'hidden'
+            } h-8 w-8 text-emerald-400 transition`}
             viewBox="0 0 20 20"
           >
             <path
@@ -86,7 +90,9 @@ const Sidebar = ({ onPlay }) => {
           </svg>
           <svg
             fill="currentColor"
-            className={`${autoplay ? 'hidden' : 'block'} h-16 w-16 transition`}
+            className={`${
+              autoplay ? 'hidden' : 'block'
+            } h-8 w-8 text-rose-400 transition`}
             viewBox="0 0 20 20"
           >
             <path
@@ -95,23 +101,58 @@ const Sidebar = ({ onPlay }) => {
               clipRule="evenodd"
             />
           </svg>
-          <span className="ml-4 text-xl uppercase">Autoplay</span>
+          <span className="ml-4 font-sans text-xl text-purple-500">
+            Autoplay
+          </span>
         </label>
       </div>
 
       <div className="my-4 flex w-full justify-around">
         <button
-          className="rounded-md bg-orange-600 px-5 py-2 text-white  ring-4 ring-orange-700 transition hover:bg-orange-800"
-          onClick={onPlay}
+          onClick={handlePlay}
+          class="inline-flex items-center space-x-1 rounded border border-indigo-600 px-4 py-2 text-indigo-600 transition hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
         >
-          <span className="ripple">Play</span>
+          <span class="text-sm font-medium">Play</span>
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
         </button>
-
         <button
-          className="rounded-md bg-orange-600 px-5 py-2 text-white ring-4 ring-orange-700 transition hover:bg-orange-800"
           onClick={clearVideos}
+          class="inline-flex items-center space-x-1 rounded border border-indigo-600 px-4 py-2 text-indigo-600 transition hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
         >
-          <span className="ripple">Clear</span>
+          <span class="text-sm font-medium">Clear</span>
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+            />
+          </svg>
         </button>
       </div>
     </div>
