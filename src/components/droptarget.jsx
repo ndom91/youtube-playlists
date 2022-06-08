@@ -52,7 +52,7 @@ const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
         <div
           className={`${
             draggingOver ? 'dragging-over' : ''
-          } relative h-96 w-96 bg-teal-600 rounded-md border-8 border-white text-3xl text-center shadow-xl flex justify-center items-center transition`}
+          } relative flex h-96 w-96 items-center justify-center rounded-md border-8 border-white bg-teal-600 text-center text-3xl shadow-xl transition`}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
@@ -61,7 +61,7 @@ const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
         >
           <button
             onClick={hideDropTarget}
-            className="absolute right-0 top-0 w-8 h-8 m-4 rounded-full hover:cursor-pointer transition"
+            className="absolute right-0 top-0 m-4 h-8 w-8 rounded-full transition hover:cursor-pointer"
           >
             <svg
               fill="currentColor"

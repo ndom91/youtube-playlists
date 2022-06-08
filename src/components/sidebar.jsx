@@ -20,13 +20,13 @@ const Sidebar = ({ onPlay }) => {
     }
   }
   return (
-    <div className="bg-purple-300 rounded-md flex flex-col items-stretch justify-between">
+    <div className="flex flex-col items-stretch justify-between rounded-md bg-purple-300">
       <div className="checkBoxWrapper">
         <ul className="list-none">
           <li
             role="button"
             aria-pressed={fullscreen === 1}
-            className="flex justify-center items-stretch transition shadow-lg rounded-md"
+            className="flex items-stretch justify-center rounded-md shadow-lg transition"
           >
             <input
               type="checkbox"
@@ -64,7 +64,7 @@ const Sidebar = ({ onPlay }) => {
           <li
             role="button"
             aria-pressed={autoplay === 1}
-            className="flex justify-center items-stretch transition shadow-lg rounded-md"
+            className="flex items-stretch justify-center rounded-md shadow-lg transition"
           >
             <input
               defaultChecked

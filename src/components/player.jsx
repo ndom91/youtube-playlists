@@ -37,7 +37,7 @@ const Player = ({ videoId, onEnd }) => {
   }
 
   return (
-    <div id="playerWrapper" className="rounded-sm p-4 bg-black">
+    <div id="playerWrapper" className="rounded-sm bg-black p-4">
       <YouTube
         videoId={videoId}
         opts={opts}

@@ -87,42 +87,49 @@ const Videocard = ({
       ) : (
         <div
           id="videocard"
-          className="w-32 h-32 mx-4 my-2 hover:cursor-pointer"
           style={{
             opacity,
           }}
           onClick={handleOnClick}
           key={id}
+          className="relative mx-4 my-2 block h-48 w-48 overflow-hidden rounded-lg border border-gray-100 bg-white p-2 hover:cursor-pointer"
+          href=""
         >
-          <button
-            onClick={(e) => handleVideoRemove(e, id)}
-            className="absolute -top-4 -left-2 w-8 h-8 cursor-pointer rounded-md transition hover:-translate-y-2"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              style={{ marginTop: '4px' }}
-            >
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          <article>
-            <a href={url}>
-              <img
-                className="cardThumbnail"
-                alt="Video Thumbnail"
-                src={thumbnail.medium.url}
-              />
-              <div className="cardInfos">
-                <h2 className="title">{title}</h2>
-                <h3 className="channel">{channel}</h3>
-              </div>
-            </a>
-          </article>
+          <span className="absolute inset-x-0 bottom-0 h-2  bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+
+          <div className="justify-between sm:flex">
+            <div className="ml-3 hidden flex-shrink-0 sm:block">
+              <button
+                onClick={(e) => handleVideoRemove(e, id)}
+                className="absolute -top-4 -left-2 h-8 w-8 cursor-pointer rounded-md transition hover:-translate-y-2"
+              >
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  style={{ marginTop: '4px' }}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <img
+            className="aspect-video"
+            alt="Video Thumbnail"
+            src={thumbnail.medium.url}
+          />
+
+          <dl className="mt-6 flex">
+            <div className="flex flex-col">
+              <dt className="text-xs uppercase text-gray-600">{channel}</dt>
+              <dd className="text-sm text-gray-500">{title}</dd>
+            </div>
+          </dl>
         </div>
       )}
     </div>

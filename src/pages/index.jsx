@@ -118,20 +118,20 @@ const App = () => {
             const videoInfo = fetchVideoDetails(videoId)
             videoInfo.then((details) => {
               const children = (
-                <div className="z-30 flex justify-between items-start">
+                <div className="z-30 flex items-start justify-between">
                   <img
                     alt="video thumbnail"
-                    className="aspect-video shadow-md rounded-md"
+                    className="aspect-video rounded-md shadow-md"
                     src={details?.thumb.medium.url}
                   />
-                  <div className="flex flex-col justify-between items-start text-center flex-grow p-4">
-                    <p className="text-slate-800 font-semibold text-center w-full">
+                  <div className="flex flex-grow flex-col items-start justify-between p-4 text-center">
+                    <p className="w-full text-center font-semibold text-slate-800">
                       We've detected a link in your clipboard
                     </p>
-                    <p className="text-purple-600 truncate text-center w-full my-2">
+                    <p className="my-2 w-full truncate text-center text-purple-600">
                       {details?.title}
                     </p>
-                    <p className="text-center text-slate-800 mb-4 w-full">
+                    <p className="mb-4 w-full text-center text-slate-800">
                       Would you like to add it?
                     </p>
                   </div>
@@ -172,7 +172,7 @@ const App = () => {
     <div
       onDragOver={() => setDropzoneVisible(true)}
       onFocus={throttledFocus}
-      className="flex flex-col space-y-2"
+      className="flex w-full max-w-7xl flex-col space-y-2"
     >
       <Dropzone
         visible={dropzoneVisible}

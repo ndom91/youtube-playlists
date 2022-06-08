@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function Header() {
   return (
-    <div className="bg-purple-300 rounded-md text-5xl text-white flex justify-around">
+    <div className="flex w-full justify-around rounded-md bg-purple-300 text-5xl text-white">
       <Image
         priority
         src="/header.png"
