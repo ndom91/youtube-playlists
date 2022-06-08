@@ -1,30 +1,30 @@
 import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
 import useStore from '@/lib/store'
-import * as S from './styled'
+// import * as S from './styled'
 import { removeVideoFromHash } from '@/lib/utils'
 
 const handleOnClick = (e) => {
   e.preventDefault()
 }
 
-const FetchSpinner = () => {
-  return (
-    <S.FetchLoader>
-      <S.CubeContainer>
-        <S.Cube>
-          <div className="front" />
-          <div className="back" />
-          <div className="right" />
-          <div className="left" />
-          <div className="top" />
-          <div className="bottom" />
-        </S.Cube>
-        <S.Shadow>,</S.Shadow>
-      </S.CubeContainer>
-    </S.FetchLoader>
-  )
-}
+// const FetchSpinner = () => {
+//   return (
+//     <S.FetchLoader>
+//       <S.CubeContainer>
+//         <S.Cube>
+//           <div className="front" />
+//           <div className="back" />
+//           <div className="right" />
+//           <div className="left" />
+//           <div className="top" />
+//           <div className="bottom" />
+//         </S.Cube>
+//         <S.Shadow>,</S.Shadow>
+//       </S.CubeContainer>
+//     </S.FetchLoader>
+//   )
+// }
 
 const type = 'VideoCard'
 
@@ -83,18 +83,21 @@ const Videocard = ({
     <div ref={ref} style={{ display: 'inline-block', opacity }}>
       <DragPreviewImage connect={preview} src={thumbnail.default.url} />
       {fetchInProgress.state && fetchInProgress.id === id ? (
-        <FetchSpinner />
+        <div>Loading</div>
       ) : (
-        <S.VideoCard
+        <div
           id="videocard"
-          className="videocard"
+          className="w-32 h-32 mx-4 my-2 hover:cursor-pointer"
           style={{
             opacity,
           }}
           onClick={handleOnClick}
           key={id}
         >
-          <S.CardBtn onClick={(e) => handleVideoRemove(e, id)}>
+          <button
+            onClick={(e) => handleVideoRemove(e, id)}
+            className="absolute -top-4 -left-2 w-8 h-8 cursor-pointer rounded-md transition hover:-translate-y-2"
+          >
             <svg
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -106,21 +109,21 @@ const Videocard = ({
                 clipRule="evenodd"
               />
             </svg>
-          </S.CardBtn>
-          <S.Article>
+          </button>
+          <article>
             <a href={url}>
-              <S.CardThumb
+              <img
                 className="cardThumbnail"
                 alt="Video Thumbnail"
                 src={thumbnail.medium.url}
               />
-              <S.CardInfos className="cardInfos">
-                <S.CardTitle className="title">{title}</S.CardTitle>
-                <S.CardChannel className="channel">{channel}</S.CardChannel>
-              </S.CardInfos>
+              <div className="cardInfos">
+                <h2 className="title">{title}</h2>
+                <h3 className="channel">{channel}</h3>
+              </div>
             </a>
-          </S.Article>
-        </S.VideoCard>
+          </article>
+        </div>
       )}
     </div>
   )

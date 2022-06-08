@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import * as S from './styled'
-
 const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
   const [draggingOver, setDragOver] = useState(false)
   const [dragTarget, setDragtarget] = useState('')
@@ -51,15 +49,20 @@ const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
   return (
     <>
       {visible && (
-        <S.HoverDropzone
+        <div
+          className={`${
+            draggingOver ? 'dragging-over' : ''
+          } relative h-96 w-96 bg-teal-600 rounded-md border-8 border-white text-3xl text-center shadow-xl flex justify-center items-center transition`}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={dropHandler}
-          className={draggingOver ? 'dragging-over' : ''}
           id="droptarget"
         >
-          <S.DropzoneBtn onClick={hideDropTarget}>
+          <button
+            onClick={hideDropTarget}
+            className="absolute right-0 top-0 w-8 h-8 m-4 rounded-full hover:cursor-pointer transition"
+          >
             <svg
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -71,9 +74,9 @@ const Droptarget = ({ visible, closeDropzone, addVideoOnDrop }) => {
                 clipRule="evenodd"
               />
             </svg>
-          </S.DropzoneBtn>
+          </button>
           <div>Drop Video Here</div>
-        </S.HoverDropzone>
+        </div>
       )}
     </>
   )
