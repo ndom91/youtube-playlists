@@ -22,7 +22,10 @@ const Playlist = ({ fetchInProgress }) => {
   }
 
   return (
-    <div id="playlist" className="min-h-[200px] w-full bg-purple-400">
+    <div
+      id="playlist"
+      className="min-h-[200px] w-full rounded-md border-[6px] border-fuchsia-200 bg-fuchsia-100 p-4"
+    >
       <span onDragOver={handleDragOver} className="playlist-container">
         <DndProvider backend={HTML5Backend}>
           {videos &&

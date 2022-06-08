@@ -3,8 +3,7 @@ import useStore from '@/lib/store'
 import YouTube from 'react-youtube'
 
 const Player = ({ videoId, onEnd }) => {
-  const { fullscreen } = useStore((state) => state.videoOpts)
-  const [width, setWidth] = useState(540)
+  const { autoplay, fullscreen } = useStore((state) => state.videoOpts)
 
   useEffect(() => {
     if (window && window.innerWidth < 768) {
@@ -14,10 +13,10 @@ const Player = ({ videoId, onEnd }) => {
 
   // YouTube Settings: https://developers.google.com/youtube/player_parameters
   const opts = {
-    height: '303',
-    width: width,
+    height: '100%',
+    width: '100%',
     playerVars: {
-      autoplay: 1,
+      autoplay: autoplay ? 1 : 0,
       modestbranding: 1,
     },
   }
@@ -37,12 +36,13 @@ const Player = ({ videoId, onEnd }) => {
   }
 
   return (
-    <div id="playerWrapper" className="rounded-sm bg-black p-4">
+    <div className="aspect-video w-full rounded-md bg-black p-4">
       <YouTube
         videoId={videoId}
         opts={opts}
         onPlay={makeFullscreen}
         onEnd={onEnd}
+        className="aspect-video w-full rounded-md"
       />
     </div>
   )

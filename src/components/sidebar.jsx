@@ -20,95 +20,97 @@ const Sidebar = ({ onPlay }) => {
     }
   }
   return (
-    <div className="flex flex-col items-stretch justify-between rounded-md bg-purple-300">
-      <div className="checkBoxWrapper">
-        <ul className="list-none">
-          <li
-            role="button"
-            aria-pressed={fullscreen === 1}
-            className="flex items-stretch justify-center rounded-md shadow-lg transition"
+    <div className="flex w-72 flex-col items-stretch justify-between rounded-md border-[6px] border-purple-300 bg-purple-200 ">
+      <div className="m-8 flex flex-col space-y-4">
+        <input
+          type="checkbox"
+          id="fullscreenCheckbox"
+          onChange={toggleFullscreen}
+          value="Fullscreen"
+          className="invisible"
+        />
+        <label
+          htmlFor="fullscreenCheckbox"
+          className="flex items-center justify-center rounded-md bg-orange-100 p-2 text-orange-700 shadow-lg ring-8 ring-orange-200 transition hover:cursor-pointer"
+        >
+          <svg
+            fill="currentColor"
+            className={`${
+              fullscreen ? 'block' : 'hidden'
+            } h-16 w-16 transition`}
+            viewBox="0 0 20 20"
           >
-            <input
-              type="checkbox"
-              id="checkboxOne"
-              onChange={toggleFullscreen}
-              value="Fullscreen"
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clipRule="evenodd"
             />
-            {fullscreen ? (
-              <svg
-                fill="currentColor"
-                className="sidebar-fa-icon"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                fill="currentColor"
-                className="sidebar-fa-icon"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-            <label htmlFor="checkboxOne">Fullscreen</label>
-          </li>
-          <li
-            role="button"
-            aria-pressed={autoplay === 1}
-            className="flex items-stretch justify-center rounded-md shadow-lg transition"
+          </svg>
+          <svg
+            fill="currentColor"
+            className={`${
+              fullscreen ? 'hidden' : 'block'
+            } h-16 w-16 transition`}
+            viewBox="0 0 20 20"
           >
-            <input
-              defaultChecked
-              type="checkbox"
-              id="checkboxTwo"
-              onChange={toggleAutoplay}
-              value="checked"
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+              clipRule="evenodd"
             />
-            {autoplay ? (
-              <svg
-                fill="currentColor"
-                className="sidebar-fa-icon"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                fill="currentColor"
-                className="sidebar-fa-icon"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-            <label htmlFor="checkboxTwo">Autoplay</label>
-          </li>
-        </ul>
+          </svg>
+          <span className="ml-4 text-xl uppercase">Fullscreen</span>
+        </label>
+        <input
+          className="invisible"
+          defaultChecked
+          type="checkbox"
+          id="autoplayCheckbox"
+          onChange={toggleAutoplay}
+          value="checked"
+        />
+        <label
+          htmlFor="autoplayCheckbox"
+          className="flex items-center justify-center rounded-md bg-orange-100 p-2 text-orange-700 shadow-lg ring-8 ring-orange-200 transition hover:cursor-pointer"
+        >
+          <svg
+            fill="currentColor"
+            className={`${autoplay ? 'block' : 'hidden'} h-16 w-16 transition`}
+            viewBox="0 0 20 20"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <svg
+            fill="currentColor"
+            className={`${autoplay ? 'hidden' : 'block'} h-16 w-16 transition`}
+            viewBox="0 0 20 20"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <span className="ml-4 text-xl uppercase">Autoplay</span>
+        </label>
       </div>
 
-      <div>
-        <button className="fancy-button btn-play" onClick={onPlay}>
+      <div className="my-4 flex w-full justify-around">
+        <button
+          className="rounded-md bg-orange-600 px-5 py-2 text-white  ring-4 ring-orange-700 transition hover:bg-orange-800"
+          onClick={onPlay}
+        >
           <span className="ripple">Play</span>
         </button>
 
-        <button className="fancy-button btn-clear " onClick={clearVideos}>
+        <button
+          className="rounded-md bg-orange-600 px-5 py-2 text-white ring-4 ring-orange-700 transition hover:bg-orange-800"
+          onClick={clearVideos}
+        >
           <span className="ripple">Clear</span>
         </button>
       </div>

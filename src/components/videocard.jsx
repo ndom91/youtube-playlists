@@ -1,30 +1,11 @@
 import React, { useRef } from 'react'
 import { useDrag, useDrop, DragPreviewImage } from 'react-dnd'
 import useStore from '@/lib/store'
-// import * as S from './styled'
 import { removeVideoFromHash } from '@/lib/utils'
 
 const handleOnClick = (e) => {
   e.preventDefault()
 }
-
-// const FetchSpinner = () => {
-//   return (
-//     <S.FetchLoader>
-//       <S.CubeContainer>
-//         <S.Cube>
-//           <div className="front" />
-//           <div className="back" />
-//           <div className="right" />
-//           <div className="left" />
-//           <div className="top" />
-//           <div className="bottom" />
-//         </S.Cube>
-//         <S.Shadow>,</S.Shadow>
-//       </S.CubeContainer>
-//     </S.FetchLoader>
-//   )
-// }
 
 const type = 'VideoCard'
 
@@ -80,7 +61,7 @@ const Videocard = ({
   const opacity = isDragging ? 0.75 : 1
 
   return (
-    <div ref={ref} style={{ display: 'inline-block', opacity }}>
+    <div ref={ref} className="inline-block" style={{ opacity }}>
       <DragPreviewImage connect={preview} src={thumbnail.default.url} />
       {fetchInProgress.state && fetchInProgress.id === id ? (
         <div>Loading</div>
@@ -92,21 +73,21 @@ const Videocard = ({
           }}
           onClick={handleOnClick}
           key={id}
-          className="relative mx-4 my-2 block h-48 w-48 overflow-hidden rounded-lg border border-gray-100 bg-white p-2 hover:cursor-pointer"
+          className="relative mx-4 my-2 block w-56 rounded-md border border-gray-100 bg-white p-2 hover:cursor-pointer"
           href=""
         >
-          <span className="absolute inset-x-0 bottom-0 h-2  bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+          <span className="absolute inset-x-0 bottom-0 h-2 rounded-b-md  bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
 
           <div className="justify-between sm:flex">
             <div className="ml-3 hidden flex-shrink-0 sm:block">
               <button
                 onClick={(e) => handleVideoRemove(e, id)}
-                className="absolute -top-4 -left-2 h-8 w-8 cursor-pointer rounded-md transition hover:-translate-y-2"
+                className="absolute top-0 right-0 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-fuchsia-200 text-fuchsia-500 ring-4 ring-fuchsia-600 drop-shadow-md transition hover:-translate-y-0.5 hover:drop-shadow-xl"
               >
                 <svg
                   fill="currentColor"
                   viewBox="0 0 20 20"
-                  style={{ marginTop: '4px' }}
+                  className="h-6 w-6"
                 >
                   <path
                     fillRule="evenodd"
@@ -124,11 +105,13 @@ const Videocard = ({
             src={thumbnail.medium.url}
           />
 
-          <dl className="mt-6 flex">
-            <div className="flex flex-col">
-              <dt className="text-xs uppercase text-gray-600">{channel}</dt>
-              <dd className="text-sm text-gray-500">{title}</dd>
-            </div>
+          <dl className="my-4 flex flex-col">
+            <dt className="text-xs uppercase text-fuchsia-700 opacity-50">
+              {channel}
+            </dt>
+            <dd className="truncate text-ellipsis text-sm text-slate-800">
+              {title}
+            </dd>
           </dl>
         </div>
       )}
