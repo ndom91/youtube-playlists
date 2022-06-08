@@ -7,6 +7,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>YouTube | Dynamic Playlists</title>
       </Head>
+      <Component {...pageProps} />
       <svg
         id="patternId"
         width="100%"
@@ -43,7 +44,6 @@ function MyApp({ Component, pageProps }) {
           fill="url(#a)"
         />
       </svg>
-      <Component {...pageProps} />
     </>
   )
 }
