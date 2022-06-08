@@ -1,8 +1,4 @@
-import React from 'react'
-
-const Modal = (props) => {
-  const { handleClose, handleAdd, show, children } = props
-
+export default function Modal({ handleClose, handleAdd, show, children }) {
   return (
     <div className="z-[200]">
       <div
@@ -30,5 +26,3 @@ const Modal = (props) => {
     </div>
   )
 }
-
-export default Modal
