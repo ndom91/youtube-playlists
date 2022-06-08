@@ -1,15 +1,11 @@
-import Head from 'next/head'
 import './index.css'
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   return (
     <>
-      <Head>
-        <title>YouTube | Dynamic Playlists</title>
-      </Head>
       <Component {...pageProps} />
       <svg
-        id="patternId"
+        id="bgPattern"
         width="100%"
         height="100%"
         xmlns="http://www.w3.org/2000/svg"
@@ -47,5 +43,3 @@ function MyApp({ Component, pageProps }) {
     </>
   )
 }
-
-export default MyApp

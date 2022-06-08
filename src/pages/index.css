@@ -2,14 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
-  display: flex;
-  justify-content: center;
-  margin: 0;
+  font-size: 16px;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
   background-color: transparent;
 }
 
-#patternId {
+#bgPattern {
   position: absolute;
   top: 0;
   left: 0;
@@ -20,11 +25,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-html,
-body {
-  font-size: 16px;
 }
 
 .info-toast {
@@ -43,121 +43,8 @@ body {
   text-align: center !important;
 }
 
-.playlist-container {
-  display: inline;
-  z-index: 1001;
-}
-
 .progress-toast {
   background: #fff !important;
-}
-
-.container {
-  margin: 0 auto;
-  margin-top: 5%;
-  display: grid;
-  width: 880px;
-  height: auto;
-  grid-template-columns: 250px 1fr 1fr;
-  grid-template-rows: 200px 5fr 1fr 200px;
-  grid-gap: 1rem;
-  z-index: 1;
-}
-
-.header {
-  grid-row: 1 / 2;
-  grid-column: 1 / 4;
-  background: rgba(156, 39, 176, 0.5);
-}
-
-.sidebar {
-  grid-row: 2 / 4;
-  grid-column: 1 / 2;
-  z-index: 200;
-  display: inline-block;
-  position: relative;
-  align-content: space-between;
-  background: rgba(118, 81, 199, 0.6);
-}
-
-.player {
-  grid-row: 2 / 4;
-  grid-column: 2 / 4;
-  z-index: 202;
-  min-height: 272px;
-  background-image: #000;
-}
-
-.footer {
-  grid-row: 4 / 5;
-  grid-column: 1 / 4;
-  z-index: 200;
-  justify-content: left !important;
-  padding: 0 10px;
-  margin-bottom: auto;
-  min-height: 200px;
-  display: inherit;
-  background: rgba(250, 215, 161, 0.7);
-}
-
-.item {
-  box-shadow: 0 0 20px 5px rgba(103, 58, 183, 0.2);
-  color: #ffffff;
-  border-radius: 15px;
-  border: 5px solid rgba(155, 39, 176, 0.15);
-  display: flex;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .container {
-    grid-template-columns: fit-content(100%);
-    grid-template-rows: 200px 1fr 1fr 1fr 300px;
-    width: unset;
-  }
-  .header {
-    grid-row: 1 / 2;
-    grid-column: 1 / 1;
-  }
-  .player {
-    grid-row: 2 / 4;
-    grid-column: 1 / 1;
-  }
-  .sidebar {
-    grid-row: 4 / 5;
-    grid-column: 1 / 1;
-  }
-  .item.sidebar {
-    justify-content: space-around;
-  }
-  .btn-wrapper {
-    position: relative !important;
-    bottom: unset !important;
-    flex-direction: column;
-    justify-content: center !important;
-  }
-  ul.video-options-btn li {
-    margin: 15px !important;
-  }
-  .playlist {
-    height: fit-content;
-    justify-content: center !important;
-  }
-  .playlist-container {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
-  .footer {
-    grid-row: 5 / 6;
-    grid-column: 1 / 1;
-  }
-  .item {
-    width: 90%;
-    margin: 0 auto;
-  }
 }
 
 /* Octocat */

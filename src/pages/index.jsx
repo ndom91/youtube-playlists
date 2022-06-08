@@ -172,7 +172,7 @@ const App = () => {
     <div
       onDragOver={() => setDropzoneVisible(true)}
       onFocus={throttledFocus}
-      className="container"
+      className="flex flex-col space-y-2"
     >
       <Dropzone
         visible={dropzoneVisible}
@@ -180,8 +180,10 @@ const App = () => {
         closeDropzone={() => setDropzoneVisible(false)}
       />
       <Header />
-      <Sidebar onPlay={handlePlay} />
-      <Player videoId={activeVideo} onEnd={handleVideoEnd} />
+      <div className="flex space-x-2">
+        <Sidebar onPlay={handlePlay} />
+        <Player videoId={activeVideo} onEnd={handleVideoEnd} />
+      </div>
       <Playlist fetchInProgress={fetchInProgress} />
       {clipboardModalVisible && (
         <Modal

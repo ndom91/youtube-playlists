@@ -1,6 +1,4 @@
-import React from 'react'
 import useStore from '@/lib/store'
-import * as S from './styled'
 
 const Sidebar = ({ onPlay }) => {
   const { autoplay, fullscreen } = useStore((state) => state.videoOpts)
@@ -22,11 +20,15 @@ const Sidebar = ({ onPlay }) => {
     }
   }
   return (
-    <div className="item sidebar">
+    <div className="bg-purple-300 rounded-md flex flex-col items-stretch justify-between">
       <div className="checkBoxWrapper">
-        <S.VideoOptions>
-          <S.VideoOptionsItem role="button" aria-pressed={fullscreen === 1}>
-            <S.VideoOptionsInput
+        <ul className="list-none">
+          <li
+            role="button"
+            aria-pressed={fullscreen === 1}
+            className="flex justify-center items-stretch transition shadow-lg rounded-md"
+          >
+            <input
               type="checkbox"
               id="checkboxOne"
               onChange={toggleFullscreen}
@@ -57,12 +59,14 @@ const Sidebar = ({ onPlay }) => {
                 />
               </svg>
             )}
-            <S.VideoOptionsLabel htmlFor="checkboxOne">
-              Fullscreen
-            </S.VideoOptionsLabel>
-          </S.VideoOptionsItem>
-          <S.VideoOptionsItem role="button" aria-pressed={autoplay === 1}>
-            <S.VideoOptionsInput
+            <label htmlFor="checkboxOne">Fullscreen</label>
+          </li>
+          <li
+            role="button"
+            aria-pressed={autoplay === 1}
+            className="flex justify-center items-stretch transition shadow-lg rounded-md"
+          >
+            <input
               defaultChecked
               type="checkbox"
               id="checkboxTwo"
@@ -94,22 +98,20 @@ const Sidebar = ({ onPlay }) => {
                 />
               </svg>
             )}
-            <S.VideoOptionsLabel htmlFor="checkboxTwo">
-              Autoplay
-            </S.VideoOptionsLabel>
-          </S.VideoOptionsItem>
-        </S.VideoOptions>
+            <label htmlFor="checkboxTwo">Autoplay</label>
+          </li>
+        </ul>
       </div>
 
-      <S.BtnWrapper>
-        <S.Button className="fancy-button btn-play" onClick={onPlay}>
+      <div>
+        <button className="fancy-button btn-play" onClick={onPlay}>
           <span className="ripple">Play</span>
-        </S.Button>
+        </button>
 
-        <S.Button className="fancy-button btn-clear " onClick={clearVideos}>
+        <button className="fancy-button btn-clear " onClick={clearVideos}>
           <span className="ripple">Clear</span>
-        </S.Button>
-      </S.BtnWrapper>
+        </button>
+      </div>
     </div>
   )
 }
