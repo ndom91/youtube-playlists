@@ -7,7 +7,6 @@ import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from '@/lib/utils'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import debounce from 'lodash.debounce'
-import * as S from '@/lib/styled'
 
 const Header = dynamic(() => import('@/components/header'), {
   ssr: false,
@@ -119,22 +118,23 @@ const App = () => {
             const videoInfo = fetchVideoDetails(videoId)
             videoInfo.then((details) => {
               const children = (
-                <div>
-                  <S.ThumbFade className="thumb-fade" />
-                  <S.ClipboardThumbnail
+                <div className="z-30 flex justify-between items-start">
+                  <img
                     alt="video thumbnail"
-                    className="clipboard-video-thumb"
+                    className="aspect-video shadow-md rounded-md"
                     src={details?.thumb.medium.url}
                   />
-                  <S.ModalText className="modal-header-text">
-                    We've detected a YouTube link in your clipboard
-                  </S.ModalText>
-                  <S.ModalText className="video-text">
-                    {details?.title}
-                  </S.ModalText>
-                  <S.ModalText className="footer-text">
-                    Would you like to add it?
-                  </S.ModalText>
+                  <div className="flex flex-col justify-between items-start text-center flex-grow p-4">
+                    <p className="text-slate-800 font-semibold text-center w-full">
+                      We've detected a link in your clipboard
+                    </p>
+                    <p className="text-purple-600 truncate text-center w-full my-2">
+                      {details?.title}
+                    </p>
+                    <p className="text-center text-slate-800 mb-4 w-full">
+                      Would you like to add it?
+                    </p>
+                  </div>
                 </div>
               )
               setClipboardModalVisible(true)
