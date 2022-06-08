@@ -1,9 +1,8 @@
 import Image from 'next/image'
-import * as S from './styled'
 
-const Header = () => {
+export default function Header() {
   return (
-    <S.Header className="item header">
+    <div className="item header text-5xl text-white flex justify-around">
       <Image
         priority
         src="/header.png"
@@ -11,8 +10,6 @@ const Header = () => {
         width="500px"
         height="150px"
       />
-    </S.Header>
+    </div>
   )
 }
-
-export default Header
