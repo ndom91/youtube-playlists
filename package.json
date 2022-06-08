@@ -1,7 +1,7 @@
 {
   "name": "youtube-playlists",
   "description": "Create on-the-fly YouTube playlists",
-  "version": "4.0.0",
+  "version": "5.0.0-canary.1",
   "author": "ndom91 <yo@ndo.dev>",
   "homepage": "https://youtube.ndo.dev",
   "repository": "https://github.com/ndom91/youtube-playlists",
@@ -16,9 +16,8 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:ci": "cypress run --record",
-    "lint:css": "stylelint './src/**/styled.js'",
     "prettier": "prettier --check \"src/**/*.js\"",
-    "prettier:fix": "prettier --write \"src/**/*.js\" && stylelint --fix 'src/**/styled.js' "
+    "prettier:fix": "prettier --write \"src/**/*.js\""
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
@@ -29,8 +28,6 @@
     "react-dom": "^18.1.0",
     "react-toastify": "^9.0.4",
     "react-youtube": "^9.0.2",
-    "styled-components": "^5.3.5",
-    "styled-media-query": "^2.1.2",
     "zustand": "^3.7.2"
   },
   "devDependencies": {
@@ -39,30 +36,17 @@
     "lint-staged": "^13.0.1",
     "postcss": "^8.4.14",
     "prettier": "^2.6.2",
-    "stylelint": "^14.9.0",
-    "stylelint-config-recommended": "^8.0.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0",
+    "prettier-plugin-tailwindcss": "^0.1.11",
     "tailwindcss": "^3.0.24"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
-    "/src/**/*.js": "npm run lint:css",
-    "/src/**/*.{js,jsx}": "stylelint --fix"
+    "/src/**/*.{js,jsx}": "npm run prettier:fix"
   },
   "prettier": {
     "singleQuote": true,
     "semi": false
-  },
-  "stylelint": {
-    "processors": [
-      "stylelint-processor-styled-components"
-    ],
-    "extends": [
-      "stylelint-config-recommended",
-      "stylelint-config-styled-components"
-    ]
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Videocard from '../videocard'
+import Videocard from '@/components/videocard'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import useStore from '@/lib/store'
@@ -22,7 +22,10 @@ const Playlist = ({ fetchInProgress }) => {
   }
 
   return (
-    <div id="playlist" className="item footer playlist">
+    <div
+      id="playlist"
+      className="min-h-[200px] w-full rounded-md border-[6px] border-fuchsia-200 bg-fuchsia-100 p-4"
+    >
       <span onDragOver={handleDragOver} className="playlist-container">
         <DndProvider backend={HTML5Backend}>
           {videos &&

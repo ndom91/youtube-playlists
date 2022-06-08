@@ -7,7 +7,6 @@ import { fetchVideoDetails, parseYoutubeUrl, addVideoToHash } from '@/lib/utils'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import debounce from 'lodash.debounce'
-import * as S from '@/lib/styled'
 
 const Header = dynamic(() => import('@/components/header'), {
   ssr: false,
@@ -119,22 +118,23 @@ const App = () => {
             const videoInfo = fetchVideoDetails(videoId)
             videoInfo.then((details) => {
               const children = (
-                <div>
-                  <S.ThumbFade className="thumb-fade" />
-                  <S.ClipboardThumbnail
+                <div className="z-30 flex items-start justify-between">
+                  <img
                     alt="video thumbnail"
-                    className="clipboard-video-thumb"
+                    className="aspect-video rounded-md shadow-md"
                     src={details?.thumb.medium.url}
                   />
-                  <S.ModalText className="modal-header-text">
-                    We've detected a YouTube link in your clipboard
-                  </S.ModalText>
-                  <S.ModalText className="video-text">
-                    {details?.title}
-                  </S.ModalText>
-                  <S.ModalText className="footer-text">
-                    Would you like to add it?
-                  </S.ModalText>
+                  <div className="flex flex-grow flex-col items-start justify-between p-4 text-center">
+                    <p className="w-full text-center font-semibold text-slate-800">
+                      We've detected a link in your clipboard
+                    </p>
+                    <p className="my-2 w-full truncate text-center text-purple-600">
+                      {details?.title}
+                    </p>
+                    <p className="mb-4 w-full text-center text-slate-800">
+                      Would you like to add it?
+                    </p>
+                  </div>
                 </div>
               )
               setClipboardModalVisible(true)
@@ -172,7 +172,7 @@ const App = () => {
     <div
       onDragOver={() => setDropzoneVisible(true)}
       onFocus={throttledFocus}
-      className="container"
+      className="flex w-full max-w-7xl flex-col space-y-2"
     >
       <Dropzone
         visible={dropzoneVisible}
@@ -180,8 +180,10 @@ const App = () => {
         closeDropzone={() => setDropzoneVisible(false)}
       />
       <Header />
-      <Sidebar onPlay={handlePlay} />
-      <Player videoId={activeVideo} onEnd={handleVideoEnd} />
+      <div className="flex space-x-2">
+        <Sidebar handlePlay={handlePlay} />
+        <Player videoId={activeVideo} onEnd={handleVideoEnd} />
+      </div>
       <Playlist fetchInProgress={fetchInProgress} />
       {clipboardModalVisible && (
         <Modal
